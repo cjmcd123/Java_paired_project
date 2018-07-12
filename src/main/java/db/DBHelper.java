@@ -10,7 +10,7 @@ public class DBHelper {
     private static Transaction transaction;
     private static Session session;
 
-    public static void save(Object object) {
+    public static void saveOrUpdate(Object object) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             transaction = session.beginTransaction();
