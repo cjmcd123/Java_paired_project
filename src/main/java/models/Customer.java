@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer {
@@ -15,6 +16,7 @@ public class Customer {
     public Customer(String name, double money) {
         this.name = name;
         this.money = money;
+        this.bookings = new ArrayList<Booking>();
     }
 
     public int getId() {
