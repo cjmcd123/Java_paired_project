@@ -1,5 +1,7 @@
 package models;
 
+import db.DBHelper;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.util.Date;
@@ -84,5 +86,9 @@ public class Booking {
 
     public void setNumberOfGuests(int numberOfGuests) {
         this.numberOfGuests = numberOfGuests;
+    }
+
+    public void payBill(double amount) {
+        this.setTotalCost(amount);
     }
 }

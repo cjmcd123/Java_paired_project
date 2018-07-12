@@ -1,5 +1,8 @@
 package models;
 
+import db.DBBookings;
+import db.DBHelper;
+
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -66,4 +69,15 @@ public class Customer {
         return bookings.size();
     }
 
+    public int totalSpent(){
+        int total = 0;
+        for (Booking booking : bookings){
+            total += booking.getTotalCost();
+        }
+        return total;
+    }
+
+    public void addBooking(Booking booking) {
+        this.bookings.add(booking);
+    }
 }

@@ -23,8 +23,8 @@ public class MainController {
 
         get("/home", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
-            model.put("template", "views/home.vtl");
-            return new ModelAndView(model, "views/layout.vtl");
+            model.put("template", "templates/home.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
 
