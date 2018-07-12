@@ -43,6 +43,7 @@ public class CustomersController {
             Customer customer = DBHelper.find(id, Customer.class);
             List<Booking> bookings = DBBookings.customerBookings(customer);
             model.put("template", "templates/customers/show.vtl");
+            model.put("customer", customer);
             model.put("bookings", bookings);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);

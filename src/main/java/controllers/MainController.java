@@ -17,7 +17,8 @@ public class MainController {
         Seeds.seedData();
 
         staticFileLocation("/public");
-
+        
+        BookingsController bookingsController = new BookingsController();
         CustomersController customersController = new CustomersController();
 
         get("/home", (req, res) -> {
