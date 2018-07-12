@@ -62,10 +62,17 @@ public class BookingTest {
         assertEquals(9, booking.getDate().getMonth());
     }
 
-//    @Test
-//    public void hasTime(){
-//        assertEquals(20, booking.getDate().getTime());
-//    }
+    @Test
+    public void hasTime(){
+        assertEquals(20, booking.getDate().getHours());
+    }
+
+    @Test
+    public void changeTime() throws ParseException {
+        Date date1 = new SimpleDateFormat("ddMMyyyyhhmm").parse("201020182015");
+        booking.setDate(date1);
+        assertEquals(15, booking.getDate().getMinutes());
+    }
 
     @Test
     public void totalCostStartsZero(){
