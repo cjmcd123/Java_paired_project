@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant {
@@ -13,6 +14,7 @@ public class Restaurant {
 
     public Restaurant(String name) {
         this.name = name;
+        this.tables = new ArrayList<Table>();
     }
 
     public int getId() {
