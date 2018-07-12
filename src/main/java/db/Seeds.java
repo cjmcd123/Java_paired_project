@@ -17,17 +17,17 @@ public class Seeds {
         restaurant.addTable(table1);
         restaurant.addTable(table2);
         restaurant.addTable(table3);
-        DBHelper.save(restaurant);
+        DBHelper.saveOrUpdate(restaurant);
 
         Customer customer1 = new Customer("Adri Florence", 1000);
         Customer customer2 = new Customer("Angelina Blyth", 1000);
         Customer customer3 = new Customer("Craig McDowall", 3000);
         Customer customer4 = new Customer("Harjit Singh", 500);
         Customer customer5 = new Customer("Adri Florence", 1000);
-        DBHelper.save(customer1);
-        DBHelper.save(customer2);
-        DBHelper.save(customer3);
-        DBHelper.save(customer4);
-        DBHelper.save(customer5);
+        DBHelper.saveOrUpdate(customer1);
+        DBHelper.saveOrUpdate(customer2);
+        DBHelper.saveOrUpdate(customer3);
+        DBHelper.saveOrUpdate(customer4);
+        DBHelper.saveOrUpdate(customer5);
     }
 }
