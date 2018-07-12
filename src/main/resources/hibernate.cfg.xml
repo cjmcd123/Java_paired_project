@@ -15,9 +15,9 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
 
-        <mapping class = "models.Booking"/>
-        <mapping class= "models.Customer"/>
-        <mapping class = "models.Restaurant"/>
+        <mapping class="models.Booking"/>
+        <mapping class="models.Customer"/>
+        <mapping class="models.Restaurant"/>
         <mapping class="models.Table"/>
     </session-factory>
 </hibernate-configuration>
