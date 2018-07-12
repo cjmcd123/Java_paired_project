@@ -40,4 +40,8 @@ public class Restaurant {
     public void setTables(List<Table> tables) {
         this.tables = tables;
     }
+
+    public void addTable(Table table){
+        this.tables.add(table);
+    }
 }

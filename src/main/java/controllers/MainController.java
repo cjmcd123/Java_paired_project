@@ -1,5 +1,6 @@
 package controllers;
 
+import db.Seeds;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
