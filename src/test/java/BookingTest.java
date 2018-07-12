@@ -96,5 +96,11 @@ public class BookingTest {
         assertEquals(4, booking.getNumberOfGuests());
     }
 
+    @Test
+    public void payBill(){
+        booking.payBill(20.00);
+        assertEquals(20.00, booking.getTotalCost(), 0.02);
+    }
+
 
 }
