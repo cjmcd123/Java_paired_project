@@ -14,11 +14,11 @@ public class MainController {
     //    ENTRY POINT
     public static void main(String[] args) {
 
-//        Seeds.seedData();
+        Seeds.seedData();
 
         staticFileLocation("/public");
 
-        RestaurantController restaurantController = new RestaurantController();
+        CustomersController customersController = new CustomersController();
 
         get("/home", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
