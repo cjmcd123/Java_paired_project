@@ -25,6 +25,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -42,7 +43,7 @@ public class Customer {
         this.name = name;
     }
 
-    @Column(name="mondey")
+    @Column(name="money")
     public double getMoney() {
         return money;
     }
@@ -51,7 +52,7 @@ public class Customer {
         this.money = money;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="currentBorrower", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -60,6 +61,7 @@ public class Customer {
         this.bookings = bookings;
     }
 
+    @Transient // getNumberOfBookings will not appear as getter for Hibernate
     public int getNumberOfBookings(){
         return bookings.size();
     }
