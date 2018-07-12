@@ -18,7 +18,7 @@ public class MainController {
 
         staticFileLocation("/public");
 
-        RestaurantController restaurantController = new RestaurantController();
+        BookingsController bookingsController = new BookingsController();
         CustomersController customersController = new CustomersController();
 
         get("/home", (req, res) -> {
