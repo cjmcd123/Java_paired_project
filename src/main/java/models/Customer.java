@@ -1,8 +1,12 @@
 package models;
 
+import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="customers")
 public class Customer {
 
     private int id;
@@ -19,6 +23,8 @@ public class Customer {
         this.bookings = new ArrayList<Booking>();
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -27,6 +33,7 @@ public class Customer {
         this.id = id;
     }
 
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -35,6 +42,7 @@ public class Customer {
         this.name = name;
     }
 
+    @Column(name="mondey")
     public double getMoney() {
         return money;
     }
@@ -43,6 +51,7 @@ public class Customer {
         this.money = money;
     }
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="currentBorrower", fetch = FetchType.LAZY)
     public List<Booking> getBookings() {
         return bookings;
     }
