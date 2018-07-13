@@ -14,6 +14,8 @@ public class Booking {
     private Customer customer;
     private RestaurantTable restaurantTable;
     private Date date;
+    private Date startTime;
+    private Date endTime;
     private double totalCost;
     private int numberOfGuests;
 
@@ -63,6 +65,15 @@ public class Booking {
         return numberOfGuests;
     }
 
+    @Column(name = "startTime")
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    @Column(name = "endTime")
+    public Date getEndTime() {
+        return endTime;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -90,5 +101,13 @@ public class Booking {
 
     public void payBill(double amount) {
         this.setTotalCost(amount);
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 }
