@@ -50,11 +50,11 @@ public class RestaurantTable {
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)
-    public List<Booking> getBookins() {
+    public List<Booking> getBookings() {
         return bookings;
     }
 
-    public void setBookins(List<Booking> bookins) {
-        this.bookings = bookins;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }

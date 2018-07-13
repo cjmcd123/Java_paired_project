@@ -66,6 +66,14 @@ public class Customer {
         return total;
     }
 
+    public int totalSpentArray(List<Booking> bookings){
+        int total = 0;
+        for (Booking booking : bookings){
+            total += booking.getTotalCost();
+        }
+        return total;
+    }
+
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
     }
