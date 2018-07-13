@@ -14,15 +14,13 @@ public class Customer {
 
     private int id;
     private String name;
-    private double money;
     private List<Booking> bookings;
 
     public Customer() {
     }
 
-    public Customer(String name, double money) {
+    public Customer(String name) {
         this.name = name;
-        this.money = money;
         this.bookings = new ArrayList<Booking>();
     }
 
@@ -44,15 +42,6 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Column(name="money")
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)

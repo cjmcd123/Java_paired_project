@@ -10,7 +10,7 @@ public class RestaurantTable {
     private int id;
     private String name;
     private int numberOfSeats;
-    private List<Booking> bookins;
+    private List<Booking> bookings;
 
     public RestaurantTable() {
     }
@@ -51,10 +51,10 @@ public class RestaurantTable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)
     public List<Booking> getBookins() {
-        return bookins;
+        return bookings;
     }
 
     public void setBookins(List<Booking> bookins) {
-        this.bookins = bookins;
+        this.bookings = bookins;
     }
 }

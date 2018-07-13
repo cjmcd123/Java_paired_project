@@ -5,8 +5,12 @@
     <label for="customer">Name:</label>
     <input class="input" type="text" name="customer" required="true" value="$booking.getCustomer().getName()" id="customer">
 
-    <label for="author">Table:</label>
-    <input class="input" type="text" name="author" required="true" value="$booking.getRestaurantTable().getName()" id="author">
+    <label for="table">Table:</label>
+    <select id="table" type="text" name="table">
+        #foreach($table in $tables)
+        <option value="$table.getId()">$table.getName()</option>
+        #end
+    </select>
 
     <label for="guests">Guests:</label>
     <input class="input" type="text" name="guests" required="true" value="$booking.getNumberOfGuests()" id="guests">
