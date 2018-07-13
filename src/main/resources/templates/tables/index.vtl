@@ -1,7 +1,21 @@
-<h1> ALL TABLES </h1>
+<h1> ALL Tables </h1>
 
-<label for="name">Name:</label>
-<input class="input" type="time" name="name" required="true" id="name">
+<a href="/tables/new">Add new Table</a>
 
-<option value="00">00</option>
-<option value="30">00</option>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Number of Seats</th>
+    </tr>
+    #foreach ($table in $tables)
+    <tr>
+        <td>$table.getName()</td>
+        <td>$table.getNumberOfSeats()</td>
+        <td><a href="tables/$table.getId()/edit">Edit</a></td>
+        <td><form action = "/tables/$table.getId()/delete" method = "post">
+            <input type="submit" value="Delete" class="button">
+        </form></td>
+    </tr>
+    #end
+
+</table>

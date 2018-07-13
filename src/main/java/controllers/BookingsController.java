@@ -46,6 +46,17 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        get("/bookings/new/:id", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(id, Customer.class);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/new.vtl");
+            model.put("customer", customer);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/bookings/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
