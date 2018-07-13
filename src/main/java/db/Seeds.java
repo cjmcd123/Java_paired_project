@@ -13,6 +13,7 @@ public class Seeds {
     public static void seedData() throws ParseException {
         DBHelper.deleteAll(RestaurantTable.class);
         DBHelper.deleteAll(Customer.class);
+        DBHelper.deleteAll(Booking.class);
 
         RestaurantTable restaurantTable1 = new RestaurantTable("T1", 2);
         RestaurantTable restaurantTable2 = new RestaurantTable("T2", 4);
@@ -22,11 +23,11 @@ public class Seeds {
         DBHelper.saveOrUpdate(restaurantTable3);
 
 
-        Customer customer1 = new Customer("Adri Florence", 1000);
-        Customer customer2 = new Customer("Angelina Blyth", 1000);
-        Customer customer3 = new Customer("Craig McDowall", 3000);
-        Customer customer4 = new Customer("Harjit Singh", 500);
-        Customer customer5 = new Customer("Derek Leach", 1000);
+        Customer customer1 = new Customer("Adri Florence");
+        Customer customer2 = new Customer("Angelina Blyth");
+        Customer customer3 = new Customer("Craig McDowall");
+        Customer customer4 = new Customer("Harjit Singh");
+        Customer customer5 = new Customer("Derek Leach");
         DBHelper.saveOrUpdate(customer1);
         DBHelper.saveOrUpdate(customer2);
         DBHelper.saveOrUpdate(customer3);

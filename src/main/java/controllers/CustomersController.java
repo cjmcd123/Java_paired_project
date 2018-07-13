@@ -46,10 +46,10 @@ public class CustomersController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        // CREATE NEW CUSTOMER
         post("/customers", (req, res) -> {
             String name = req.queryParams("name");
-            Double money = Double.parseDouble(req.queryParams("money"));
-            Customer customer = new Customer(name, money);
+            Customer customer = new Customer(name);
             DBHelper.saveOrUpdate(customer);
             res.redirect("/customers");
             return null;
@@ -59,7 +59,6 @@ public class CustomersController {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(id, Customer.class);
             customer.setName(req.queryParams("name"));
-            customer.setMoney(00.00);
             DBHelper.saveOrUpdate(customer);
             res.redirect("/customers");
             return null;

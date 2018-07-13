@@ -18,7 +18,7 @@ public class BookingTest {
 
     @Before
     public void setUp() throws ParseException {
-        customer = new Customer("Bob", 1000.00);
+        customer = new Customer("Bob");
         restaurantTable = new RestaurantTable("Table1", 4);
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
 //        Date time = new SimpleDateFormat("hhmm").parse("2000");
@@ -33,7 +33,7 @@ public class BookingTest {
 
     @Test
     public void setCustomer(){
-        Customer customer1 = new Customer("Jen", 1000.00);
+        Customer customer1 = new Customer("Jen");
         booking.setCustomer(customer1);
         assertEquals(customer1, booking.getCustomer());
     }
