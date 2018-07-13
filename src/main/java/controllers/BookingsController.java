@@ -138,6 +138,5 @@ public class BookingsController {
             return null;
         }, velocityTemplateEngine);
 
-
     }
 }
