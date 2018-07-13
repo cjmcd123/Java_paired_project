@@ -23,12 +23,14 @@ public class Booking {
 
     }
 
-    public Booking(Customer customer, RestaurantTable restaurantTable, Date date, int numberOfGuests) {
+    public Booking(Customer customer, RestaurantTable restaurantTable, Date date, int numberOfGuests, Date startTime, Date endTime) {
         this.customer = customer;
         this.restaurantTable = restaurantTable;
         this.date = date;
         this.totalCost = 00.00;
         this.numberOfGuests = numberOfGuests;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Id

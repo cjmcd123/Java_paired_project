@@ -21,6 +21,7 @@ public class MainController {
 
         BookingsController bookingsController = new BookingsController();
         CustomersController customersController = new CustomersController();
+        RestaurantController restaurantController = new RestaurantController();
 
         get("/home", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();

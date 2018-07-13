@@ -65,7 +65,7 @@ public class CustomersController {
             return null;
         }, velocityTemplateEngine);
 
-        get("/customers/:id/delete", (req, res) -> {
+        post("/customers/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(id, Customer.class);
             DBHelper.delete(customer);
