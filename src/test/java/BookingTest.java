@@ -21,11 +21,9 @@ public class BookingTest {
         customer = new Customer("Bob");
         restaurantTable = new RestaurantTable("Table1", 4);
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
-        Date startTime = new SimpleDateFormat("hhmm").parse("1930");
-        Date endTime = new SimpleDateFormat("hhmm").parse("2130");
-//        Date time = new SimpleDateFormat("hhmm").parse("2000");
-//        date.setTime(time);
-        booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
+        Date startTime = new SimpleDateFormat("hhmm").parse("2010");
+        Date endTime = new SimpleDateFormat("hhmm").parse("2100");
+        Booking booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
     }
 
     @Test

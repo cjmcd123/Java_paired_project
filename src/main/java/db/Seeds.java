@@ -11,9 +11,9 @@ import java.util.Date;
 public class Seeds {
 
     public static void seedData() throws ParseException {
-        DBHelper.deleteAll(RestaurantTable.class);
         DBHelper.deleteAll(Customer.class);
         DBHelper.deleteAll(Booking.class);
+        DBHelper.deleteAll(RestaurantTable.class);
 
         RestaurantTable restaurantTable1 = new RestaurantTable("T1", 2);
         RestaurantTable restaurantTable2 = new RestaurantTable("T2", 4);
