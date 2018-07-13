@@ -1,55 +1,68 @@
 package models;
 
+import db.DBHelper;
 
-
+import javax.persistence.*;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
+@Table(name="bookings")
 public class Booking {
 
     private int id;
     private Customer customer;
-    private Table table;
+    private RestaurantTable restaurantTable;
     private Date date;
-    private double receipt;
-    private int size;
+    private double totalCost;
+    private int numberOfGuests;
 
     public Booking(){
 
     }
 
-    public Booking(Customer customer, Table table, Date date, int size) {
+    public Booking(Customer customer, RestaurantTable restaurantTable, Date date, int numberOfGuests) {
         this.customer = customer;
-        this.table = table;
+        this.restaurantTable = restaurantTable;
         this.date = date;
-        this.receipt = 00.00;
-        this.size = size;
+        this.totalCost = 00.00;
+        this.numberOfGuests = numberOfGuests;
     }
 
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
 
+    @ManyToOne
+    @JoinColumn(name="customer_id", nullable=false)
     public Customer getCustomer() {
         return customer;
     }
 
-    public Table getTable() {
-        return table;
+    @ManyToOne
+    @JoinColumn(name="restaurantTable_id", nullable=false)
+    public RestaurantTable getRestaurantTable() {
+        return restaurantTable;
     }
 
+    @Column(name="date")
     public Date getDate() {
         return date;
     }
 
-    public double getReceipt() {
-        return receipt;
+    @Column(name="totalCost")
+    public double getTotalCost() {
+        return totalCost;
     }
 
-    public int getSize() {
-        return size;
+    @Column(name="numberOfGuests")
+    public int getNumberOfGuests() {
+        return numberOfGuests;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -59,19 +72,23 @@ public class Booking {
         this.customer = customer;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
+    public void setRestaurantTable(RestaurantTable restaurantTable) {
+        this.restaurantTable = restaurantTable;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setReceipt(double receipt) {
-        this.receipt = receipt;
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setNumberOfGuests(int numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
+    }
+
+    public void payBill(double amount) {
+        this.setTotalCost(amount);
     }
 }

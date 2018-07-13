@@ -1,0 +1,21 @@
+<h1> EDIT BOOKING </h1>
+
+<form action="/bookings/$booking.getId()" method="post">
+
+    <label for="customer">Name:</label>
+    <input class="input" type="text" name="customer" required="true" value="$booking.getCustomer().getName()" id="customer">
+
+    <label for="author">Table:</label>
+    <input class="input" type="text" name="author" required="true" value="$booking.getRestaurantTable().getName()" id="author">
+
+    <label for="guests">Guests:</label>
+    <input class="input" type="text" name="guests" required="true" value="$booking.getNumberOfGuests()" id="guests">
+
+    <label for="date">Guests:</label>
+    <input class="input" type="text" name="date" required="true" value="$booking.getDate()" id="date">
+
+    <input type="submit" value="Save" class="button">
+
+</form>
+
+<a href="/bookings" class="button">Cancel</a>
