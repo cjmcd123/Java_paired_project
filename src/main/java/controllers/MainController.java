@@ -4,6 +4,7 @@ import db.Seeds;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 import static spark.Spark.get;
@@ -12,12 +13,12 @@ import static spark.SparkBase.staticFileLocation;
 public class MainController {
 
     //    ENTRY POINT
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         Seeds.seedData();
 
         staticFileLocation("/public");
-        
+
         BookingsController bookingsController = new BookingsController();
         CustomersController customersController = new CustomersController();
 

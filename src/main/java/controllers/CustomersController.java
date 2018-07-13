@@ -37,17 +37,6 @@ public class CustomersController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
-        get("/customers/:id", (req, res) -> {
-            HashMap<String, Object> model = new HashMap<>();
-            int id = Integer.parseInt(req.params(":id"));
-            Customer customer = DBHelper.find(id, Customer.class);
-            List<Booking> bookings = DBBookings.customerBookings(customer);
-            model.put("template", "templates/customers/show.vtl");
-            model.put("customer", customer);
-            model.put("bookings", bookings);
-            return new ModelAndView(model, "templates/layout.vtl");
-        }, velocityTemplateEngine);
-
         get("/customers/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
@@ -70,8 +59,7 @@ public class CustomersController {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(id, Customer.class);
             customer.setName(req.queryParams("name"));
-            Double money = Double.parseDouble(req.queryParams("money"));
-            customer.setMoney(money);
+            customer.setMoney(00.00);
             DBHelper.saveOrUpdate(customer);
             res.redirect("/customers");
             return null;
