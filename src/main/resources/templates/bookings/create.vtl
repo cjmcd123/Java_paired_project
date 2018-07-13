@@ -18,53 +18,62 @@
     <label for="numberOfGuests">Guests:</label>
     <input class="input" type="text" name="numberOfGuests" required="true" placeholder="number of guests" onfocus="this.placeholder = ''" id="numberOfGuests">
 
-    <div>
-        <label for="start">Date: </label>
-        <input type="date" id="start" name="date"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31" />
-    </div>
 
-    <select id="startHour" type="text" name="startHour">
-        <option value="11">11</option>
-        <option value="12">12</option>
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-        <option value="21">21</option>
-        <option value="22">22</option>
-        <option value="23">23</option>
+    <label for="start">Date: </label>
+    <input type="date" id="start" name="date"
+           value="2018-07-22"
+           min="2018-01-01" max="2018-12-31" />
+
+    <select id="startTime" type="text" name="startTime">
+        <option value="1100">11:00</option>
+        <option value="1130">11:30</option>
+        <option value="1200">12:00</option>
+        <option value="1230">12:30</option>
+        <option value="1300">13:00</option>
+        <option value="1330">13:30</option>
+        <option value="1400">14:00</option>
+        <option value="1430">14:30</option>
+        <option value="1500">15:00</option>
+        <option value="1530">15:30</option>
+        <option value="1600">16:00</option>
+        <option value="1630">16:30</option>
+        <option value="1700">17:00</option>
+        <option value="1730">17:30</option>
+        <option value="1800">18:00</option>
+        <option value="1830">18:30</option>
+        <option value="1900">19:00</option>
+        <option value="1930">19:30</option>
+        <option value="2000">20:00</option>
+        <option value="2030">20:30</option>
+        <option value="2100">21:00</option>
+        <option value="2130">21:30</option>
+        <option value="2200">22:00</option>
     </select>
 
-    <select id="startMin" type="text" name="startMin">
-        <option value="00">00</option>
-        <option value="30">30</option>
-    </select>
-
-    <select id="endHour" type="text" name="endHour">
-        <option value="13">13</option>
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-        <option value="17">17</option>
-        <option value="18">18</option>
-        <option value="19">19</option>
-        <option value="20">20</option>
-        <option value="21">21</option>
-        <option value="22">22</option>
-        <option value="23">23</option>
-        <option value="00">00</option>
-        <option value="01">01</option>
-    </select>
-
-    <select id="endMin" type="text" name="endMin">
-        <option value="00">00</option>
-        <option value="30">30</option>
+    <select id="endTime" type="text" name="endTime">
+        <option value="1300">13:00</option>
+        <option value="1330">13:30</option>
+        <option value="1400">14:00</option>
+        <option value="1430">14:30</option>
+        <option value="1500">15:00</option>
+        <option value="1530">15:30</option>
+        <option value="1600">16:00</option>
+        <option value="1630">16:30</option>
+        <option value="1700">17:00</option>
+        <option value="1730">17:30</option>
+        <option value="1800">18:00</option>
+        <option value="1830">18:30</option>
+        <option value="1900">19:00</option>
+        <option value="1930">19:30</option>
+        <option value="2000">20:00</option>
+        <option value="2030">20:30</option>
+        <option value="2100">21:00</option>
+        <option value="2130">21:30</option>
+        <option value="2200">22:00</option>
+        <option value="2230">22:30</option>
+        <option value="2300">23:00</option>
+        <option value="2330">23:30</option>
+        <option value="0000">00:00</option>
     </select>
 
     <input type="submit" value="save" class="button"/>

@@ -85,24 +85,22 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+
+        // SAVE NEW BOOKING
         post("/bookings", (req, res) -> {
             int customerId = Integer.parseInt(req.queryParams("customer"));
             Customer customer = DBHelper.find(customerId, Customer.class);
             int tableId = Integer.parseInt(req.queryParams("table"));
             RestaurantTable table = DBHelper.find(tableId, RestaurantTable.class);
+            int numberOfGuests = Integer.parseInt(req.queryParams("numberOfGuests"));
             Date date = null;
             try {
                 date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            int numberOfGuests = Integer.parseInt(req.queryParams("numberOfGuests"));
-            String startHour = req.queryParams("startHour");
-            String endHour = req.queryParams("endHour");
-            String startMin = req.queryParams("startMin");
-            String endMin = req.queryParams("endMin");
-            String startTime = startHour + startMin;
-            String endTime = endHour + endMin;
+            String startTime = req.queryParams("startTime");
+            String endTime = req.queryParams("endTime");
             try {
                 Date startTimeDate = new SimpleDateFormat("hhmm").parse(startTime);
                 Date endTimeDate = new SimpleDateFormat("hhmm").parse(endTime);
@@ -120,17 +118,14 @@ public class BookingsController {
         post("/bookings/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(id, Booking.class);
-            int customerId = Integer.parseInt(req.queryParams("customer"));
+            String customerIdString = req.queryParams("id");
+
+            int customerId = Integer.parseInt(req.queryParams("id"));
             booking.setCustomer(DBHelper.find(customerId, Customer.class));
             int tableId = Integer.parseInt(req.queryParams("table"));
             booking.setRestaurantTable(DBHelper.find(tableId, RestaurantTable.class));
-            booking.setTotalCost(Integer.parseInt(req.queryParams("numberOfGuests")));
-            String startHour = req.queryParams("startHour");
-            String endHour = req.queryParams("endHour");
-            String startMin = req.queryParams("startMin");
-            String endMin = req.queryParams("endMin");
-            String startTime = startHour + startMin;
-            String endTime = endHour + endMin;
+            booking.setNumberOfGuests(Integer.parseInt(req.queryParams("numberOfGuests")));
+
             Date date = null;
             try {
                 date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
@@ -138,6 +133,8 @@ public class BookingsController {
                 e.printStackTrace();
             }
             booking.setDate(date);
+            String startTime = req.queryParams("startTime");
+            String endTime = req.queryParams("endTime");
             try {
                 Date startTimeDate = new SimpleDateFormat("hhmm").parse(startTime);
                 Date endTimeDate = new SimpleDateFormat("hhmm").parse(endTime);
