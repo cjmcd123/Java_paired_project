@@ -101,15 +101,15 @@ public class Booking {
         this.numberOfGuests = numberOfGuests;
     }
 
-    public void payBill(double amount) {
-        this.setTotalCost(amount);
-    }
-
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public void payBill(double amount) {
+        this.setTotalCost(amount);
     }
 }
