@@ -1,6 +1,13 @@
+import db.DBHelper;
+import models.Booking;
 import models.Customer;
+import models.RestaurantTable;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,6 +45,16 @@ public class CustomerTest {
     @Test
     public void bookingsStartsEmpty(){
         assertEquals(0, customer.getNumberOfBookings());
+    }
+
+    @Test
+    public void totalMoneySpent() throws ParseException {
+        RestaurantTable restaurantTable = new RestaurantTable("Table1", 4);
+        Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
+        Booking booking = new Booking(customer, restaurantTable, date, 3);
+        booking.payBill(20.00);
+        customer.addBooking(booking);
+        assertEquals(20.00, customer.totalSpent(), 0.02);
     }
 
 }

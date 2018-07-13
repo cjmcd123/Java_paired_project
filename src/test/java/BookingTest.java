@@ -96,5 +96,18 @@ public class BookingTest {
         assertEquals(4, booking.getNumberOfGuests());
     }
 
+    @Test
+    public void payBill(){
+        booking.payBill(20.00);
+        assertEquals(20.00, booking.getTotalCost(), 0.02);
+    }
+
+    @Test
+    public void dateOutputTest() throws ParseException {
+        Date date1 = new SimpleDateFormat("ddMMyyyy").parse("20102018");
+        String  date = new SimpleDateFormat("ddMMyy").format(date1);
+        assertEquals("201018", date);
+    }
+
 
 }
