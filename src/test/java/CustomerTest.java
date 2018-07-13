@@ -40,7 +40,9 @@ public class CustomerTest {
     public void totalMoneySpent() throws ParseException {
         RestaurantTable restaurantTable = new RestaurantTable("Table1", 4);
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
-        Booking booking = new Booking(customer, restaurantTable, date, 3);
+        Date startTime = new SimpleDateFormat("hhmm").parse("2010");
+        Date endTime = new SimpleDateFormat("hhmm").parse("2100");
+        Booking booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
         booking.payBill(20.00);
         customer.addBooking(booking);
         assertEquals(20.00, customer.totalSpent(), 0.02);

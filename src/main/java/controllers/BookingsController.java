@@ -29,6 +29,8 @@ public class BookingsController {
         get("/bookings", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             List<Booking> bookings = DBHelper.getAll(Booking.class);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            model.put("dateFormat", dateFormat);
             model.put("template", "templates/bookings/index.vtl");
             model.put("bookings", bookings);
             return new ModelAndView(model, "templates/layout.vtl");
@@ -36,7 +38,11 @@ public class BookingsController {
 
         get("/bookings/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
+            List<Customer> customers = DBHelper.getAll(Customer.class);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             model.put("template", "templates/bookings/create.vtl");
+            model.put("customers", customers);
+            model.put("tables", tables);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
@@ -59,6 +65,8 @@ public class BookingsController {
             Booking booking = DBHelper.find(id, Booking.class);
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            String dateFormat = new SimpleDateFormat("dd-MM-yy").format(booking.getDate());
+            model.put("dateFormat", dateFormat);
             model.put("template", "templates/bookings/edit.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
@@ -73,7 +81,7 @@ public class BookingsController {
             RestaurantTable table = DBHelper.find(tableId, RestaurantTable.class);
             Date date = null;
             try {
-                date = new SimpleDateFormat("ddMMyyyy").parse(req.queryParams("date"));
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -96,6 +104,8 @@ public class BookingsController {
             return null;
         }, velocityTemplateEngine);
 
+
+        // EDIT BOOKING
         post("/bookings/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(id, Booking.class);
@@ -112,7 +122,7 @@ public class BookingsController {
             String endTime = endHour + endMin;
             Date date = null;
             try {
-                date = new SimpleDateFormat("ddMMyyyy").parse(req.queryParams("date"));
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
