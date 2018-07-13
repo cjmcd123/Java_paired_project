@@ -115,7 +115,7 @@ public class BookingsController {
             return null;
         }, velocityTemplateEngine);
 
-        get("/bookings/:id/delete", (req, res) -> {
+        post("/bookings/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(id, Booking.class);
             DBHelper.delete(booking);
