@@ -51,7 +51,9 @@ public class CustomersController {
             String name = req.queryParams("name");
             Customer customer = new Customer(name);
             DBHelper.saveOrUpdate(customer);
-            res.redirect("/customers");
+            int id = customer.getId();
+            String url = "/bookings/new/" + id;
+            res.redirect(url);
             return null;
         }, velocityTemplateEngine);
 

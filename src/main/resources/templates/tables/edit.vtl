@@ -1,0 +1,15 @@
+<h1> EDIT Table </h1>
+
+<form action="/tables/$table.getId()" method="post">
+
+    <label for="name">Name:</label>
+    <input class="input" type="text" name="name" required="true" value="$table.getName()" id="name">
+
+    <label for="seats">Seats:</label>
+    <input class="input" type="number" name="seats" required="true" value="$table.getNumberOfSeats()" id="seats">
+
+    <input type="submit" value="Save" class="button">
+
+</form>
+
+<a href="/tables" class="button">Cancel</a>
