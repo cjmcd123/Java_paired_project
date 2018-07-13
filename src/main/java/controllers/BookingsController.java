@@ -1,10 +1,8 @@
 package controllers;
 
-import db.DBBookings;
 import db.DBHelper;
 import models.Booking;
 import models.Customer;
-import models.RestaurantTable;
 import models.RestaurantTable;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -58,7 +56,7 @@ public class BookingsController {
         get("/bookings/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            Booking booking = DBHelper.find(id, Customer.class);
+            Booking booking = DBHelper.find(id, Booking.class);
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             model.put("template", "templates/bookings/edit.vtl");
