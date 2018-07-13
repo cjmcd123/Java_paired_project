@@ -23,7 +23,9 @@ public class BookingTest {
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
 //        Date time = new SimpleDateFormat("hhmm").parse("2000");
 //        date.setTime(time);
-        booking = new Booking(customer, restaurantTable, date, 3);
+        Date startTime = new SimpleDateFormat("hhmm").parse("2010");
+        Date endTime = new SimpleDateFormat("hhmm").parse("2100");
+        Booking booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
     }
 
     @Test

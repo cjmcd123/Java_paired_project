@@ -11,9 +11,9 @@ import java.util.Date;
 public class Seeds {
 
     public static void seedData() throws ParseException {
-        DBHelper.deleteAll(RestaurantTable.class);
         DBHelper.deleteAll(Customer.class);
         DBHelper.deleteAll(Booking.class);
+        DBHelper.deleteAll(RestaurantTable.class);
 
         RestaurantTable restaurantTable1 = new RestaurantTable("T1", 2);
         RestaurantTable restaurantTable2 = new RestaurantTable("T2", 4);
@@ -36,9 +36,11 @@ public class Seeds {
 
 
         Date date1 = new SimpleDateFormat("ddMMyyyyhhmm").parse("201020182015");
-        Booking booking1 = new Booking(customer1, restaurantTable1, date1, 4);
-        Booking booking2 = new Booking(customer2, restaurantTable2, date1, 2);
-        Booking booking3 = new Booking(customer3, restaurantTable3, date1, 4);
+        Date startTime = new SimpleDateFormat("hhmm").parse("1930");
+        Date endTime = new SimpleDateFormat("hhmm").parse("2130");
+        Booking booking1 = new Booking(customer1, restaurantTable1, date1, 4, startTime, endTime);
+        Booking booking2 = new Booking(customer2, restaurantTable2, date1, 2, startTime, endTime);
+        Booking booking3 = new Booking(customer3, restaurantTable3, date1, 4, startTime, endTime);
         DBHelper.saveOrUpdate(booking1);
         DBHelper.saveOrUpdate(booking2);
         DBHelper.saveOrUpdate(booking3);
