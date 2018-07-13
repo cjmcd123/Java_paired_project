@@ -2,10 +2,10 @@
 
 <form action="/bookings" method="post">
 
-    <input class="input" type="number" name="id" required="true" value="$booking.getCustomer().getId()" style="visibility: hidden;"/>
+    <input class="input" type="number" name="customer" required="true" value="$customer.getId()" style="visibility: hidden;"/>
 
     <label for="customer">Name:</label>
-    <input class="input" type="text" name="customer" required="true" value="$booking.getCustomer().getName()" id="customer"/>
+    <input class="input" type="text" name="customerName" required="true" value="$customer.getName()" id="customer" disabled/>
 
     <label for="table">Table:</label>
     <select id="table" type="text" name="table">
@@ -23,7 +23,6 @@
                value="2018-07-22"
                min="2018-01-01" max="2018-12-31" />
     </div>
-
 
     <select id="startTime" type="text" name="startTime">
         <option value="1100">11:00</option>
@@ -76,5 +75,6 @@
         <option value="2330">23:30</option>
         <option value="0000">00:00</option>
     </select>
+
     <input type="submit" value="save" class="button"/>
 </form>
