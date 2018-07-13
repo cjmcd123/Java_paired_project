@@ -1,10 +1,9 @@
 package controllers;
 
-import db.DBBookings;
 import db.DBHelper;
 import models.Booking;
 import models.Customer;
-import models.Table;
+import models.RestaurantTable;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
@@ -46,7 +45,7 @@ public class BookingsController {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(id, Booking.class);
             Customer customer = DBHelper.find(booking.getCustomer().getId(), Customer.class);
-            Table table = DBHelper.find(booking.getTable().getId(), Table.class);
+            RestaurantTable table = DBHelper.find(booking.getRestaurantTable().getId(), RestaurantTable.class);
             model.put("template", "templates/bookings/show.vtl");
             model.put("booking", booking);
             model.put("customer", customer);
@@ -57,9 +56,9 @@ public class BookingsController {
         get("/bookings/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            Booking booking = DBHelper.find(id, Customer.class);
+            Booking booking = DBHelper.find(id, Booking.class);
             List<Customer> customers = DBHelper.getAll(Customer.class);
-            List<Table> tables = DBHelper.getAll(Table.class);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             model.put("template", "templates/bookings/edit.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
@@ -71,7 +70,7 @@ public class BookingsController {
             int customerId = Integer.parseInt(req.queryParams("customer"));
             Customer customer = DBHelper.find(customerId, Customer.class);
             int tableId = Integer.parseInt(req.queryParams("table"));
-            Table table = DBHelper.find(tableId, Table.class);
+            RestaurantTable table = DBHelper.find(tableId, RestaurantTable.class);
             String day = req.queryParams("day");
             String month = req.queryParams("month");
             String year = req.queryParams("year");
@@ -96,7 +95,7 @@ public class BookingsController {
             int customerId = Integer.parseInt(req.queryParams("customer"));
             booking.setCustomer(DBHelper.find(customerId, Customer.class));
             int tableId = Integer.parseInt(req.queryParams("table"));
-            booking.setTable(DBHelper.find(tableId, Table.class));
+            booking.setRestaurantTable(DBHelper.find(tableId, RestaurantTable.class));
             int numberOfGuests = Integer.parseInt(req.queryParams("numberOfGuests"));
             String day = req.queryParams("day");
             String month = req.queryParams("month");
@@ -104,7 +103,7 @@ public class BookingsController {
             String hour = req.queryParams("hour");
             String min = req.queryParams("min");
             String dateString = day + month + year + hour + min;
-            booking.setSize(numberOfGuests);
+            booking.setNumberOfGuests(numberOfGuests);
             try {
                 Date date = new SimpleDateFormat("ddMMyyyhhmm").parse(dateString);
                 booking.setDate(date);
