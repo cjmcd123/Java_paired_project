@@ -32,4 +32,47 @@ public class DBBookings {
         }
         return results;
     }
+
+    public static void pay(int amount, Booking booking){
+        Customer customer = booking.getCustomer();
+        double loyaltyDiscount = DBBookings.loyaltyDiscount(customer);
+        double moneyDiscount = DBBookings.spentDiscount(customer);
+        double discount = 1.0 - loyaltyDiscount - moneyDiscount;
+        double billAmount = amount * discount;
+        booking.payBill(billAmount);
+        DBHelper.saveOrUpdate(booking);
+    }
+
+    public static int numOfBooking(Customer customer){
+        int result = DBBookings.customerBookings(customer).size();
+        return result;
+    }
+
+    public static double loyaltyDiscount(Customer customer){
+        double discount = 0;
+        int count = DBBookings.numOfBooking(customer);
+        if (count > 5){
+            discount = 0.1;
+        }
+        return discount;
+    }
+
+    public static double spentDiscount(Customer customer){
+        double discount = 0;
+        List<Booking> bookings = DBBookings.customerBookings(customer);
+        double total = DBBookings.totalSpent(customer);
+        if (total > 500.00){
+            discount = 0.1;
+        }
+        return discount;
+    }
+
+    private static double totalSpent(Customer customer) {
+        double total = 0.00;
+        List<Booking> bookings = DBBookings.customerBookings(customer);
+        for (Booking booking : bookings){
+            total += booking.getTotalCost();
+        }
+        return total;
+    }
 }
