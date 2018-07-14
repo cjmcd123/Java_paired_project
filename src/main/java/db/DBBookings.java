@@ -67,12 +67,31 @@ public class DBBookings {
         return discount;
     }
 
-    private static double totalSpent(Customer customer) {
+    public static double totalSpent(Customer customer) {
         double total = 0.00;
         List<Booking> bookings = DBBookings.customerBookings(customer);
         for (Booking booking : bookings){
             total += booking.getTotalCost();
         }
         return total;
+    }
+
+    public static List<Booking> unPaidBookings(Customer customer){
+        List<Booking> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.add(Restrictions.eq("customer", customer));
+            cr.add(Restrictions.eq("totalCost", 00.00));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
     }
 }
