@@ -96,25 +96,7 @@ public class DBBookings {
         return results;
     }
 
-    public static List<Booking> bookingsOnDate(Date date){
-        List<Booking> results = null;
-        session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            transaction = session.beginTransaction();
-            Criteria cr = session.createCriteria(Booking.class);
-            cr.add(Restrictions.eq("date", date));
-            results = cr.list();
-            transaction.commit();
-        } catch (HibernateException ex) {
-            transaction.rollback();
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return results;
-    }
-
-    public static Booking boookingCheck(Date date, Date startTime, Date endTime, RestaurantTable table){
+    public static Booking bookingCheck(Date date, Date startTime, Date endTime, RestaurantTable table){
         Booking result = null;
         session = HibernateUtil.getSessionFactory().openSession();
         try {

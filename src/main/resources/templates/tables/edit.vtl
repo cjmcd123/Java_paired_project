@@ -6,7 +6,7 @@
     <input class="input" type="text" name="name" required="true" value="$table.getName()" id="name">
 
     <label for="seats">Seats:</label>
-    <input class="input" type="number" name="seats" required="true" value="$table.getNumberOfSeats()" id="seats">
+    <input class="input" type="number" min="1" max="10" name="seats" required="true" value="$table.getNumberOfSeats()" id="seats">
 
     <input type="submit" value="Save" class="button">
 
