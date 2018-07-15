@@ -2,13 +2,14 @@ package db;
 
 import models.Booking;
 import models.Customer;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import models.RestaurantTable;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.Date;
 import java.util.List;
+
+import static db.DBHelper.getUnique;
 
 public class DBBookings {
 
@@ -93,5 +94,44 @@ public class DBBookings {
             session.close();
         }
         return results;
+    }
+
+    public static List<Booking> bookingsOnDate(Date date){
+        List<Booking> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.add(Restrictions.eq("date", date));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
+
+    public static Booking boookingCheck(Date date, Date startTime, Date endTime, RestaurantTable table){
+        Booking result = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.add(Restrictions.eq("date", date));
+            cr.add(Restrictions.ge("startTime", startTime));
+            cr.add(Restrictions.le("endTime", endTime));
+            cr.add(Restrictions.eq("table", table));
+            result = getUnique(cr);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }
