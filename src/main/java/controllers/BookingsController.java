@@ -31,7 +31,9 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Booking> bookings = DBHelper.getAll(Booking.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
             model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
             model.put("bookings", bookings);
             return new ModelAndView(model, "templates/layout.vtl");
@@ -145,7 +147,6 @@ public class BookingsController {
         post("/bookings/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(id, Booking.class);
-            String customerIdString = req.queryParams("id");
 
             int customerId = Integer.parseInt(req.queryParams("id"));
             booking.setCustomer(DBHelper.find(customerId, Customer.class));
@@ -182,6 +183,8 @@ public class BookingsController {
             res.redirect("/bookings");
             return null;
         }, velocityTemplateEngine);
+
+
 
     }
 }

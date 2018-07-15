@@ -1,8 +1,7 @@
 package controllers;
 
-import db.DBBookings;
+import db.DBCustomer;
 import db.DBHelper;
-import models.Booking;
 import models.Customer;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -24,10 +23,17 @@ public class CustomersController {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
 
         get("/customers", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Customer> allCustomers = DBHelper.getAll(Customer.class);
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allCustomers.size()/10.0);
+            List<Customer> customersPerPage = DBCustomer.filterCustomers(currentPage, pagesNeeded);
+
             HashMap<String, Object> model = new HashMap<>();
-            List<Customer> customers = DBHelper.getAll(Customer.class);
             model.put("template", "templates/customers/index.vtl");
-            model.put("customers", customers);
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
+            model.put("customers", customersPerPage);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 

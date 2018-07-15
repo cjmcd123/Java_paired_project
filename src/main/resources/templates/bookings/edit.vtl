@@ -3,7 +3,7 @@
 <form action="/bookings/$booking.getId()" method="post">
 
     <input class="input" type="number" name="id" required="true" value="$booking.getCustomer().getId()" style="visibility: hidden;"/>
-
+    <br/>
     <label for="customer">Name:</label>
     <input class="input" type="text" name="customer" required="true" value="$booking.getCustomer().getName()" id="customer" disabled/>
 
@@ -15,7 +15,7 @@
     </select>
 
     <label for="guests">Guests:</label>
-    <input class="input" type="text" name="numberOfGuests" required="true" value="$booking.getNumberOfGuests()" id="guests">
+    <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" value="$booking.getNumberOfGuests()" id="guests">
 
     <label for="start">Date: </label>
     <input type="date" id="start" name="date"
@@ -79,3 +79,5 @@
 </form>
 
 <a href="/bookings" class="button">Cancel</a>
+
+<a href="/home">Home</a>

@@ -16,7 +16,7 @@
     </select>
 
     <label for="numberOfGuests">Guests:</label>
-    <input class="input" type="text" name="numberOfGuests" required="true" placeholder="number of guests" onfocus="this.placeholder = ''" id="numberOfGuests">
+    <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" placeholder="number of guests" onfocus="this.placeholder = ''" id="numberOfGuests">
 
 
     <label for="start">Date: </label>
@@ -78,3 +78,5 @@
 
     <input type="submit" value="save" class="button"/>
 </form>
+
+<a href="/home">Home</a>
