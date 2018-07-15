@@ -1,0 +1,45 @@
+a {
+    text-decoration: none;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even){
+    background-color: #E3E3E3;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #329E88;
+    color: white;
+}
+
+
+/*  PAGINATION  */
+
+.table_container {
+    min-height: 440px;
+}
+
+.pagination {
+  padding: 20px 0px;
+  align-items: baseline;
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pagination a {
+  color: black;
+}
+
+.pagination > div {
+  margin: 0px 20px;
+}

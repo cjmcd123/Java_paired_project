@@ -1,6 +1,7 @@
 <h1> ALL BOOKINGS </h1>
 
 <a href="/bookings/new">Add new Bookings</a>
+<a href="/bookings/tableview">View Specific Day</a>
 
 <table>
     <tr>
@@ -8,6 +9,7 @@
         <th>Table</th>
         <th>Guests</th>
         <th>Date</th>
+        <th>Time</th>
     </tr>
     #foreach ($booking in $bookings)
     <tr>
@@ -15,6 +17,7 @@
         <td>$booking.getRestaurantTable().getName()</td>
         <td>$booking.getNumberOfGuests()</td>
         <td>$dateFormat.format($booking.getDate())</td>
+        <td>$timeFormat.format($booking.getDate())</td>
         <td><a href="bookings/$booking.getId()/edit">Edit</a></td>
         <td><form action = "/bookings/$booking.getId()/delete" method = "post">
             <input type="submit" value="Delete" class="button">
@@ -23,3 +26,5 @@
     #end
 
 </table>
+
+<a href="/home">Home</a>
