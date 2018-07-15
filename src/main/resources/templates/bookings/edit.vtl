@@ -23,29 +23,29 @@
            min="2018-01-01" max="2018-12-31" />
 
     <select id="startTime" type="text" name="startTime">
-        <option value="1100">11:00</option>
-        <option value="1130">11:30</option>
-        <option value="1200">12:00</option>
-        <option value="1230">12:30</option>
-        <option value="1300">13:00</option>
-        <option value="1330">13:30</option>
-        <option value="1400">14:00</option>
-        <option value="1430">14:30</option>
-        <option value="1500">15:00</option>
-        <option value="1530">15:30</option>
-        <option value="1600">16:00</option>
-        <option value="1630">16:30</option>
-        <option value="1700">17:00</option>
-        <option value="1730">17:30</option>
-        <option value="1800">18:00</option>
-        <option value="1830">18:30</option>
-        <option value="1900">19:00</option>
-        <option value="1930">19:30</option>
-        <option value="2000">20:00</option>
-        <option value="2030">20:30</option>
-        <option value="2100">21:00</option>
-        <option value="2130">21:30</option>
-        <option value="2200">22:00</option>
+        <option value="1100" #if ($startFormat == 1100) selected #end>11:00</option>
+        <option value="1130" #if ($startFormat == 1130) selected #end>11:30</option>
+        <option value="1200" #if ($startFormat == 1200) selected #end>12:00</option>
+        <option value="1230" #if ($startFormat == 1230) selected #end>12:30</option>
+        <option value="1300" #if ($startFormat == 1300) selected #end>13:00</option>
+        <option value="1330" #if ($startFormat == 1330) selected #end>13:30</option>
+        <option value="1400" #if ($startFormat == 1400) selected #end>14:00</option>
+        <option value="1430" #if ($startFormat == 1430) selected #end>14:30</option>
+        <option value="1500" #if ($startFormat == 1500) selected #end>15:00</option>
+        <option value="1530" #if ($startFormat == 1530) selected #end>15:30</option>
+        <option value="1600" #if ($startFormat == 1600) selected #end>16:00</option>
+        <option value="1630" #if ($startFormat == 1630) selected #end>16:30</option>
+        <option value="1700" #if ($startFormat == 1700) selected #end>17:00</option>
+        <option value="1730" #if ($startFormat == 1730) selected #end>17:30</option>
+        <option value="1800" #if ($startFormat == 1800) selected #end>18:00</option>
+        <option value="1830" #if ($startFormat == 1830) selected #end>18:30</option>
+        <option value="1900" #if ($startFormat == 1900) selected #end>19:00</option>
+        <option value="1930" #if ($startFormat == 1930) SELECTED" #end>19:30</option>
+        <option value="2000" #if ($startFormat == 2000) selected #end>20:00</option>
+        <option value="2030" #if ($startFormat == 2030) selected #end>20:30</option>
+        <option value="2100" #if ($startFormat == 2100) selected #end>21:00</option>
+        <option value="2130" #if ($startFormat == 2130) selected #end>21:30</option>
+        <option value="2200" #if ($startFormat == 2200) selected #end>22:00</option>
     </select>
 
     <select id="endTime" type="text" name="endTime">
