@@ -39,6 +39,23 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        // RETURNS TABLE VIEW FOR INDIVIDUAL DAY
+        get ("/bookings/tableview", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("ddMMyy").parse("201018");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<Booking> bookings = DBBookings.bookingsForGivenDate(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            model.put("dateFormat", dateFormat);
+            model.put("template", "templates/bookings/tableview.vtl");
+            model.put("bookings", bookings);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/bookings/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             List<Customer> customers = DBHelper.getAll(Customer.class);
@@ -157,7 +174,6 @@ public class BookingsController {
             res.redirect("/bookings");
             return null;
         }, velocityTemplateEngine);
-
 
 
     }

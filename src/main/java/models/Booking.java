@@ -4,6 +4,7 @@ import db.DBHelper;
 
 import javax.persistence.*;
 import javax.persistence.Table;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
