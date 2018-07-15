@@ -1,19 +1,50 @@
 <h1> ALL CUSTOMERS </h1>
+<article class="container">
+    <a href="/customers/new">Add new Customer</a>
+    <div class="table_container">
+        <table>
+            <tr>
+                <th>Name</th>
+            </tr>
+            #foreach ($customer in $customers)
+            <tr>
+                <td>$customer.getName()</td>
+                <td><a href="customers/$customer.getId()/edit">Edit</a></td>
+                <td><form action = "/customers/$customer.getId()/delete" method = "post">
+                    <input type="submit" value="Delete" class="button">
+                </form></td>
+            </tr>
+            #end
 
-<a href="/customers/new">Add new Customer</a>
+        </table>
+    </div>
+    <section class="pagination">
+        <div>
+            #if($page < 2)
+            <a style="visibility:hidden"/> first </a>
+            #else
+            <a href="/customers?page=1"/> first </a>
+            #end
+        </div>
+        <div>
+            #if($page > 1)
+            #set($previousPage = $page - 1)
+                <a href="/customers?page=$previousPage"/> $previousPage </a>
+            #end
+            <a href="/customers?page=$page" style="font-size: 30px"/> $page </a>
+            #if($page < $pagesNeeded)
+                #set($nextPage = $page + 1)
+                <a href="/customers?page=$nextPage"/> $nextPage </a>
+            #end
+        </div>
+        <div>
+            #if($page < $pagesNeeded)
+            <a href="/customers?page=$pagesNeeded"/> last </a>
+            #else
+            <a href="/customers?page=$pagesNeeded" style="visibility:hidden"/> last </a>
+            #end
+        </div>
+    </section>
 
-<table>
-    <tr>
-        <th>Name</th>
-    </tr>
-    #foreach ($customer in $customers)
-    <tr>
-        <td>$customer.getName()</td>
-        <td><a href="customers/$customer.getId()/edit">Edit</a></td>
-        <td><form action = "/customers/$customer.getId()/delete" method = "post">
-            <input type="submit" value="Delete" class="button">
-        </form></td>
-    </tr>
-    #end
-
-</table>
+    <a href="/home">Home</a>
+</article>
