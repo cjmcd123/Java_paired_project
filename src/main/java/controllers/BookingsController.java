@@ -79,12 +79,18 @@ public class BookingsController {
             Booking booking = DBHelper.find(id, Booking.class);
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
-            String dateFormat = new SimpleDateFormat("dd-MM-yy").format(booking.getDate());
+            String dateFormat = new SimpleDateFormat("yyyy-mm-dd").format(booking.getDate());
+            String startFormatString = new SimpleDateFormat("hhmm").format(booking.getStartTime());
+            Integer startFormat = Integer.parseInt(startFormatString);
+            String endFormatString = new  SimpleDateFormat("hhmm").format(booking.getEndTime());
+            Integer endFormat = Integer.parseInt(endFormatString);
             model.put("dateFormat", dateFormat);
             model.put("template", "templates/bookings/edit.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
             model.put("booking", booking);
+            model.put("startFormat", startFormat);
+            model.put("endFormat", endFormat);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
@@ -97,6 +103,7 @@ public class BookingsController {
             RestaurantTable table = DBHelper.find(tableId, RestaurantTable.class);
             int numberOfGuests = Integer.parseInt(req.queryParams("numberOfGuests"));
             Date date = null;
+            Booking booking = null;
             try {
                 date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
@@ -104,16 +111,35 @@ public class BookingsController {
             }
             String startTime = req.queryParams("startTime");
             String endTime = req.queryParams("endTime");
+            Date startTimeDate = null;
+            Date endTimeDate = null;
             try {
-                Date startTimeDate = new SimpleDateFormat("hhmm").parse(startTime);
-                Date endTimeDate = new SimpleDateFormat("hhmm").parse(endTime);
-                Booking booking = new Booking(customer, table, date, numberOfGuests, startTimeDate, endTimeDate);
-                DBHelper.saveOrUpdate(booking);
+                startTimeDate = new SimpleDateFormat("hhmm").parse(startTime);
+                endTimeDate = new SimpleDateFormat("hhmm").parse(endTime);
+                booking = new Booking(customer, table, date, numberOfGuests, startTimeDate, endTimeDate);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            res.redirect("/bookings");
-            return null;
+            Booking bookingCheck = DBBookings.boookingCheck(date, startTimeDate, endTimeDate, table);
+            if (bookingCheck != null){
+                res.redirect("/bookings/new");
+                return null;
+            }
+            int startTimeInt = Integer.parseInt(startTime);
+            int endTimeInt = Integer.parseInt(endTime);
+            if (startTimeInt < endTimeInt){
+                DBHelper.saveOrUpdate(booking);
+                res.redirect("/bookings");
+                return null;
+            } if (endTimeInt == 0000 && startTimeInt < 2330){
+                DBHelper.saveOrUpdate(booking);
+                res.redirect("/bookings");
+                return null;
+            } else {
+                res.redirect("bookings/new");
+                return null;
+            }
         }, velocityTemplateEngine);
 
 

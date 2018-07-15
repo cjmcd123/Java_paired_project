@@ -99,7 +99,7 @@ public class Seeds {
         DBHelper.saveOrUpdate(customer33);
 
 
-        Date date1 = new SimpleDateFormat("ddMMyyyyhhmm").parse("201020182015");
+        Date date1 = new SimpleDateFormat("ddMMyyyy").parse("22072018");
         Date startTime = new SimpleDateFormat("hhmm").parse("1930");
         Date endTime = new SimpleDateFormat("hhmm").parse("2130");
         Booking booking1 = new Booking(customer1, restaurantTable1, date1, 4, startTime, endTime);
