@@ -20,6 +20,18 @@ th {
 }
 
 
+/* TABLEVIEW */
+
+.tableview th {
+    font-size: 10px;
+    padding: 5px;
+    background-color: red;
+}
+
+.booked {
+    background-color: blue;
+}
+
 /*  PAGINATION  */
 
 .table_container {

@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,9 +23,9 @@ public class BookingTest {
         customer = new Customer("Bob");
         restaurantTable = new RestaurantTable("Table1", 4);
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
-        Date startTime = new SimpleDateFormat("hhmm").parse("2010");
+        Date startTime = new SimpleDateFormat("hhmm").parse("2000");
         Date endTime = new SimpleDateFormat("hhmm").parse("2100");
-        Booking booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
+        booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
     }
 
     @Test
@@ -108,6 +110,5 @@ public class BookingTest {
         String  date = new SimpleDateFormat("ddMMyy").format(date1);
         assertEquals("201018", date);
     }
-
 
 }
