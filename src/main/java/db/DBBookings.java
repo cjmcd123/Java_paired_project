@@ -97,24 +97,18 @@ public class DBBookings {
 
     public static boolean bookingCheck(Booking newBooking){
         List<Booking> existingBookings = DBBookings.bookingsByDateAndTable(newBooking.getDate(), newBooking.getRestaurantTable());
-        Calendar newStartTime = Calendar.getInstance();
-        newStartTime.setTime(newBooking.getStartTime());
-        Calendar newEndTime = Calendar.getInstance();
-        newEndTime.setTime(newBooking.getEndTime());
-
         for (Booking booking : existingBookings){
-            Calendar currentStartTime = Calendar.getInstance();
-            currentStartTime.setTime(booking.getStartTime());
-            Calendar currentEndTime = Calendar.getInstance();
-            currentEndTime.setTime(booking.getEndTime());
-            if (newStartTime.after(currentStartTime.getTime()) && newStartTime.before(currentEndTime.getTime())){
-                return true;
-            }
-            if (newEndTime.after(currentStartTime.getTime()) && newEndTime.before(currentEndTime.getTime())){
+            Date bookingStartTime = booking.getStartTime();
+            Date bookingEndTime = booking.getEndTime();
+            Date newStartTime = newBooking.getStartTime();
+            Date newEndTime = newBooking.getEndTime();
+            if ((newStartTime.after(bookingStartTime) && newStartTime.before(bookingEndTime))
+                    || (newEndTime.after(bookingStartTime) && newEndTime.before(bookingEndTime))
+                    || (newStartTime.equals(bookingStartTime))) {
                 return true;
             }
         }
-        return false;
+            return false;
     }
 
     public static List<Booking> bookingsByDate(Date date){
@@ -135,7 +129,7 @@ public class DBBookings {
         return results;
     }
 
-    public static List<Booking> bookingsByDateAndTable(Date date, RestaurantTable table){
+    public static List<Booking> bookingsByDateAndTable(Date date, RestaurantTable table) {
         List<Booking> results = null;
         session = HibernateUtil.getSessionFactory().openSession();
         try {
