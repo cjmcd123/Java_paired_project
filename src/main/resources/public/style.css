@@ -1,14 +1,60 @@
+html {
+    background: url(images/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3em;
+    display: block;
+    color: white;
+    padding: 40px 0px;
+}
+
 body {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-weight: 300;
+    font-size: 16px;
+}
+
+p {
+
+}
+
+.header {
+    background: url(images/header_bg.png) no-repeat center center;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    background: url(images/white_bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 40px auto;
+    min-height: 500px;
+    padding-bottom: 40px;
 }
 
 a {
     text-decoration: none;
 }
 
+form {
+    display: block;
+}
+
 table {
     text-align: center;
+    background-color: white;
+    border-collapse: collapse;
+    margin: 10px auto;
 }
 
 td, th {
@@ -24,7 +70,7 @@ th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #329E88;
+    background-color: rgba(30, 22, 54, 0.6);
     color: white;
 }
 
@@ -32,6 +78,95 @@ table .left {
     text-align: left;
 }
 
+table .large {
+    min-width: 230px;
+}
+
+table_container {
+    margin: 10px auto;
+}
+
+table a {
+    color: black;
+}
+
+
+/* HOME */
+
+.home a, .main_buttons a {
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	margin: 20px auto;
+	max-width: 260px;
+	text-decoration: none;
+	border-radius: 4px;
+	padding: 20px 30px;
+}
+
+.home a.button, .main_buttons a.button{
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.home a.button:hover, .main_buttons a.button:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+
+
+/* INPUT FIELD */
+
+.opening_hours {
+    background: #232323;
+    padding: 2rem;
+    outline: 1px dashed #f9e2af;
+    outline-offset: -15px;
+    color: white;
+    font-family: 'Cormorant Upright', serif;
+    font-style: italic;
+}
+
+.opening_hours h2 {
+    color: #ffbc00;
+    font-size: 36px;
+}
+
+.day {
+    color: #bdecb6;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 768px)
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+@media (min-width: 768px)
+.col-md-12 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.input-wrap{
+
+}
+
+.input-wrap input,  {
+    border: 1px solid #ddd;
+    background-color: #efefef;
+    padding: 10px 20px;
+    width: 100%;
+}
 
 /* TABLEVIEW */
 
@@ -42,11 +177,10 @@ table .left {
 .tableview th {
     font-size: 10px;
     padding: 5px;
-    background-color: red;
 }
 
 .booked {
-    background-color: blue;
+    background-color: #33673B;
 }
 
 /*  PAGINATION  */
@@ -56,19 +190,19 @@ table .left {
 }
 
 .pagination {
-  padding: 20px 0px;
-  align-items: baseline;
-  text-align: center;
-  font-size: 18px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    padding: 20px 0px;
+    align-items: baseline;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .pagination a {
-  color: black;
+    color: black;
 }
 
 .pagination > div {
-  margin: 0px 20px;
+    margin: 0px 20px;
 }
