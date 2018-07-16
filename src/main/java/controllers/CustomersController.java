@@ -46,7 +46,7 @@ public class CustomersController {
         get("/customers/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            Customer customer = DBHelper.find(id, Customer.class);
+            Customer customer = DBHelper.find(Customer.class, id);
             model.put("template", "templates/customers/edit.vtl");
             model.put("customer", customer);
             return new ModelAndView(model, "templates/layout.vtl");
@@ -65,7 +65,7 @@ public class CustomersController {
 
         post("/customers/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
-            Customer customer = DBHelper.find(id, Customer.class);
+            Customer customer = DBHelper.find(Customer.class, id);
             customer.setName(req.queryParams("name"));
             DBHelper.saveOrUpdate(customer);
             res.redirect("/customers");
@@ -74,7 +74,7 @@ public class CustomersController {
 
         post("/customers/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
-            Customer customer = DBHelper.find(id, Customer.class);
+            Customer customer = DBHelper.find(Customer.class, id);
             DBHelper.delete(customer);
             res.redirect("/customers");
             return null;

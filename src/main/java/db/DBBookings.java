@@ -6,10 +6,9 @@ import models.RestaurantTable;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static db.DBHelper.getUnique;
 
 public class DBBookings {
 
@@ -96,25 +95,26 @@ public class DBBookings {
         return results;
     }
 
-    public static Booking bookingCheck(Date date, Date startTime, Date endTime, RestaurantTable table){
-        Booking result = null;
-        session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            transaction = session.beginTransaction();
-            Criteria cr = session.createCriteria(Booking.class);
-            cr.add(Restrictions.eq("date", date));
-            cr.add(Restrictions.ge("startTime", startTime));
-            cr.add(Restrictions.le("endTime", endTime));
-            cr.add(Restrictions.eq("table", table));
-            result = getUnique(cr);
-            transaction.commit();
-        } catch (HibernateException ex) {
-            transaction.rollback();
-            ex.printStackTrace();
-        } finally {
-            session.close();
+    public static boolean bookingCheck(Booking newBooking){
+        List<Booking> existingBookings = DBBookings.bookingsByDateAndTable(newBooking.getDate(), newBooking.getRestaurantTable());
+        Calendar newStartTime = Calendar.getInstance();
+        newStartTime.setTime(newBooking.getStartTime());
+        Calendar newEndTime = Calendar.getInstance();
+        newEndTime.setTime(newBooking.getEndTime());
+
+        for (Booking booking : existingBookings){
+            Calendar currentStartTime = Calendar.getInstance();
+            currentStartTime.setTime(booking.getStartTime());
+            Calendar currentEndTime = Calendar.getInstance();
+            currentEndTime.setTime(booking.getEndTime());
+            if (newStartTime.after(currentStartTime.getTime()) && newStartTime.before(currentEndTime.getTime())){
+                return true;
+            }
+            if (newEndTime.after(currentStartTime.getTime()) && newEndTime.before(currentEndTime.getTime())){
+                return true;
+            }
         }
-        return result;
+        return false;
     }
 
     public static List<Booking> bookingsByDate(Date date){
@@ -124,6 +124,25 @@ public class DBBookings {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Booking.class);
             cr.add(Restrictions.eq("date", date));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
+
+    public static List<Booking> bookingsByDateAndTable(Date date, RestaurantTable table){
+        List<Booking> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.add(Restrictions.eq("date", date));
+            cr.add(Restrictions.eq("restaurantTable", table));
             results = cr.list();
             transaction.commit();
         } catch (HibernateException ex) {
