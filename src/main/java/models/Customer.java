@@ -1,7 +1,5 @@
 package models;
 
-import db.DBBookings;
-import db.DBHelper;
 
 import javax.persistence.*;
 import javax.persistence.Table;

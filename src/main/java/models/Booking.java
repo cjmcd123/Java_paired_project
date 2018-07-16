@@ -1,6 +1,7 @@
 package models;
 
 import db.DBHelper;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.persistence.Table;
@@ -22,6 +23,7 @@ public class Booking {
     private Date endTime;
     private double totalCost;
     private int numberOfGuests;
+    private List<MenuItem> meal;
 
     public Booking(){
 
@@ -35,6 +37,7 @@ public class Booking {
         this.numberOfGuests = numberOfGuests;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.meal = new ArrayList<>();
     }
 
     @Id
@@ -81,6 +84,15 @@ public class Booking {
         return endTime;
     }
 
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToMany
+    @JoinTable(name = "booking_meal",
+            joinColumns = {@JoinColumn(name = "booking_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "meal_id", nullable = false, updatable = false)})
+    public List<MenuItem> getMeal() {
+        return meal;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -117,4 +129,36 @@ public class Booking {
         this.setTotalCost(amount);
     }
 
+    public void setMeal(List<MenuItem> meal) {
+        this.meal = meal;
+    }
+
+    public void addMenuItem(MenuItem menuItem){
+        this.meal.add(menuItem);
+    }
+
+    public List<String> bookingSlots() {
+        List<String> timeSlots = new ArrayList<>();
+        String startTimeColon = new SimpleDateFormat("HH:mm").format(this.getStartTime());
+        String endTimeColon = new SimpleDateFormat("HH:mm").format(this.getEndTime());
+
+        timeSlots.add(startTimeColon); // adds start slots
+
+        // adds following slots
+        String nextTimeSlotColon = startTimeColon;
+        while(!endTimeColon.equals(nextTimeSlotColon)) {
+            String splitNextTimeSlotList[] = nextTimeSlotColon.split(":");
+            if (splitNextTimeSlotList[1].equals("00")) {
+                splitNextTimeSlotList[1] = "30";
+                nextTimeSlotColon = splitNextTimeSlotList[0] + ":" + splitNextTimeSlotList[1];
+                timeSlots.add(nextTimeSlotColon);
+            } else if (splitNextTimeSlotList[1].equals("30")) {
+                splitNextTimeSlotList[1] = "00";
+                String newHour = String.valueOf(Integer.parseInt(splitNextTimeSlotList[0]) + 1);
+                nextTimeSlotColon = newHour + ":" + splitNextTimeSlotList[1];
+                timeSlots.add(nextTimeSlotColon);
+            }
+        }
+        return timeSlots;
+    }
 }
