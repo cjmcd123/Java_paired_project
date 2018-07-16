@@ -40,7 +40,7 @@ public class RestaurantController {
         get("/tables/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            RestaurantTable restaurantTable = DBHelper.find(id, RestaurantTable.class);
+            RestaurantTable restaurantTable = DBHelper.find(RestaurantTable.class, id);
             model.put("template", "templates/tables/edit.vtl");
             model.put("table", restaurantTable);
             return new ModelAndView(model, "templates/layout.vtl");
@@ -58,7 +58,7 @@ public class RestaurantController {
 
         post("/tables/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
-            RestaurantTable restaurantTable = DBHelper.find(id, RestaurantTable.class);
+            RestaurantTable restaurantTable = DBHelper.find(RestaurantTable.class, id);
             restaurantTable.setName(req.queryParams("name"));
             int numberOfSeats = Integer.parseInt(req.queryParams("seats"));
             restaurantTable.setNumberOfSeats(numberOfSeats);
@@ -69,7 +69,7 @@ public class RestaurantController {
 
         post("/tables/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
-            RestaurantTable restaurantTable = DBHelper.find(id, RestaurantTable.class);
+            RestaurantTable restaurantTable = DBHelper.find(RestaurantTable.class, id);
             DBHelper.delete(restaurantTable);
             res.redirect("/tables");
             return null;

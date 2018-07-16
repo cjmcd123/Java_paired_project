@@ -52,7 +52,7 @@ public class BookingsController {
         get("/bookings/new/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            Customer customer = DBHelper.find(id, Customer.class);
+            Customer customer = DBHelper.find(Customer.class, id);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             model.put("template", "templates/bookings/new.vtl");
             model.put("customer", customer);
@@ -81,9 +81,9 @@ public class BookingsController {
         get("/bookings/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            Booking booking = DBHelper.find(id, Booking.class);
-            Customer customer = DBHelper.find(booking.getCustomer().getId(), Customer.class);
-            RestaurantTable table = DBHelper.find(booking.getRestaurantTable().getId(), RestaurantTable.class);
+            Booking booking = DBHelper.find(Booking.class, id);
+            Customer customer = DBHelper.find(Customer.class, booking.getCustomer().getId());
+            RestaurantTable table = DBHelper.find(RestaurantTable.class, booking.getRestaurantTable().getId());
             model.put("template", "templates/bookings/show.vtl");
             model.put("booking", booking);
             model.put("customer", customer);
@@ -94,7 +94,7 @@ public class BookingsController {
         get("/bookings/:id/edit", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
-            Booking booking = DBHelper.find(id, Booking.class);
+            Booking booking = DBHelper.find(Booking.class, id);
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             String dateFormat = new SimpleDateFormat("yyyy-mm-dd").format(booking.getDate());
@@ -116,9 +116,9 @@ public class BookingsController {
         // SAVE NEW BOOKING
         post("/bookings", (req, res) -> {
             int customerId = Integer.parseInt(req.queryParams("customer"));
-            Customer customer = DBHelper.find(customerId, Customer.class);
+            Customer customer = DBHelper.find(Customer.class, customerId);
             int tableId = Integer.parseInt(req.queryParams("table"));
-            RestaurantTable table = DBHelper.find(tableId, RestaurantTable.class);
+            RestaurantTable table = DBHelper.find(RestaurantTable.class, tableId);
             int numberOfGuests = Integer.parseInt(req.queryParams("numberOfGuests"));
             Date date = null;
             Booking booking = null;
@@ -143,11 +143,12 @@ public class BookingsController {
                 res.redirect("/bookings/new");
                 return null;
             }
-            Booking bookingCheck = DBBookings.bookingCheck(date, startTimeDate, endTimeDate, table);
-            if (bookingCheck != null){
-                res.redirect("/bookings/new");
-                return null;
-            }
+//            boolean bookingCheck = DBBookings.bookingCheck(booking);
+//            if (bookingCheck){
+//                res.redirect("/bookings/new");
+//                return null;
+//            }
+//            non working double booking check 
             int startTimeInt = Integer.parseInt(startTime);
             int endTimeInt = Integer.parseInt(endTime);
             if (startTimeInt < endTimeInt){
@@ -168,12 +169,12 @@ public class BookingsController {
         // EDIT BOOKING
         post("/bookings/:id", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
-            Booking booking = DBHelper.find(id, Booking.class);
+            Booking booking = DBHelper.find(Booking.class, id);
 
             int customerId = Integer.parseInt(req.queryParams("id"));
-            booking.setCustomer(DBHelper.find(customerId, Customer.class));
+            booking.setCustomer(DBHelper.find(Customer.class, customerId));
             int tableId = Integer.parseInt(req.queryParams("table"));
-            booking.setRestaurantTable(DBHelper.find(tableId, RestaurantTable.class));
+            booking.setRestaurantTable(DBHelper.find(RestaurantTable.class, tableId));
             booking.setNumberOfGuests(Integer.parseInt(req.queryParams("numberOfGuests")));
 
             Date date = null;
@@ -200,7 +201,7 @@ public class BookingsController {
 
         post("/bookings/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
-            Booking booking = DBHelper.find(id, Booking.class);
+            Booking booking = DBHelper.find(Booking.class, id);
             DBHelper.delete(booking);
             res.redirect("/bookings");
             return null;
