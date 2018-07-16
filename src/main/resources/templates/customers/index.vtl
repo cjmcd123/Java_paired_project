@@ -1,15 +1,17 @@
-<h1> ALL CUSTOMERS </h1>
+<div class="header">
+    <h1> All Customers </h1>
+</div>
 <article class="container">
     <a href="/customers/new">Add new Customer</a>
     <div class="table_container">
         <table>
             <tr>
-                <th>Name</th>
-                <th>Customer Bookings</th>
+                <th class="left large">Name</th>
+                <th colspan="3">Customer Bookings</th>
             </tr>
             #foreach ($customer in $customers)
             <tr>
-                <td>$customer.getName()</td>
+                <td class="left">$customer.getName()</td>
                 <td><a href="customers/$customer.getId()">View</a> </td>
                 <td><a href="customers/$customer.getId()/edit">Edit</a></td>
                 <td><form action = "/customers/$customer.getId()/delete" method = "post">

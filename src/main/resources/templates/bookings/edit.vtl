@@ -1,5 +1,6 @@
-<h1> EDIT BOOKING </h1>
-
+<div class="header">
+    <h1>Edit booking</h1>
+</div>
 <form action="/bookings/$booking.getId()" method="post">
 
     <input class="input" type="number" name="id" required="true" value="$booking.getCustomer().getId()" style="visibility: hidden;"/>
@@ -42,10 +43,6 @@
         <option value="1900" #if ($startFormat == 1900) selected #end>19:00</option>
         <option value="1930" #if ($startFormat == 1930) selected #end>19:30</option>
         <option value="2000" #if ($startFormat == 2000) selected #end>20:00</option>
-        <option value="2030" #if ($startFormat == 2030) selected #end>20:30</option>
-        <option value="2100" #if ($startFormat == 2100) selected #end>21:00</option>
-        <option value="2130" #if ($startFormat == 2130) selected #end>21:30</option>
-        <option value="2200" #if ($startFormat == 2200) selected #end>22:00</option>
     </select>
 
     <select id="endTime" type="text" name="endTime">
@@ -68,10 +65,6 @@
         <option value="2100" #if ($endFormat == 2100) selected #end>21:00</option>
         <option value="2130" #if ($endFormat == 2130) selected #end>21:30</option>
         <option value="2200" #if ($endFormat == 2200) selected #end>22:00</option>
-        <option value="2230" #if ($endFormat == 2230) selected #end>22:30</option>
-        <option value="2300" #if ($endFormat == 2300) selected #end>23:00</option>
-        <option value="2330" #if ($endFormat == 2330) selected #end>23:30</option>
-        <option value="0000" #if ($endFormat == 0000) selected #end>00:00</option>
     </select>
 
     <input type="submit" value="Save" class="button">
