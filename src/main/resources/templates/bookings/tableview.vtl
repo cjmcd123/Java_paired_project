@@ -1,4 +1,42 @@
 <h1>BOOKINGS</h1>
-#foreach($booking in $bookings)
-    #System.out.println($booking.getCustomer().getName())
-#end
+
+<section class="tableview">
+
+    #foreach($booking in $bookings)
+        #set($time = $timeFormat.format($booking.getDate()))
+        $time
+    #end
+    <table>
+        <th></th>
+            #foreach( $timeSlot in $timeSlots )
+                <th>$timeSlot</th>
+            #end
+            #foreach( $table in $tables )
+            <tr id="$table.getName()">
+                <td>$table.getName()</td>
+
+                    #foreach($timeSlot in $timeSlots)
+                    <td
+                        #foreach($booking in $bookings)
+                            #set($bookingTime = $timeFormat.format($booking.getDate()))
+
+
+                            #set($date = ($sdf.parse($timeSlot)))
+                            $cal.setTime($date)
+                            $cal.getTime()
+                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingTime==$timeSlot))
+                            class="booked">
+                            #end
+                        #end
+                    </td>
+                    #end
+
+            </tr>
+            #end
+
+    </table>
+
+
+</section>
+
+<a href="/home">Home</a>

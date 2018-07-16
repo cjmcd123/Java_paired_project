@@ -34,6 +34,24 @@ public class DBBookings {
         return results;
     }
 
+    public static List<Booking> bookingsForGivenDate(Date date) {
+        List<Booking> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.add(Restrictions.eq("date", date));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
+
     public static void pay(int amount, Booking booking){
         Customer customer = booking.getCustomer();
         double loyaltyDiscount = DBBookings.loyaltyDiscount(customer);

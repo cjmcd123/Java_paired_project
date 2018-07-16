@@ -10,9 +10,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -31,7 +29,7 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Booking> bookings = DBHelper.getAll(Booking.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
@@ -44,15 +42,23 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             Date date = null;
             try {
-                date = new SimpleDateFormat("ddMMyy").parse("201018");
+                date = new SimpleDateFormat("ddMMyy").parse("220718");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             List<Booking> bookings = DBBookings.bookingsForGivenDate(date);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            List<String> timeSlots = Arrays.asList("11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30", "00:00");
+            Calendar cal = Calendar.getInstance();
+            model.put("cal", cal);
             model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/tableview.vtl");
             model.put("bookings", bookings);
+            model.put("tables", tables);
+            model.put("timeSlots", timeSlots);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
@@ -97,10 +103,16 @@ public class BookingsController {
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             String dateFormat = new SimpleDateFormat("yyyy-mm-dd").format(booking.getDate());
-            String startFormatString = new SimpleDateFormat("hhmm").format(booking.getStartTime());
+            String startFormatString = new SimpleDateFormat("HHmm").format(booking.getStartTime());
             Integer startFormat = Integer.parseInt(startFormatString);
-            String endFormatString = new  SimpleDateFormat("hhmm").format(booking.getEndTime());
+            String endFormatString = new  SimpleDateFormat("HHmm").format(booking.getEndTime());
             Integer endFormat = Integer.parseInt(endFormatString);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Calendar cal = Calendar.getInstance();
+            model.put("cal", cal);
+            model.put("sdf", sdf);
+
             model.put("dateFormat", dateFormat);
             model.put("template", "templates/bookings/edit.vtl");
             model.put("customers", customers);
@@ -138,7 +150,7 @@ public class BookingsController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            Booking bookingCheck = DBBookings.boookingCheck(date, startTimeDate, endTimeDate, table);
+            Booking bookingCheck = DBBookings.bookingCheck(date, startTimeDate, endTimeDate, table);
             if (bookingCheck != null){
                 res.redirect("/bookings/new");
                 return null;

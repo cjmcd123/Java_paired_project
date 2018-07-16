@@ -5,7 +5,10 @@ import db.DBHelper;
 import javax.persistence.*;
 import javax.persistence.Table;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="bookings")
@@ -113,4 +116,5 @@ public class Booking {
     public void payBill(double amount) {
         this.setTotalCost(amount);
     }
+
 }

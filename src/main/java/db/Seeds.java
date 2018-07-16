@@ -1,8 +1,6 @@
 package db;
 
-import models.Booking;
-import models.Customer;
-import models.RestaurantTable;
+import models.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +12,8 @@ public class Seeds {
         DBHelper.deleteAll(Customer.class);
         DBHelper.deleteAll(Booking.class);
         DBHelper.deleteAll(RestaurantTable.class);
+        DBHelper.deleteAll(MenuItem.class);
+        DBHelper.deleteAll(Menu.class);
 
         RestaurantTable restaurantTable1 = new RestaurantTable("T1", 2);
         RestaurantTable restaurantTable2 = new RestaurantTable("T2", 4);
@@ -100,15 +100,16 @@ public class Seeds {
 
 
         Date date1 = new SimpleDateFormat("ddMMyyyy").parse("22072018");
-        Date startTime = new SimpleDateFormat("hhmm").parse("1930");
-        Date endTime = new SimpleDateFormat("hhmm").parse("2130");
+        Date date2 = new SimpleDateFormat("ddMMyyyy").parse("23072018");
+        Date startTime = new SimpleDateFormat("HHmm").parse("1200");
+        Date endTime = new SimpleDateFormat("HHmm").parse("1430");
         Booking booking1 = new Booking(customer1, restaurantTable1, date1, 4, startTime, endTime);
         Booking booking2 = new Booking(customer2, restaurantTable2, date1, 2, startTime, endTime);
         Booking booking3 = new Booking(customer3, restaurantTable3, date1, 4, startTime, endTime);
         Booking booking4 = new Booking(customer4, restaurantTable4, date1, 4, startTime, endTime);
         Booking booking5 = new Booking(customer5, restaurantTable5, date1, 4, startTime, endTime);
-        Booking booking6 = new Booking(customer6, restaurantTable6, date1, 4, startTime, endTime);
-        Booking booking7 = new Booking(customer6, restaurantTable1, date1, 4, startTime, endTime);
+        Booking booking6 = new Booking(customer6, restaurantTable6, date2, 4, startTime, endTime);
+        Booking booking7 = new Booking(customer6, restaurantTable1, date2, 4, startTime, endTime);
         DBHelper.saveOrUpdate(booking1);
         DBHelper.saveOrUpdate(booking2);
         DBHelper.saveOrUpdate(booking3);
@@ -116,5 +117,20 @@ public class Seeds {
         DBHelper.saveOrUpdate(booking5);
         DBHelper.saveOrUpdate(booking6);
         DBHelper.saveOrUpdate(booking7);
+
+        Menu menu = new Menu();
+        DBHelper.saveOrUpdate(menu);
+        MenuItem menuItem1 = new MenuItem("entry1", 5.99, "vegetarian", menu);
+        MenuItem menuItem2 = new MenuItem("entry2", 5.50, "GF", menu);
+        MenuItem menuItem3 = new MenuItem("entry3", 4.00, "delicious", menu);
+        MenuItem menuItem4 = new MenuItem("main1", 12.50, "chef's recommendation", menu);
+        MenuItem menuItem5 = new MenuItem("main2", 17.00, "super spicy", menu);
+        MenuItem menuItem6 = new MenuItem("main3", 9.90, "whatever", menu);
+        DBHelper.saveOrUpdate(menuItem1);
+        DBHelper.saveOrUpdate(menuItem2);
+        DBHelper.saveOrUpdate(menuItem3);
+        DBHelper.saveOrUpdate(menuItem4);
+        DBHelper.saveOrUpdate(menuItem5);
+        DBHelper.saveOrUpdate(menuItem6);
     }
 }
