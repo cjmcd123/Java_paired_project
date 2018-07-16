@@ -88,7 +88,7 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             Date date = null;
             try {
-                date = new SimpleDateFormat("ddMMyy").parse("220718");
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -191,11 +191,11 @@ public class BookingsController {
                 res.redirect("/bookings/new");
                 return null;
             }
-//            boolean bookingCheck = DBBookings.bookingCheck(booking);
-//            if (bookingCheck){
-//                res.redirect("/bookings/new");
-//                return null;
-//            }
+            boolean bookingCheck = DBBookings.bookingCheck(booking);
+            if (bookingCheck){
+                res.redirect("/bookings/new");
+                return null;
+            }
 //            non working double booking check
             int startTimeInt = Integer.parseInt(startTime);
             int endTimeInt = Integer.parseInt(endTime);

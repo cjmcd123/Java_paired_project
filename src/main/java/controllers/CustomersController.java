@@ -53,6 +53,7 @@ public class CustomersController {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(Customer.class, id);
             List<Booking> bookings = DBBookings.customerBookings(customer);
+            double total = DBBookings.totalSpent(customer);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             model.put("template", "templates/customers/view.vtl");
@@ -60,6 +61,7 @@ public class CustomersController {
             model.put("timeFormat", timeFormat);
             model.put("bookings", bookings);
             model.put("customer", customer);
+            model.put("total", total);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
