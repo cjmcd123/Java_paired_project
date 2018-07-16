@@ -101,8 +101,8 @@ public class Seeds {
 
         Date date1 = new SimpleDateFormat("ddMMyyyy").parse("22072018");
         Date date2 = new SimpleDateFormat("ddMMyyy").parse("23072018");
-        Date startTime = new SimpleDateFormat("hhmm").parse("1930");
-        Date endTime = new SimpleDateFormat("hhmm").parse("2130");
+        Date startTime = new SimpleDateFormat("HHmm").parse("1930");
+        Date endTime = new SimpleDateFormat("HHmm").parse("2130");
         Booking booking1 = new Booking(customer1, restaurantTable1, date1, 2, startTime, endTime);
         booking1.setTotalCost(100.00);
         Booking booking2 = new Booking(customer2, restaurantTable2, date1, 2, startTime, endTime);

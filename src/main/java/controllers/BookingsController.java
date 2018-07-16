@@ -32,11 +32,6 @@ public class BookingsController {
             List<Booking> bookings = DBHelper.getAll(Booking.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
-//            Booking booking = bookings.get(0);
-//            Date date = booking.getStartTime();
-//            timeFormat.format(date);
-
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
@@ -75,7 +70,7 @@ public class BookingsController {
             }
             List<Booking> bookings = DBBookings.bookingsByDate(date);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
@@ -137,8 +132,8 @@ public class BookingsController {
             Date startTimeDate = null;
             Date endTimeDate = null;
             try {
-                startTimeDate = new SimpleDateFormat("hhmm").parse(startTime);
-                endTimeDate = new SimpleDateFormat("hhmm").parse(endTime);
+                startTimeDate = new SimpleDateFormat("HHmm").parse(startTime);
+                endTimeDate = new SimpleDateFormat("HHmm").parse(endTime);
                 booking = new Booking(customer, table, date, numberOfGuests, startTimeDate, endTimeDate);
 
             } catch (ParseException e) {
@@ -191,8 +186,8 @@ public class BookingsController {
             String startTime = req.queryParams("startTime");
             String endTime = req.queryParams("endTime");
             try {
-                Date startTimeDate = new SimpleDateFormat("hhmm").parse(startTime);
-                Date endTimeDate = new SimpleDateFormat("hhmm").parse(endTime);
+                Date startTimeDate = new SimpleDateFormat("HHmm").parse(startTime);
+                Date endTimeDate = new SimpleDateFormat("HHmm").parse(endTime);
                 booking.setStartTime(startTimeDate);
                 booking.setEndTime(endTimeDate);
                 DBHelper.saveOrUpdate(booking);
