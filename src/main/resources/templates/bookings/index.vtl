@@ -5,7 +5,7 @@
 
 <table>
     <tr>
-        <th>Name</th>
+        <th class="left">Name</th>
         <th>Table</th>
         <th>Guests</th>
         <th>Date</th>
@@ -15,13 +15,14 @@
     </tr>
     #foreach ($booking in $bookings)
     <tr>
-        <td>$booking.getCustomer().getName()</td>
+        <td class="left">$booking.getCustomer().getName()</td>
         <td>$booking.getRestaurantTable().getName()</td>
         <td>$booking.getNumberOfGuests()</td>
         <td>$dateFormat.format($booking.getDate())</td>
         <td>$timeFormat.format($booking.getStartTime())</td>
         <td>$timeFormat.format($booking.getEndTime())</td>
         <td>$booking.getTotalCost()</td>
+        <td><a href="bookings/$booking.getId()">View</a></td>
         <td><a href="bookings/$booking.getId()/edit">Edit</a></td>
         <td><form action = "/bookings/$booking.getId()/delete" method = "post">
             <input type="submit" value="Delete" class="button">

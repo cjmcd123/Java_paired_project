@@ -24,7 +24,7 @@ public class BookingTest {
         restaurantTable = new RestaurantTable("Table1", 4);
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
         Date startTime = new SimpleDateFormat("hhmm").parse("2000");
-        Date endTime = new SimpleDateFormat("hhmm").parse("2100");
+        Date endTime = new SimpleDateFormat("hhmm").parse("2130");
         booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
     }
 
@@ -110,5 +110,16 @@ public class BookingTest {
         String  date = new SimpleDateFormat("ddMMyy").format(date1);
         assertEquals("201018", date);
     }
+
+    @Test
+    public void bookingSlotTest() throws Exception {
+        List<String> slots = new ArrayList<>();
+        slots.add("20:00");
+        slots.add("20:30");
+        slots.add("21:00");
+        slots.add("21:30");
+        assertEquals(slots, booking.bookingSlots());
+    }
+
 
 }

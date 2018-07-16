@@ -1,6 +1,11 @@
 package models;
 
+
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="menuItems")
@@ -10,13 +15,16 @@ public class MenuItem {
     private String name;
     private double price;
     private String description;
-    private Menu menu;
+    private List<Booking> bookings;
 
-    public MenuItem(String name, double price, String description, Menu menu) {
+    public MenuItem() {
+    }
+
+    public MenuItem(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.menu = menu;
+        this.bookings = new ArrayList<Booking>();
     }
 
     @Id
@@ -57,13 +65,21 @@ public class MenuItem {
         this.description = description;
     }
 
-    @ManyToOne
-    @JoinColumn(name="menu_id", nullable=false)
-    public Menu getMenu() {
-        return menu;
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToMany
+    @JoinTable(name = "booking_meal",
+            joinColumns = {@JoinColumn(name = "meal_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "booking_id", nullable = false, updatable = false)})
+    public List<Booking> getBookings() {
+        return bookings;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
+
+    public void addBooking(Booking booking){
+        this.bookings.add(booking);
+    }
+
 }

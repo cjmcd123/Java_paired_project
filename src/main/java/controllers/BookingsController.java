@@ -4,10 +4,12 @@ import db.DBBookings;
 import db.DBHelper;
 import models.Booking;
 import models.Customer;
+import models.MenuItem;
 import models.RestaurantTable;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -51,8 +53,6 @@ public class BookingsController {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             List<String> timeSlots = Arrays.asList("11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30", "00:00");
-            Calendar cal = Calendar.getInstance();
-            model.put("cal", cal);
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/tableview.vtl");
@@ -61,6 +61,7 @@ public class BookingsController {
             model.put("timeSlots", timeSlots);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
+
 
         get("/bookings/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
@@ -101,20 +102,34 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        post("/bookings/:id/pay", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            Booking booking = DBHelper.find(Booking.class,id);
+            double amount = Double.parseDouble(req.queryParams("sum"));
+            DBBookings.pay(amount, booking);
+            res.redirect("/bookings");
+            return null;
+        }, velocityTemplateEngine);
+
         get("/bookings/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(Booking.class, id);
             Customer customer = DBHelper.find(Customer.class, booking.getCustomer().getId());
+            List<MenuItem> meal = DBBookings.menuItemsForBooking(booking);
             RestaurantTable table = DBHelper.find(RestaurantTable.class, booking.getRestaurantTable().getId());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            model.put("template", "templates/bookings/show.vtl");
+            DecimalFormat df2 = new DecimalFormat(".##");
+
+            model.put("template", "templates/bookings/details.vtl");
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("booking", booking);
             model.put("customer", customer);
+            model.put("meal", meal);
             model.put("table", table);
+            model.put("df2", df2);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 

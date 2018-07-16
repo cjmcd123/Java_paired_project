@@ -1,0 +1,27 @@
+<h1> BOOKING DETAILS </h1>
+
+<form action="/bookings/$booking.getId()/pay" method="post">
+<p>
+
+    #set($sum = 0)
+
+    $booking.getCustomer().getName()'s booking for $booking.getNumberOfGuests() people:
+<p/>
+<p>
+    #foreach($item in $meal)
+    <p>$item.getName() $item.getPrice()</p>
+        #set($sum = $sum + $item.getPrice())
+    #end
+</p>
+
+<p>
+    Total: $df2.format($sum)
+    <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
+
+
+</p>
+
+
+    <input type="submit" value="Pay Bill" class="button">
+</form>
+

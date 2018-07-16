@@ -2,6 +2,7 @@ package db;
 
 import models.Booking;
 import models.Customer;
+import models.MenuItem;
 import models.RestaurantTable;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
@@ -51,7 +52,7 @@ public class DBBookings {
         return results;
     }
 
-    public static void pay(int amount, Booking booking){
+    public static void pay(double amount, Booking booking){
         Customer customer = booking.getCustomer();
         double loyaltyDiscount = DBBookings.loyaltyDiscount(customer);
         double moneyDiscount = DBBookings.spentDiscount(customer);
@@ -172,5 +173,23 @@ public class DBBookings {
         return results;
     }
 
+    public static List<MenuItem> menuItemsForBooking(Booking booking) {
+        List<MenuItem> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(MenuItem.class);
+            cr.createAlias("bookings", "booking");
+            cr.add(Restrictions.eq("booking.id", booking.getId()));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
 
 }
