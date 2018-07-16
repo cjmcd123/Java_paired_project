@@ -100,16 +100,23 @@ public class Seeds {
 
 
         Date date1 = new SimpleDateFormat("ddMMyyyy").parse("22072018");
-        Date date2 = new SimpleDateFormat("ddMMyyyy").parse("23072018");
-        Date startTime = new SimpleDateFormat("HHmm").parse("1200");
-        Date endTime = new SimpleDateFormat("HHmm").parse("1430");
-        Booking booking1 = new Booking(customer1, restaurantTable1, date1, 4, startTime, endTime);
+        Date date2 = new SimpleDateFormat("ddMMyyy").parse("23072018");
+        Date startTime = new SimpleDateFormat("HHmm").parse("1930");
+        Date endTime = new SimpleDateFormat("HHmm").parse("2130");
+        Booking booking1 = new Booking(customer1, restaurantTable1, date1, 2, startTime, endTime);
+        booking1.setTotalCost(100.00);
         Booking booking2 = new Booking(customer2, restaurantTable2, date1, 2, startTime, endTime);
+        booking2.setTotalCost(75.00);
         Booking booking3 = new Booking(customer3, restaurantTable3, date1, 4, startTime, endTime);
-        Booking booking4 = new Booking(customer4, restaurantTable4, date1, 4, startTime, endTime);
-        Booking booking5 = new Booking(customer5, restaurantTable5, date1, 4, startTime, endTime);
-        Booking booking6 = new Booking(customer6, restaurantTable6, date2, 4, startTime, endTime);
-        Booking booking7 = new Booking(customer6, restaurantTable1, date2, 4, startTime, endTime);
+        booking3.setTotalCost(120.00);
+        Booking booking4 = new Booking(customer4, restaurantTable4, date1, 2, startTime, endTime);
+        booking4.setTotalCost(150.00);
+        Booking booking5 = new Booking(customer5, restaurantTable5, date1, 2, startTime, endTime);
+        booking5.setTotalCost(90.00);
+        Booking booking6 = new Booking(customer6, restaurantTable6, date1, 5, startTime, endTime);
+        booking6.setTotalCost(100.00);
+        Booking booking7 = new Booking(customer6, restaurantTable1, date2, 2, startTime, endTime);
+        booking7.setTotalCost(200.00);
         DBHelper.saveOrUpdate(booking1);
         DBHelper.saveOrUpdate(booking2);
         DBHelper.saveOrUpdate(booking3);

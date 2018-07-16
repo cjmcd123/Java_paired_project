@@ -24,38 +24,6 @@ public class DBHelper {
         }
     }
 
-    public static <T> List<T> getList(Criteria criteria) {
-        List<T> results = null;
-        try {
-            transaction = session.beginTransaction();
-            results = criteria.list();
-            ;
-            transaction.commit();
-        } catch (HibernateException ex) {
-            transaction.rollback();
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return results;
-    }
-
-    public static <T> T getUnique(Criteria criteria) {
-        T result = null;
-        try {
-            transaction = session.beginTransaction();
-            result = (T) criteria.uniqueResult();
-            ;
-            transaction.commit();
-        } catch (HibernateException ex) {
-            transaction.rollback();
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return result;
-    }
-
     public static <T> void deleteAll(Class classType) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -91,16 +59,31 @@ public class DBHelper {
 
     public static <T> List<T> getAll(Class classType) {
         session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(classType);
-        return getList(cr);
+        List<T> results = null;
+        try {
+            Criteria cr = session.createCriteria(classType);
+            results = cr.list();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
     }
 
-    public static <T> T find(int id, Class classType) {
+    public static <T> T find(Class classType, int id) {
         session = HibernateUtil.getSessionFactory().openSession();
-        Criteria cr = session.createCriteria(classType);
-        cr.add(Restrictions.eq("id", id));
-        return getUnique(cr);
-
+        T result = null;
+        try {
+            Criteria cr = session.createCriteria(classType);
+            cr.add(Restrictions.eq("id", id));
+            result = (T) cr.uniqueResult();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 
 }

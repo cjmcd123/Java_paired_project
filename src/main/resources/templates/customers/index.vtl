@@ -5,10 +5,12 @@
         <table>
             <tr>
                 <th>Name</th>
+                <th>Customer Bookings</th>
             </tr>
             #foreach ($customer in $customers)
             <tr>
                 <td>$customer.getName()</td>
+                <td><a href="customers/$customer.getId()">View</a> </td>
                 <td><a href="customers/$customer.getId()/edit">Edit</a></td>
                 <td><form action = "/customers/$customer.getId()/delete" method = "post">
                     <input type="submit" value="Delete" class="button">
