@@ -116,4 +116,24 @@ public class DBBookings {
         }
         return result;
     }
+
+    public static List<Booking> bookingsByDate(Date date){
+        List<Booking> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.add(Restrictions.eq("date", date));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
+
+
 }
