@@ -143,11 +143,12 @@ public class BookingsController {
                 res.redirect("/bookings/new");
                 return null;
             }
-            boolean bookingCheck = DBBookings.bookingCheck(booking);
-            if (bookingCheck){
-                res.redirect("/bookings/new");
-                return null;
-            }
+//            boolean bookingCheck = DBBookings.bookingCheck(booking);
+//            if (bookingCheck){
+//                res.redirect("/bookings/new");
+//                return null;
+//            }
+//            non working double booking check 
             int startTimeInt = Integer.parseInt(startTime);
             int endTimeInt = Integer.parseInt(endTime);
             if (startTimeInt < endTimeInt){
