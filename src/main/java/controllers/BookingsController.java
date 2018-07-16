@@ -84,7 +84,11 @@ public class BookingsController {
             Booking booking = DBHelper.find(Booking.class, id);
             Customer customer = DBHelper.find(Customer.class, booking.getCustomer().getId());
             RestaurantTable table = DBHelper.find(RestaurantTable.class, booking.getRestaurantTable().getId());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             model.put("template", "templates/bookings/show.vtl");
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
             model.put("booking", booking);
             model.put("customer", customer);
             model.put("table", table);
@@ -148,7 +152,7 @@ public class BookingsController {
 //                res.redirect("/bookings/new");
 //                return null;
 //            }
-//            non working double booking check 
+//            non working double booking check
             int startTimeInt = Integer.parseInt(startTime);
             int endTimeInt = Integer.parseInt(endTime);
             if (startTimeInt < endTimeInt){

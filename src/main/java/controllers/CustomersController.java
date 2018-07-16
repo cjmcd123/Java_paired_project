@@ -1,11 +1,16 @@
 package controllers;
 
+import db.DBBookings;
 import db.DBCustomer;
 import db.DBHelper;
+import models.Booking;
 import models.Customer;
+import models.RestaurantTable;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.awt.print.Book;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,6 +39,21 @@ public class CustomersController {
             model.put("page", currentPage);
             model.put("pagesNeeded", pagesNeeded);
             model.put("customers", customersPerPage);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/customers/:id", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(Customer.class, id);
+            List<Booking> bookings = DBBookings.customerBookings(customer);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            model.put("template", "templates/customers/view.vtl");
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
+            model.put("bookings", bookings);
+            model.put("customer", customer);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
