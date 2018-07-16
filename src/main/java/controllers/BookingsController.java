@@ -87,7 +87,7 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             Date date = null;
             try {
-                date = new SimpleDateFormat("ddMMyy").parse("220718");
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
