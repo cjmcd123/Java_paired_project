@@ -1,0 +1,21 @@
+
+
+<p class="pageHeader">Customer</p>
+
+<div>
+    <p>Customer name: $customer.getName()</p>
+
+<div>
+    <table>
+    #foreach ($booking in $bookings)
+        <tr>
+            <td>$booking.getRestaurantTable().getName()</td>
+            <td>$booking.getNumberOfGuests()</td>
+            <td>$dateFormat.format($booking.getDate())</td>
+            <td>$timeFormat.format($booking.getStartTime())</td>
+            <td>$timeFormat.format($booking.getEndTime())</td>
+            <td>$booking.getTotalCost()</td>
+        </tr>
+        #end
+    </table>
+</div>
