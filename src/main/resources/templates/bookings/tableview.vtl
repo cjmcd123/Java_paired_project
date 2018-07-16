@@ -3,8 +3,7 @@
 <section class="tableview">
 
     #foreach($booking in $bookings)
-        #set($time = $timeFormat.format($booking.getDate()))
-        $time
+        #set($time = $timeFormat.format($booking.getStartTime()))
     #end
     <table>
         <th></th>
@@ -18,14 +17,12 @@
                     #foreach($timeSlot in $timeSlots)
                     <td
                         #foreach($booking in $bookings)
-                            #set($bookingTime = $timeFormat.format($booking.getDate()))
+                            #set($bookingSlots = $booking.bookingSlots())
+                                #foreach($bookingSlot in $bookingSlots)
 
-
-                            #set($date = ($sdf.parse($timeSlot)))
-                            $cal.setTime($date)
-                            $cal.getTime()
-                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingTime==$timeSlot))
-                            class="booked">
+                                #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                                class="booked">
+                                #end
                             #end
                         #end
                     </td>

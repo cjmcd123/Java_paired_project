@@ -1,5 +1,14 @@
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+}
+
 a {
     text-decoration: none;
+}
+
+table {
+    text-align: center;
 }
 
 td, th {
@@ -19,8 +28,16 @@ th {
     color: white;
 }
 
+table .left {
+    text-align: left;
+}
+
 
 /* TABLEVIEW */
+
+.tableview table {
+    border-collapse: collapse;
+}
 
 .tableview th {
     font-size: 10px;
