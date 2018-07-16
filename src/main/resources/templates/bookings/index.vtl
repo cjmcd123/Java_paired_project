@@ -17,7 +17,8 @@
         <td>$booking.getRestaurantTable().getName()</td>
         <td>$booking.getNumberOfGuests()</td>
         <td>$dateFormat.format($booking.getDate())</td>
-        <td>$timeFormat.format($booking.getDate())</td>
+        <td>$timeFormat.format($booking.getStartTime())</td>
+        <td>$timeFormat.format($booking.getEndTime())</td>
         <td><a href="bookings/$booking.getId()/edit">Edit</a></td>
         <td><form action = "/bookings/$booking.getId()/delete" method = "post">
             <input type="submit" value="Delete" class="button">

@@ -31,7 +31,12 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Booking> bookings = DBHelper.getAll(Booking.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+//            Booking booking = bookings.get(0);
+//            Date date = booking.getStartTime();
+//            timeFormat.format(date);
+
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
@@ -60,6 +65,24 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        get("/bookings/view", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("ddMMyy").parse("220718");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<Booking> bookings = DBBookings.bookingsByDate(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
+            model.put("template", "templates/bookings/index.vtl");
+            model.put("bookings", bookings);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/bookings/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
@@ -80,9 +103,9 @@ public class BookingsController {
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             String dateFormat = new SimpleDateFormat("yyyy-mm-dd").format(booking.getDate());
-            String startFormatString = new SimpleDateFormat("hhmm").format(booking.getStartTime());
+            String startFormatString = new SimpleDateFormat("HHmm").format(booking.getStartTime());
             Integer startFormat = Integer.parseInt(startFormatString);
-            String endFormatString = new  SimpleDateFormat("hhmm").format(booking.getEndTime());
+            String endFormatString = new  SimpleDateFormat("HHmm").format(booking.getEndTime());
             Integer endFormat = Integer.parseInt(endFormatString);
             model.put("dateFormat", dateFormat);
             model.put("template", "templates/bookings/edit.vtl");
@@ -121,7 +144,11 @@ public class BookingsController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            Booking bookingCheck = DBBookings.boookingCheck(date, startTimeDate, endTimeDate, table);
+            if (booking.getNumberOfGuests() > table.getNumberOfSeats()){
+                res.redirect("/bookings/new");
+                return null;
+            }
+            Booking bookingCheck = DBBookings.bookingCheck(date, startTimeDate, endTimeDate, table);
             if (bookingCheck != null){
                 res.redirect("/bookings/new");
                 return null;
