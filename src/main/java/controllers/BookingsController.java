@@ -73,6 +73,36 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        get("/bookings/seatError", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            List<Customer> customers = DBHelper.getAll(Customer.class);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/createSeats.vtl");
+            model.put("customers", customers);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/bookings/doubleBooked", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            List<Customer> customers = DBHelper.getAll(Customer.class);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/createDouble.vtl");
+            model.put("customers", customers);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/bookings/timeError", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            List<Customer> customers = DBHelper.getAll(Customer.class);
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/createTime.vtl");
+            model.put("customers", customers);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/bookings/new/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
@@ -188,12 +218,12 @@ public class BookingsController {
                 e.printStackTrace();
             }
             if (booking.getNumberOfGuests() > table.getNumberOfSeats()){
-                res.redirect("/bookings/new");
+                res.redirect("/bookings/seatError");
                 return null;
             }
             boolean bookingCheck = DBBookings.bookingCheck(booking);
             if (bookingCheck){
-                res.redirect("/bookings/new");
+                res.redirect("/bookings/doubleBooked");
                 return null;
             }
 //            non working double booking check
@@ -208,7 +238,7 @@ public class BookingsController {
                 res.redirect("/bookings");
                 return null;
             } else {
-                res.redirect("bookings/new");
+                res.redirect("bookings/timeError");
                 return null;
             }
         }, velocityTemplateEngine);
