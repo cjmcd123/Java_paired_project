@@ -6,26 +6,31 @@
     </style>
 #end
 
-
 <div class="header">
-    <h1>Booking Details</h1>
+    <a href="/bookings"><img src="/images/back.png"/></a>
+    <h1> Booking Details </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
-<form action="/bookings/$booking.getId()/pay" method="post">
-<p>
-    #set($sum = 0)
-    $booking.getCustomer().getName()'s booking for $booking.getNumberOfGuests() people:
-<p/>
-<p>
-    #foreach($item in $meal)
-    <p>$item.getName() $item.getPrice()</p>
-        #set($sum = $sum + $item.getPrice())
-    #end
-</p>
+<section class="content receipt">
 
-<p>
-    Total: $df2.format($sum)
-    <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
-</p>
-    <input type="submit" value="Pay Bill" class="button">
-</form>
+    <form action="/bookings/$booking.getId()/pay" method="post">
+        <h2>
+            #set($sum = 0)
+            $booking.getCustomer().getName()'s booking for $booking.getNumberOfGuests() people:
+        </h2>
+        <p>
+            #foreach($item in $meal)
+        <p>$item.getName() $item.getPrice()</p>
+        #set($sum = $sum + $item.getPrice())
+        #end
+        </p>
+
+        <p>
+            Total: $df2.format($sum)
+            <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
+        </p>
+        <input type="submit" value="Pay Bill" class="button">
+    </form>
+
+</section>
 
