@@ -5,6 +5,7 @@ import models.Customer;
 import models.MenuItem;
 import models.RestaurantTable;
 import org.hibernate.*;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.Calendar;
@@ -22,6 +23,7 @@ public class DBBookings {
         try {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Booking.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("customer", customer));
             results = cr.list();
             transaction.commit();
@@ -40,6 +42,7 @@ public class DBBookings {
         try {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Booking.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("date", date));
             results = cr.list();
             transaction.commit();
@@ -101,6 +104,7 @@ public class DBBookings {
         try {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Booking.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("customer", customer));
             cr.add(Restrictions.eq("totalCost", 00.00));
             results = cr.list();
@@ -136,6 +140,7 @@ public class DBBookings {
         try {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Booking.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("date", date));
             results = cr.list();
             transaction.commit();
@@ -154,6 +159,7 @@ public class DBBookings {
         try {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(Booking.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("date", date));
             cr.add(Restrictions.eq("restaurantTable", table));
             results = cr.list();
@@ -173,6 +179,7 @@ public class DBBookings {
         try {
             transaction = session.beginTransaction();
             Criteria cr = session.createCriteria(MenuItem.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.createAlias("bookings", "booking");
             cr.add(Restrictions.eq("booking.id", booking.getId()));
             results = cr.list();
