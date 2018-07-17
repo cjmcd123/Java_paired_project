@@ -12,9 +12,9 @@
     <tr>
         <td>$table.getName()</td>
         <td>$table.getNumberOfSeats()</td>
-        <td><a href="tables/$table.getId()/edit">Edit</a></td>
+        <td><a href="tables/$table.getId()/edit" class="edit">Edit</a></td>
         <td><form action = "/tables/$table.getId()/delete" method = "post">
-            <input type="submit" value="Delete" class="button">
+            <input type="submit" value="Delete" class="button delete">
         </form></td>
     </tr>
     #end
