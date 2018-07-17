@@ -165,20 +165,52 @@ public class BookingsController {
         }, velocityTemplateEngine);
 
         get("/bookings/view", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Booking> allBookings = DBBookings.unPaidBookings();
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
             HashMap<String, Object> model = new HashMap<>();
             Date date = null;
             try {
-                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("dateSearch"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            List<Booking> bookings = DBBookings.bookingsByDate(date);
+            List<Booking> bookingsPerPage = DBBookings.filterBookingsDate(currentPage, pagesNeeded, date);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
+            model.put("bookings", bookingsPerPage);
+            model.put("date", dateString);
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/bookings/payView", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Booking> allBookings = DBBookings.unPaidBookings();
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
+            HashMap<String, Object> model = new HashMap<>();
+            List<Booking> bookings = DBBookings.unPaidBookings();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
+            model.put("template", "templates/bookings/indexPayView.vtl");
             model.put("bookings", bookings);
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
