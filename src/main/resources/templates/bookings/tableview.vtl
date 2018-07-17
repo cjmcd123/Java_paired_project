@@ -9,7 +9,7 @@
         #set($time = $timeFormat.format($booking.getStartTime()))
     #end
     <table>
-        <th></th>
+        <th>
             #foreach( $timeSlot in $timeSlots )
                 <th>$timeSlot</th>
             #end
@@ -22,11 +22,11 @@
                     #foreach($booking in $bookings)
                         #set($bookingSlots = $booking.bookingSlots())
                             #foreach($bookingSlot in $bookingSlots)
-                            
+
                                 #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
                                 class="booked">
                         <div class="hover">
-                            <img src="/images/black-dot.jpg"/>
+                            <img src="/images/dot.png"/>
                             <div class="appear">
                                 Details
                                 <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
@@ -35,7 +35,7 @@
                                 #end
                             #end
                         #end
-                    #end
+
                 </td>
                 #end
             </tr>
