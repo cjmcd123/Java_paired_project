@@ -6,12 +6,12 @@
 <section class="tableview">
 
     #foreach($booking in $bookings)
-        #set($time = $timeFormat.format($booking.getStartTime()))
+    #set($time = $timeFormat.format($booking.getStartTime()))
     #end
     <table>
         <th></th>
         #foreach( $timeSlot in $timeSlots )
-            <th>$timeSlot</th>
+        <th>$timeSlot</th>
         #end
         #foreach( $table in $tables )
         <tr id="$table.getName()">
@@ -19,38 +19,41 @@
 
             #foreach($timeSlot in $timeSlots)
             <td
-                #foreach($booking in $bookings)
+                    #foreach($booking in $bookings)
                     #set($bookingSlots = $booking.bookingSlots())
                     #foreach($bookingSlot in $bookingSlots)
 
-                        #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                        class="booked">
-                        <div class="hover">
-                            <img src="/images/dot.png"/>
+                    #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                    class="booked">
+                <div class="hover">
+                    <img src="/images/dot.png"/>
 
-                #foreach($timeSlot in $timeSlots)
-                <td
+                    #foreach($timeSlot in $timeSlots)
+            <td
                     #foreach($booking in $bookings)
-                        #set($bookingSlots = $booking.bookingSlots())
-                        #foreach($bookingSlot in $bookingSlots)
+                    #set($bookingSlots = $booking.bookingSlots())
+                    #foreach($bookingSlot in $bookingSlots)
 
-                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                            class="booked">
-                            <div class="hover">
-                                <img src="/images/black-dot.jpg"/>
-                                <div class="appear">
-                                    Details
-                                    <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
-                                </div>
-                            </div>
-                            #end
-                        #end
+                    #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                    class="booked">
+                <div class="hover">
+                    <img src="/images/black-dot.jpg"/>
+                    <div class="appear">
+                        Details
+                        <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
+                    </div>
+                </div>
+                #end
+                #end
 
-                    #end
+                #end
+                #end
+                #end
+                #end
                 #end
             </td>
             #end
-        #end
+            #end
         </tr>
     </table>
 </section>
