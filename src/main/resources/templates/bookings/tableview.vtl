@@ -22,9 +22,17 @@
                     #foreach($booking in $bookings)
                         #set($bookingSlots = $booking.bookingSlots())
                             #foreach($bookingSlot in $bookingSlots)
-
-                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                            class="booked">
+                            
+                                #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                                class="booked">
+                        <div class="hover">
+                            <img src="/images/black-dot.jpg"/>
+                            <div class="appear">
+                                Details
+                                <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
+                            </div>
+                        </div>
+                                #end
                             #end
                         #end
                     #end

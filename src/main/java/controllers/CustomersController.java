@@ -42,6 +42,21 @@ public class CustomersController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        get("/customers/frequency", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Customer> allCustomers = DBCustomer.orderByFrequency();
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allCustomers.size()/10.0);
+            List<Customer> customersPerPage = DBCustomer.filterCustomersFreq(currentPage, pagesNeeded);
+
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("template", "templates/customers/index.vtl");
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
+            model.put("customers", customersPerPage);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/customers/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             model.put("template", "templates/customers/create.vtl");

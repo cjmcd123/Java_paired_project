@@ -271,3 +271,25 @@ table input[type="submit"].delete:hover  {
 .pagination > div {
     margin: 0px 20px;
 }
+
+/* hover display text box for daily view */
+
+div.appear {
+    width: 100px;
+    height: 100px;
+    border: #000 2px solid;
+    background:#F8F8F8;
+    position: fixed;
+    top: 5px;
+    left:15px;
+    display:none;
+    padding: 0 10px 10px 10px;
+    z-index: 1000000;
+}
+div.hover  {
+    cursor:pointer;
+    width: 5px;
+}
+div.hover:hover div.appear {
+    display:block;
+}
