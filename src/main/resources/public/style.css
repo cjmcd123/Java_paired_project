@@ -188,13 +188,43 @@ table input[type="submit"].delete:hover  {
     color: white;
 }
 
-/* INPUT FIELDS */
-
 /* ERROR */
 
 .error h3 {
     color: #F42C04;
+    text-align: center;
 }
+
+/* RECEIPT TABLE */
+
+.receipt {
+
+    padding: 10px;}
+
+.receipt table {
+    border-collapse: collapse;
+    text-align: right;
+    font-size: 16px;
+    background:rgba(255,255,255, 0.5);
+}
+
+.receipt table th,
+.receipt tr:nth-child(even),
+.receipt tr:nth-child(odd)  {
+    background-color: Transparent;
+    color: black;
+    border: none;
+}
+
+.receipt td {
+    border: none;
+    border-bottom: 1px dotted black !important;
+    padding: 8px 14px;
+}
+
+
+/* INPUT FIELDS */
+
 
 .form {
     display: flex;
@@ -267,8 +297,12 @@ select, input[type="date"] {
     padding: 5px;
 }
 
+.tableview td {
+    padding: 0px;
+}
+
 .booked {
-    background-color: #33673B;
+    background-color: #EEFC57;
 }
 
 /*  PAGINATION  */
@@ -298,15 +332,15 @@ select, input[type="date"] {
 /* hover display text box for daily view */
 
 div.appear {
-    width: 100px;
+    width: 200px;
     height: 100px;
     border: #000 2px solid;
     background:#F8F8F8;
     position: fixed;
-    top: 5px;
-    left:15px;
+    top: 15px;
+    left: 25px;
     display:none;
-    padding: 0 10px 10px 10px;
+    padding-bottom: 20px;
     z-index: 1000000;
 }
 div.hover  {

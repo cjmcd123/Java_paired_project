@@ -1,5 +1,5 @@
 <div class="header">
-    <a href="/home"><img src="/images/back.png"/></a>
+    <a href="/bookings?page=1"><img src="/images/back.png"/></a>
     <h1> Bookings </h1>
     <a href="/home"><img src="/images/home.png"/></a>
 </div>
@@ -21,39 +21,30 @@
             <td
                     #foreach($booking in $bookings)
                     #set($bookingSlots = $booking.bookingSlots())
-                    #foreach($bookingSlot in $bookingSlots)
+                    #set($start = $booking.bookingSlots()[0])
+                    #set($end = $booking.bookingSlots()[-1])
+                        #foreach($bookingSlot in $bookingSlots)
 
-                    #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                    class="booked">
-                <div class="hover">
-                    <img src="/images/dot.png"/>
-
-                    #foreach($timeSlot in $timeSlots)
-            <td
-                    #foreach($booking in $bookings)
-                    #set($bookingSlots = $booking.bookingSlots())
-                    #foreach($bookingSlot in $bookingSlots)
-
-                    #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                    class="booked">
-                <div class="hover">
-                    <img src="/images/black-dot.jpg"/>
-                    <div class="appear">
-                        Details
-                        <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
-                    </div>
-                </div>
-                #end
-                #end
-
-                #end
-                #end
-                #end
-                #end
-                #end
+                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                            class="booked">
+                            <div class="hover">
+                                <img src="/images/dot.png"/>
+                                <div class="appear">
+                                    <h2>Booking Details</h2>
+                                    <p>$booking.getCustomer().getName() $booking.getNumberOfGuests() people</p>
+                                    <p>$start - $end</p>
+                                </div>
+                            </div>
+                        </div>
+                                #end
+                            #end
+                        #end
+                    #end
             </td>
             #end
-            #end
         </tr>
+        #end
+
     </table>
 </section>
+

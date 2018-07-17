@@ -1,6 +1,6 @@
 <div class="header">
-    <a href="/home"><img src="/images/back.png" alt="back"/></a>
-    <h1> All Customers </h1>
+    <a href="/customers?page=1"><img src="/images/back.png" alt="back"/></a>
+    <h1> Customers by Frequency of Visit</h1>
     <a href="/home"><img src="/images/home.png" alt="home"/></a>
 </div>
 <article class="container">
@@ -10,25 +10,25 @@
             #if($page < 2)
             <a style="visibility:hidden"/> |< First Page </a>
             #else
-            <a href="/customers?page=1"/> |< First Page </a>
+            <a href="/customers/frequency?page=1"/> |< First Page </a>
             #end
         </div>
         <div>
             #if($page > 1)
             #set($previousPage = $page - 1)
-            <a href="/customers?page=$previousPage"/> $previousPage </a>
+            <a href="/customers/frequency?page=$previousPage"/> $previousPage </a>
             #end
-            <a href="/customers?page=$page" style="font-size: 30px"/> $page </a>
+            <a href="/customers/frequency?page=$page" style="font-size: 30px"/> $page </a>
             #if($page < $pagesNeeded)
             #set($nextPage = $page + 1)
-            <a href="/customers?page=$nextPage"/> $nextPage </a>
+            <a href="/customers/frequency?page=$nextPage"/> $nextPage </a>
             #end
         </div>
         <div>
             #if($page < $pagesNeeded)
-            <a href="/customers?page=$pagesNeeded"/> Last Page >| </a>
+            <a href="/customers/frequency?page=$pagesNeeded"/> Last Page >| </a>
             #else
-            <a href="/customers?page=$pagesNeeded" style="visibility:hidden"/> Last Page >| </a>
+            <a href="/customers/frequency?page=$pagesNeeded" style="visibility:hidden"/> Last Page >| </a>
             #end
         </div>
     </section>
@@ -46,8 +46,8 @@
                 <td class="left">$customer.getName()</td>
                 <td class="left">$customer.totalSpentDB()</td>
                 <td class="left">$customer.bookingCountDB()</td>
-                <td><a href="customers/$customer.getId()">View</a> </td>
-                <td><a href="customers/$customer.getId()/edit">Edit</a></td>
+                <td><a href="/customers/$customer.getId()">View</a> </td>
+                <td><a href="/customers/$customer.getId()/edit">Edit</a></td>
                 <td><form action = "/customers/$customer.getId()/delete" method = "post">
                     <input type="submit" value="Delete" class="button delete">
                 </form></td>
@@ -56,10 +56,6 @@
 
         </table>
     </div>
-
-    <section class="main_buttons">
-        <a href="/customers/frequency?page=1" class="button">Show by Frequency</a>
-    </section>
 
     <section class="main_buttons">
         <a href="/customers/new" class="button">Add new Customer</a>

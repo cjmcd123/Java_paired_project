@@ -1,6 +1,6 @@
 <div class="header">
     <a href="/home"><img src="/images/back.png" alt="back"/></a>
-        <h1> All Bookings </h1>
+        <h1> All Unpaid Bookings </h1>
     <a href="/home"><img src="/images/home.png" alt="home"/></a>
 </div>
 
@@ -75,15 +75,15 @@
     </table>
     </div>
 <section class="content">
-    <form action="/bookings/view?page=1" method="get">
+    <form action="/bookings/view" method="get">
         <label for="start">Search by Date: </label>
-        <input type="date" id="start" name="dateSearch"
-               value=$date
+        <input type="date" id="start" name="date"
+               value="2018-07-22"
                min="2018-01-01" max="2018-12-31" />
         <input type="submit" value="Filter" class="button">
     </form>
     <section class="main_buttons">
-        <a href="/bookings/payView?page=1" class="button">Unpaid Bookings</a>
+        <a href="/bookings/payView" class="button">Add new Customer</a>
     </section>
 </section>
     </article>

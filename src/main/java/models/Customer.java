@@ -1,6 +1,7 @@
 package models;
 
 
+import db.DBBookings;
 import db.DBCustomer;
 
 import javax.persistence.*;
@@ -92,5 +93,10 @@ public class Customer {
     public double totalSpentDB(){
         double total = DBCustomer.totalPaid(this);
         return total;
+    }
+
+    public int bookingCountDB(){
+        int count = DBBookings.customerBookings(this).size();
+        return count;
     }
 }
