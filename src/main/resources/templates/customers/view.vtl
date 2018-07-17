@@ -6,7 +6,7 @@
 
 <article class="container">
     <div class="table_container">
-        #if($booking)
+        #if($bookings.size() > 0)
         <h2>Customer name:  $customer.getName()</h2>
         <table>
             <tr>
@@ -27,8 +27,8 @@
                 <td>$timeFormat.format($booking.getStartTime())</td>
                 <td>$timeFormat.format($booking.getEndTime())</td>
                 <td>$booking.getTotalCost()</td>
-                <td><a href="bookings/$booking.getId()">View</a></td>
-                <td><a href="bookings/$booking.getId()/edit">Edit</a></td>
+                <td><a href="/bookings/$booking.getId()">View</a></td>
+                <td><a href="/bookings/$booking.getId()/edit">Edit</a></td>
                 <td><form action = "/bookings/$booking.getId()/delete" method = "post">
                     <input type="submit" value="Delete" class="button">
                 </form></td>

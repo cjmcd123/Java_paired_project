@@ -1,5 +1,5 @@
 <div class="header">
-    <a href="/home"><img src="/images/back.png"/></a>
+    <a href="/bookings?page=1"><img src="/images/back.png"/></a>
     <h1> Bookings </h1>
     <a href="/home"><img src="/images/home.png"/></a>
 </div>
@@ -8,6 +8,7 @@
     <table>
         <th>
             #foreach( $timeSlot in $timeSlots )
+
         <th>$timeSlot</th>
         #end
         #foreach( $table in $tables )
@@ -32,13 +33,16 @@
                                     <p>$start - $end</p>
                                 </div>
                             </div>
+                        </div>
+                                #end
                             #end
                         #end
                     #end
-
             </td>
             #end
         </tr>
         #end
+
     </table>
 </section>
+

@@ -14,6 +14,8 @@ import spark.template.velocity.VelocityTemplateEngine;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static spark.Spark.get;
@@ -30,14 +32,27 @@ public class BookingsController {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
 
         get("/bookings", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Booking> allBookings = DBHelper.getAll(Booking.class);
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
+            List<Booking> bookingsPerPage = DBBookings.filterBookings(currentPage, pagesNeeded);
+
             HashMap<String, Object> model = new HashMap<>();
-            List<Booking> bookings = DBHelper.getAll(Booking.class);
+//            List<Booking> bookings = DBHelper.getAll(Booking.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String date = dtf.format(now);
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
-            model.put("bookings", bookings);
+            model.put("bookings", bookingsPerPage);
+            model.put("date", date);
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
+//            model.put("bookings", bookings);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
@@ -46,7 +61,7 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             Date date = null;
             try {
-                date = new SimpleDateFormat("ddMMyy").parse("220718");
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -55,6 +70,7 @@ public class BookingsController {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             List<String> timeSlots = Arrays.asList("11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30", "22:00");
+
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/tableview.vtl");
@@ -150,20 +166,52 @@ public class BookingsController {
         }, velocityTemplateEngine);
 
         get("/bookings/view", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Booking> allBookings = DBBookings.unPaidBookings();
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
             HashMap<String, Object> model = new HashMap<>();
             Date date = null;
             try {
-                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("dateSearch"));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            List<Booking> bookings = DBBookings.bookingsByDate(date);
+            List<Booking> bookingsPerPage = DBBookings.filterBookingsDate(currentPage, pagesNeeded, date);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
+            model.put("bookings", bookingsPerPage);
+            model.put("date", dateString);
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/bookings/payView", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            List<Booking> allBookings = DBBookings.unPaidBookings();
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
+            HashMap<String, Object> model = new HashMap<>();
+            List<Booking> bookings = DBBookings.unPaidBookings();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
+            model.put("template", "templates/bookings/indexPayView.vtl");
             model.put("bookings", bookings);
+            model.put("page", currentPage);
+            model.put("pagesNeeded", pagesNeeded);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
@@ -172,7 +220,7 @@ public class BookingsController {
             Booking booking = DBHelper.find(Booking.class,id);
             double amount = Double.parseDouble(req.queryParams("sum"));
             DBBookings.pay(amount, booking);
-            res.redirect("/bookings");
+            res.redirect("/bookings?page=1");
             return null;
         }, velocityTemplateEngine);
 
@@ -268,11 +316,11 @@ public class BookingsController {
             int endTimeInt = Integer.parseInt(endTime);
             if (startTimeInt < endTimeInt){
                 DBHelper.saveOrUpdate(booking);
-                res.redirect("/bookings");
+                res.redirect("/bookings?page=1");
                 return null;
             } if (endTimeInt == 0000 && startTimeInt < 2330){
                 DBHelper.saveOrUpdate(booking);
-                res.redirect("/bookings");
+                res.redirect("/bookings?page=1");
                 return null;
             } else {
                 res.redirect("/bookings/timeError");
@@ -320,11 +368,11 @@ public class BookingsController {
             int endTimeInt = Integer.parseInt(endTime);
             if (startTimeInt < endTimeInt){
                 DBHelper.saveOrUpdate(booking);
-                res.redirect("/bookings");
+                res.redirect("/bookings?page=1");
                 return null;
             } if (endTimeInt == 0000 && startTimeInt < 2330){
                 DBHelper.saveOrUpdate(booking);
-                res.redirect("/bookings");
+                res.redirect("/bookings?page=1");
                 return null;
             } else {
                 res.redirect("/bookings/timeError/" + customerId);
@@ -362,7 +410,7 @@ public class BookingsController {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            res.redirect("/bookings");
+            res.redirect("/bookings?page=1");
             return null;
         }, velocityTemplateEngine);
 
@@ -370,7 +418,7 @@ public class BookingsController {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(Booking.class, id);
             DBHelper.delete(booking);
-            res.redirect("/bookings");
+            res.redirect("/bookings?page=1");
             return null;
         }, velocityTemplateEngine);
 
