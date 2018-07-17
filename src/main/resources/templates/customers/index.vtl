@@ -1,8 +1,38 @@
 <div class="header">
+    <a href="/home"><img src="/images/back.png" alt="back"/></a>
     <h1> All Customers </h1>
+    <a href="/home"><img src="/images/home.png" alt="home"/></a>
 </div>
 <article class="container">
-    <a href="/customers/new">Add new Customer</a>
+
+    <section class="pagination">
+        <div>
+            #if($page < 2)
+            <a style="visibility:hidden"/> first </a>
+            #else
+            <a href="/customers?page=1"/> first </a>
+            #end
+        </div>
+        <div>
+            #if($page > 1)
+            #set($previousPage = $page - 1)
+            <a href="/customers?page=$previousPage"/> $previousPage </a>
+            #end
+            <a href="/customers?page=$page" style="font-size: 30px"/> $page </a>
+            #if($page < $pagesNeeded)
+            #set($nextPage = $page + 1)
+            <a href="/customers?page=$nextPage"/> $nextPage </a>
+            #end
+        </div>
+        <div>
+            #if($page < $pagesNeeded)
+            <a href="/customers?page=$pagesNeeded"/> last </a>
+            #else
+            <a href="/customers?page=$pagesNeeded" style="visibility:hidden"/> last </a>
+            #end
+        </div>
+    </section>
+
     <div class="table_container">
         <table>
             <tr>
@@ -22,33 +52,9 @@
 
         </table>
     </div>
-    <section class="pagination">
-        <div>
-            #if($page < 2)
-            <a style="visibility:hidden"/> first </a>
-            #else
-            <a href="/customers?page=1"/> first </a>
-            #end
-        </div>
-        <div>
-            #if($page > 1)
-            #set($previousPage = $page - 1)
-                <a href="/customers?page=$previousPage"/> $previousPage </a>
-            #end
-            <a href="/customers?page=$page" style="font-size: 30px"/> $page </a>
-            #if($page < $pagesNeeded)
-                #set($nextPage = $page + 1)
-                <a href="/customers?page=$nextPage"/> $nextPage </a>
-            #end
-        </div>
-        <div>
-            #if($page < $pagesNeeded)
-            <a href="/customers?page=$pagesNeeded"/> last </a>
-            #else
-            <a href="/customers?page=$pagesNeeded" style="visibility:hidden"/> last </a>
-            #end
-        </div>
-    </section>
 
+    <section class="main_buttons">
+        <a href="/customers/new" class="button">Add new Customer</a>
+    </section>
 
 </article>

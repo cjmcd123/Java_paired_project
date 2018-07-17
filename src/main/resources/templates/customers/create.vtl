@@ -1,14 +1,20 @@
 <div class="header">
-    <h1> Add New Customer </h1>
+    <a href="/customers"><img src="/images/back.png"/></a>
+        <h1> Add New Customer </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
+<section class="content">
+    <form action="/customers" method="post">
 
-<form action="/customers" method="post">
+        <label for="name">Name:</label>
+        <input class="input" type="text" name="name" required="true" value="" id="name">
 
-    <label for="name">Name:</label>
-    <input class="input" type="text" name="name" required="true" value="" id="name">
+        <section class="main_buttons">
+            <input type="submit" value="Save & Add Booking" class="button">
+        </section>
 
-    <input type="submit" value="save and add new booking" class="button">
 
-</form>
+    </form>
+    <a href="/customers" class="button">Cancel</a>
 
-<a href="/customers" class="button">Cancel</a>
+</section>

@@ -1,13 +1,13 @@
 <div class="header">
+    <a href="customers"><img src="/images/back.png"/></a>
     <h1> Customer </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
 
 <article class="container">
     <div class="table_container">
-        #if($customer)
+        #if($booking)
         <h2>Customer name:  $customer.getName()</h2>
-        #end
-
         <table>
             <tr>
                 <th class="left">Name</th>
@@ -34,8 +34,14 @@
                 </form></td>
             </tr>
             #end
-
         </table>
+        #else
+        <section class="content">
+            <h2>$customer.getName() has no bookings yet!</h2>
+            <section class="main_buttons">
+                <a href="/bookings/new" class="button">Add New Booking</a>
+            </section>
+        </section>
+        #end
     </div>
 </article>
-<a href="/home">Home</a>

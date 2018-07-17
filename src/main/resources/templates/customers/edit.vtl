@@ -1,14 +1,17 @@
 <div class="header">
+    <a href="/customers"><img src="/images/back.png"/></a>
     <h1> Edit Existing Customer </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
+<section class="content">
+    <form action="/customers/$customer.getId()" method="post">
 
-<form action="/customers/$customer.getId()" method="post">
+        <label for="name">Name:</label>
+        <input class="input" type="text" name="name" required="true" value="$customer.getName()" id="name">
 
-    <label for="name">Name:</label>
-    <input class="input" type="text" name="name" required="true" value="$customer.getName()" id="name">
+        <input type="submit" value="Save" class="button">
 
-    <input type="submit" value="Save" class="button">
+    </form>
+    <a href="/customers" class="button">Cancel</a>
+</section>
 
-</form>
-
-<a href="/customers" class="button">Cancel</a>

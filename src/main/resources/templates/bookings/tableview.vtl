@@ -1,5 +1,7 @@
 <div class="header">
-    <h1>Bookings</h1>
+    <a href="/home"><img src="/images/back.png"/></a>
+    <h1> Bookings </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
 <section class="tableview">
 
@@ -15,26 +17,21 @@
             <tr id="$table.getName()">
                 <td>$table.getName()</td>
 
-                    #foreach($timeSlot in $timeSlots)
-                    <td
-                        #foreach($booking in $bookings)
-                            #set($bookingSlots = $booking.bookingSlots())
-                                #foreach($bookingSlot in $bookingSlots)
+                #foreach($timeSlot in $timeSlots)
+                <td
+                    #foreach($booking in $bookings)
+                        #set($bookingSlots = $booking.bookingSlots())
+                            #foreach($bookingSlot in $bookingSlots)
 
-                                #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                                class="booked">
-                                #end
+                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                            class="booked">
                             #end
                         #end
-                    </td>
                     #end
-
+                </td>
+                #end
             </tr>
             #end
-
     </table>
-
-
 </section>
 
-<a href="/home">Home</a>
