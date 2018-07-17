@@ -5,13 +5,10 @@
 </div>
 <section class="tableview">
 
-    #foreach($booking in $bookings)
-        #set($time = $timeFormat.format($booking.getStartTime()))
-    #end
     <table>
-        <th></th>
-        #foreach( $timeSlot in $timeSlots )
-            <th>$timeSlot</th>
+        <th>
+            #foreach( $timeSlot in $timeSlots )
+        <th>$timeSlot</th>
         #end
         #foreach( $table in $tables )
         <tr id="$table.getName()">
@@ -19,38 +16,29 @@
 
             #foreach($timeSlot in $timeSlots)
             <td
-                #foreach($booking in $bookings)
-                    #set($bookingSlots = $booking.bookingSlots())
-                    #foreach($bookingSlot in $bookingSlots)
-
-                        #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                        class="booked">
-                        <div class="hover">
-                            <img src="/images/dot.png"/>
-
-                #foreach($timeSlot in $timeSlots)
-                <td
                     #foreach($booking in $bookings)
-                        #set($bookingSlots = $booking.bookingSlots())
+                    #set($bookingSlots = $booking.bookingSlots())
+                    #set($start = $booking.bookingSlots()[0])
+                    #set($end = $booking.bookingSlots()[-1])
                         #foreach($bookingSlot in $bookingSlots)
 
                             #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
                             class="booked">
                             <div class="hover">
-                                <img src="/images/black-dot.jpg"/>
+                                <img src="/images/dot.png"/>
                                 <div class="appear">
-                                    Details
-                                    <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
+                                    <h2>Booking Details</h2>
+                                    <p>$booking.getCustomer().getName() $booking.getNumberOfGuests() people</p>
+                                    <p>$start - $end</p>
                                 </div>
                             </div>
                             #end
                         #end
-
                     #end
-                #end
+
             </td>
             #end
-        #end
         </tr>
+        #end
     </table>
 </section>

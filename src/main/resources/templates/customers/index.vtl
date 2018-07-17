@@ -46,8 +46,8 @@
                 <td class="left">$customer.getName()</td>
                 <td class="left">$customer.totalSpentDB()</td>
                 <td class="left">$customer.getBookingCount()</td>
-                <td><a href="customers/$customer.getId()">View</a> </td>
-                <td><a href="customers/$customer.getId()/edit">Edit</a></td>
+                <td><a href="customers/$customer.getId()" class="view">View</a> </td>
+                <td><a href="customers/$customer.getId()/edit" class="edit">Edit</a></td>
                 <td><form action = "/customers/$customer.getId()/delete" method = "post">
                     <input type="submit" value="Delete" class="button delete">
                 </form></td>

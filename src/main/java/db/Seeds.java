@@ -32,18 +32,23 @@ public class Seeds {
         ArrayList<MenuItem> meal1 = new ArrayList<>();
         ArrayList<MenuItem> meal2 = new ArrayList<>();
         ArrayList<MenuItem> meal3 = new ArrayList<>();
-        MenuItem menuItem1 = new MenuItem("entry1", 5.99, "vegan");
-        MenuItem menuItem2 = new MenuItem("entry2", 5.50, "GF");
-        MenuItem menuItem3 = new MenuItem("entry3", 4.00, "delicious");
-        MenuItem menuItem4 = new MenuItem("Mushroom Pie", 5.99, "Mushroom And Spring Vegetable Pie");
+        MenuItem menuItem1 = new MenuItem("Meatballs", 5.99, "Entry");
+        MenuItem menuItem2 = new MenuItem("Italian Salad", 5.50, "Entry");
+        MenuItem menuItem3 = new MenuItem("Soup Of The Day", 4.00, "Entry");
+        MenuItem menuItem4 = new MenuItem("Mushroom Pie", 5.99, "Entry");
 
-        MenuItem menuItem5 = new MenuItem("main1", 12.50, "chef's recommendation");
-        MenuItem menuItem6 = new MenuItem("main2", 17.00, "super spicy");
-        MenuItem menuItem7 = new MenuItem("main3", 9.90, "whatever");
-        MenuItem menuItem8 = new MenuItem("Crispy Seitan Burger", 9.90, "whatever");
+        MenuItem menuItem5 = new MenuItem("Pasta Napolitana", 12.50, "Main");
+        MenuItem menuItem6 = new MenuItem("House Lasagne", 17.00, "Main");
+        MenuItem menuItem7 = new MenuItem("The Veggie Pizza", 9.90, "Main");
+        MenuItem menuItem8 = new MenuItem("Crispy Seitan Burger", 9.90, "Main");
 
-        MenuItem menuItem9 = new MenuItem("Pint IPA", 3.90, "Joker IPA");
-        MenuItem menuItem10 = new MenuItem("OJ Glass", 2.00, "Freshly Squeezed OJ");
+        MenuItem menuItem9 = new MenuItem("Pint Punk IPA", 3.90, "Drink");
+        MenuItem menuItem10 = new MenuItem("Gin & Tonic", 4.70, "Drink");
+        MenuItem menuItem11 = new MenuItem("Glass Rose", 3.10, "Drink");
+        MenuItem menuItem12 = new MenuItem("OJ Glass", 2.00, "Drink");
+
+        MenuItem menuItem13 = new MenuItem("CC CheeseCake", 3.90, "Sweet");
+        MenuItem menuItem14 = new MenuItem("Red Berry Sorbet", 4.00, "Sweet");
 
 
         meal1.add(menuItem1);
@@ -69,6 +74,10 @@ public class Seeds {
         DBHelper.saveOrUpdate(menuItem8);
         DBHelper.saveOrUpdate(menuItem9);
         DBHelper.saveOrUpdate(menuItem10);
+        DBHelper.saveOrUpdate(menuItem11);
+        DBHelper.saveOrUpdate(menuItem12);
+        DBHelper.saveOrUpdate(menuItem13);
+        DBHelper.saveOrUpdate(menuItem14);
         DBHelper.saveOrUpdate(meal1);
         DBHelper.saveOrUpdate(meal2);
 
