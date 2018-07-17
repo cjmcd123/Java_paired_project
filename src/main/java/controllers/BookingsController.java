@@ -1,6 +1,7 @@
 package controllers;
 
 import db.DBBookings;
+import db.DBCustomer;
 import db.DBHelper;
 import models.Booking;
 import models.Customer;
@@ -12,6 +13,8 @@ import spark.template.velocity.VelocityTemplateEngine;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static spark.Spark.get;
@@ -28,13 +31,26 @@ public class BookingsController {
         VelocityTemplateEngine velocityTemplateEngine = new VelocityTemplateEngine();
 
         get("/bookings", (req, res) -> {
+//            int currentPage = Integer.parseInt(req.queryParams("page"));
+//            List<Customer> allCustomers = DBHelper.getAll(Customer.class);
+//            // returns number of pages needed to display ALL customers, 10 customers/page
+//            int pagesNeeded = (int)Math.ceil(allCustomers.size()/10.0);
+//            List<Booking> bookingsPerPage = DBBookings.filterBookings(currentPage, pagesNeeded);
+
             HashMap<String, Object> model = new HashMap<>();
             List<Booking> bookings = DBHelper.getAll(Booking.class);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String date = dtf.format(now);
             model.put("dateFormat", dateFormat);
             model.put("timeFormat", timeFormat);
             model.put("template", "templates/bookings/index.vtl");
+//            model.put("bookings", bookingsPerPage);
+            model.put("date", date);
+//            model.put("page", currentPage);
+//            model.put("pagesNeeded", pagesNeeded);
             model.put("bookings", bookings);
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);

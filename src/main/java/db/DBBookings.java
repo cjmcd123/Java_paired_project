@@ -193,4 +193,18 @@ public class DBBookings {
         return results;
     }
 
+    public static List<Booking> filterBookings(int page, int pagesNeeded) {
+        List<Booking> allBookings = DBHelper.getAll(Booking.class);
+        int fromIndex = (10*page)-10; // inclusive  0 10 20 30
+        if(page == pagesNeeded) {
+            int toIndex = (allBookings.size());
+            List<Booking> bookingsPerPage = allBookings.subList(fromIndex, toIndex);
+            return bookingsPerPage;
+        } else {
+            int toIndex = (10*page); // exclusive      10 20 30 40
+            List<Booking> bookingsPerPage = allBookings.subList(fromIndex, toIndex);
+            return bookingsPerPage;
+        }
+    }
+
 }
