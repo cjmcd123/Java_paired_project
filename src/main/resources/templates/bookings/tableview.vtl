@@ -23,6 +23,12 @@
 
                                 #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
                                 class="booked">
+                        <div class="hover">
+                            <img src="/images/black-dot.jpg"/>
+                            <div class="appear">
+                                <p>Details</p>$booking.getCustomer().getName() party of $booking.getNumberOfGuests()
+                            </div>
+                        </div>
                                 #end
                             #end
                         #end
