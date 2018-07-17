@@ -158,7 +158,7 @@ public class Seeds {
         Date endTime2 = new SimpleDateFormat("HHmm").parse("1530");
         Booking booking2 = new Booking(customer2, restaurantTable2, date1, 2, startTime2, endTime2);
 //        booking2.setTotalCost(75.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking1);
+        DBMenuItem.addMenuItemToBooking(menuItem1, booking2);
 
         // BOOKING 3
         Booking booking3 = new Booking(customer3, restaurantTable3, date1, 4, startTime2, endTime2);
