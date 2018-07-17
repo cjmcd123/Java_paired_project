@@ -98,7 +98,7 @@ public class DBBookings {
         return total;
     }
 
-    public static List<Booking> unPaidBookings(Customer customer){
+    public static List<Booking> unPaidCustomerBookings(Customer customer){
         List<Booking> results = null;
         session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -106,6 +106,25 @@ public class DBBookings {
             Criteria cr = session.createCriteria(Booking.class);
             cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("customer", customer));
+            cr.add(Restrictions.eq("totalCost", 00.00));
+            results = cr.list();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return results;
+    }
+
+    public static List<Booking> unPaidBookings(){
+        List<Booking> results = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Booking.class);
+            cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             cr.add(Restrictions.eq("totalCost", 00.00));
             results = cr.list();
             transaction.commit();
@@ -207,4 +226,31 @@ public class DBBookings {
         }
     }
 
+    public static List<Booking> filterBookingsUnpaid(int page, int pagesNeeded) {
+        List<Booking> allBookings = DBBookings.unPaidBookings();
+        int fromIndex = (10*page)-10; // inclusive  0 10 20 30
+        if(page == pagesNeeded) {
+            int toIndex = (allBookings.size());
+            List<Booking> bookingsPerPage = allBookings.subList(fromIndex, toIndex);
+            return bookingsPerPage;
+        } else {
+            int toIndex = (10*page); // exclusive      10 20 30 40
+            List<Booking> bookingsPerPage = allBookings.subList(fromIndex, toIndex);
+            return bookingsPerPage;
+        }
+    }
+
+    public static List<Booking> filterBookingsDate(int page, int pagesNeeded, Date date) {
+        List<Booking> allBookings = DBBookings.bookingsByDate(date);
+        int fromIndex = (10*page)-10; // inclusive  0 10 20 30
+        if(page == pagesNeeded) {
+            int toIndex = (allBookings.size());
+            List<Booking> bookingsPerPage = allBookings.subList(fromIndex, toIndex);
+            return bookingsPerPage;
+        } else {
+            int toIndex = (10*page); // exclusive      10 20 30 40
+            List<Booking> bookingsPerPage = allBookings.subList(fromIndex, toIndex);
+            return bookingsPerPage;
+        }
+    }
 }
