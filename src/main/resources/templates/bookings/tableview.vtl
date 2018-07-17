@@ -10,28 +10,34 @@
     #end
     <table>
         <th></th>
-            #foreach( $timeSlot in $timeSlots )
-                <th>$timeSlot</th>
-            #end
-            #foreach( $table in $tables )
-            <tr id="$table.getName()">
-                <td>$table.getName()</td>
+        #foreach( $timeSlot in $timeSlots )
+            <th>$timeSlot</th>
+        #end
+        #foreach( $table in $tables )
+        <tr id="$table.getName()">
+            <td>$table.getName()</td>
 
-                #foreach($timeSlot in $timeSlots)
-                <td
-                    #foreach($booking in $bookings)
-                        #set($bookingSlots = $booking.bookingSlots())
-                            #foreach($bookingSlot in $bookingSlots)
+            #foreach($timeSlot in $timeSlots)
+            <td
+                #foreach($booking in $bookings)
+                    #set($bookingSlots = $booking.bookingSlots())
+                    #foreach($bookingSlot in $bookingSlots)
 
-                            #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
-                            class="booked">
-                            #end
+                        #if(($booking.getRestaurantTable().getName()==$table.getName())&&($bookingSlot==$timeSlot))
+                        class="booked">
+                        <div class="hover">
+                            <img src="/images/dot.png"/>
+                            <div class="appear">
+                                Details
+                                <p>$booking.getCustomer().getName() $booking.getNumberOfGuests()p</p>
+                            </div>
+                        </div>
                         #end
                     #end
-                </td>
                 #end
-            </tr>
+            </td>
             #end
+        #end
+        </tr>
     </table>
 </section>
-
