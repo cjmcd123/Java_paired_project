@@ -42,6 +42,12 @@ public class CustomersController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        get("/customers/new", (req, res) -> {
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("template", "templates/customers/create.vtl");
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/customers/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
@@ -56,12 +62,6 @@ public class CustomersController {
             model.put("bookings", bookings);
             model.put("customer", customer);
             model.put("total", total);
-            return new ModelAndView(model, "templates/layout.vtl");
-        }, velocityTemplateEngine);
-
-        get("/customers/new", (req, res) -> {
-            HashMap<String, Object> model = new HashMap<>();
-            model.put("template", "templates/customers/create.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
