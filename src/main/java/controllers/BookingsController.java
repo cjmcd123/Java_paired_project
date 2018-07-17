@@ -103,6 +103,39 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+        get("/bookings/seatError/:id", (req, res) -> {
+            int customerId = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(Customer.class, customerId);
+            HashMap<String, Object> model = new HashMap<>();
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/newSeats.vtl");
+            model.put("customer", customer);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/bookings/doubleBooked/:id", (req, res) -> {
+            int customerId = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(Customer.class, customerId);
+            HashMap<String, Object> model = new HashMap<>();
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/newDouble.vtl");
+            model.put("customer", customer);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        get("/bookings/timeError/:id", (req, res) -> {
+            int customerId = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(Customer.class, customerId);
+            HashMap<String, Object> model = new HashMap<>();
+            List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            model.put("template", "templates/bookings/newTime.vtl");
+            model.put("customer", customer);
+            model.put("tables", tables);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
         get("/bookings/new/:id", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
@@ -238,7 +271,59 @@ public class BookingsController {
                 res.redirect("/bookings");
                 return null;
             } else {
-                res.redirect("bookings/timeError");
+                res.redirect("/bookings/timeError");
+                return null;
+            }
+        }, velocityTemplateEngine);
+
+//        create new booking from new customer
+        post("/bookings/new/:id", (req, res) -> {
+            int customerId = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(Customer.class, customerId);
+            int tableId = Integer.parseInt(req.queryParams("table"));
+            RestaurantTable table = DBHelper.find(RestaurantTable.class, tableId);
+            int numberOfGuests = Integer.parseInt(req.queryParams("numberOfGuests"));
+            Date date = null;
+            Booking booking = null;
+            try {
+                date = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("date"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String startTime = req.queryParams("startTime");
+            String endTime = req.queryParams("endTime");
+            Date startTimeDate = null;
+            Date endTimeDate = null;
+            try {
+                startTimeDate = new SimpleDateFormat("HHmm").parse(startTime);
+                endTimeDate = new SimpleDateFormat("HHmm").parse(endTime);
+                booking = new Booking(customer, table, date, numberOfGuests, startTimeDate, endTimeDate);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (booking.getNumberOfGuests() > table.getNumberOfSeats()){
+                res.redirect("/bookings/seatError/" + customerId);
+                return null;
+            }
+            boolean bookingCheck = DBBookings.bookingCheck(booking);
+            if (bookingCheck){
+                res.redirect("/bookings/doubleBooked/" + customerId);
+                return null;
+            }
+//            non working double booking check
+            int startTimeInt = Integer.parseInt(startTime);
+            int endTimeInt = Integer.parseInt(endTime);
+            if (startTimeInt < endTimeInt){
+                DBHelper.saveOrUpdate(booking);
+                res.redirect("/bookings");
+                return null;
+            } if (endTimeInt == 0000 && startTimeInt < 2330){
+                DBHelper.saveOrUpdate(booking);
+                res.redirect("/bookings");
+                return null;
+            } else {
+                res.redirect("/bookings/timeError/" + customerId);
                 return null;
             }
         }, velocityTemplateEngine);
