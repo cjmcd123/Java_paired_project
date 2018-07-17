@@ -3,10 +3,21 @@
         <h1> All Bookings </h1>
     <a href="/home"><img src="/images/home.png" alt="home"/></a>
 </div>
+
+<article class="container">
 <section class="main_buttons">
     <a href="/bookings/new" class="button">Add New Booking</a>
-    <a href="/bookings/tableview" class="button">Day View</a>
+    <form action="/bookings/tableview" method="get">
+        <label for="start">Display by Date: </label>
+        <input type="date" id="show" name="date"
+               value=$date
+               min="2018-01-01" max="2018-12-31" />
+        <input type="submit" value="Day View" class="button">
+    </form>
 </section>
+    
+
+    <div class="table_container">
     <table>
         <tr>
             <th class="left">Name</th>
@@ -35,6 +46,7 @@
         #end
 
     </table>
+    </div>
 <section class="content">
     <form action="/bookings/view" method="get">
         <label for="start">Search by Date: </label>
@@ -44,3 +56,4 @@
         <input type="submit" value="Filter" class="button">
     </form>
 </section>
+    </article>
