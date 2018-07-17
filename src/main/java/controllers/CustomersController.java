@@ -50,7 +50,7 @@ public class CustomersController {
             List<Customer> customersPerPage = DBCustomer.filterCustomersFreq(currentPage, pagesNeeded);
 
             HashMap<String, Object> model = new HashMap<>();
-            model.put("template", "templates/customers/index.vtl");
+            model.put("template", "templates/customers/indexFrequency.vtl");
             model.put("page", currentPage);
             model.put("pagesNeeded", pagesNeeded);
             model.put("customers", customersPerPage);
