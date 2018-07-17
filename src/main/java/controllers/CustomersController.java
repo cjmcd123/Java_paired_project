@@ -109,6 +109,7 @@ public class CustomersController {
             return null;
         }, velocityTemplateEngine);
 
+        // DELETE CUSTOMER
         post("/customers/:id/delete", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(Customer.class, id);

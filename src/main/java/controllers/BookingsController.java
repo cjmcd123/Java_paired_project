@@ -3,6 +3,7 @@ package controllers;
 import db.DBBookings;
 import db.DBCustomer;
 import db.DBHelper;
+import db.DBMenuItem;
 import models.Booking;
 import models.Customer;
 import models.MenuItem;
@@ -82,7 +83,7 @@ public class BookingsController {
 
         get("/bookings/new", (req, res) -> {
             HashMap<String, Object> model = new HashMap<>();
-            List<Customer> customers = DBHelper.getAll(Customer.class);
+            List<Customer> customers = DBCustomer.orderByName();
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
             model.put("template", "templates/bookings/create.vtl");
             model.put("customers", customers);
@@ -228,6 +229,7 @@ public class BookingsController {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(Booking.class, id);
             Customer customer = DBHelper.find(Customer.class, booking.getCustomer().getId());
+            List<MenuItem> allMenuItem = DBMenuItem.orderMenuItemsByName(); // alphabetical
             List<MenuItem> meal = DBBookings.menuItemsForBooking(booking);
             RestaurantTable table = DBHelper.find(RestaurantTable.class, booking.getRestaurantTable().getId());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
@@ -239,6 +241,7 @@ public class BookingsController {
             model.put("timeFormat", timeFormat);
             model.put("booking", booking);
             model.put("customer", customer);
+            model.put("allMenuItem", allMenuItem);
             model.put("meal", meal);
             model.put("table", table);
             model.put("df2", df2);
