@@ -8,9 +8,9 @@
     <section class="pagination">
         <div>
             #if($page < 2)
-            <a style="visibility:hidden"/> first </a>
+            <a style="visibility:hidden"/> |< First Page </a>
             #else
-            <a href="/customers?page=1"/> first </a>
+            <a href="/customers?page=1"/> |< First Page </a>
             #end
         </div>
         <div>
@@ -26,9 +26,9 @@
         </div>
         <div>
             #if($page < $pagesNeeded)
-            <a href="/customers?page=$pagesNeeded"/> last </a>
+            <a href="/customers?page=$pagesNeeded"/> Last Page >| </a>
             #else
-            <a href="/customers?page=$pagesNeeded" style="visibility:hidden"/> last </a>
+            <a href="/customers?page=$pagesNeeded" style="visibility:hidden"/> Last Page >| </a>
             #end
         </div>
     </section>
