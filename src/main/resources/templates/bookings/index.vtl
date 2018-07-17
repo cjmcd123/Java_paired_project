@@ -25,10 +25,10 @@
         <td>$timeFormat.format($booking.getStartTime())</td>
         <td>$timeFormat.format($booking.getEndTime())</td>
         <td>$booking.getTotalCost()</td>
-        <td><a href="bookings/$booking.getId()">View</a></td>
-        <td><a href="bookings/$booking.getId()/edit">Edit</a></td>
+        <td><a href="bookings/$booking.getId()" class="view">View</a></td>
+        <td><a href="bookings/$booking.getId()/edit" class="edit">Edit</a></td>
         <td><form action = "/bookings/$booking.getId()/delete" method = "post">
-            <input type="submit" value="Delete" class="button">
+            <input type="submit" value="Delete" class="button delete">
         </form></td>
     </tr>
     #end
