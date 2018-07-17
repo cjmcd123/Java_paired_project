@@ -1,16 +1,20 @@
 <div class="header">
-    <h1>Add Table to Restaurant</h1>
+    <a href="/tables"><img src="/images/back.png"/></a>
+    <h1> Add Table to Plan </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
-<form action="/tables" method="post">
+<section class="content">
+    <form action="/tables" method="post">
 
-    <label for="name">Name:</label>
-    <input class="input" type="text" name="name" required="true" value="" id="name">
+        <label for="name">Table Name:</label>
+        <input class="input" type="text" name="name" required="true" value="" id="name">
 
-    <label for="seats">Seats:</label>
-    <input class="input" type="number" min="1" max="10" name="seats" required="true" value="" id="seats">
+        <label for="seats">Number Of Seats:</label>
+        <input class="input" type="number" min="1" max="10" name="seats" required="true" value="" id="seats">
 
-    <input type="submit" value="save and add new Table" class="button">
+        <input type="submit" value="Save Table" class="button">
 
-</form>
+    </form>
 
-<a href="/tables" class="button">Cancel</a>
+    <a href="/tables" class="button">Cancel</a>
+</section>

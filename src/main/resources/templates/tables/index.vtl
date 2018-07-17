@@ -1,11 +1,12 @@
 <div class="header">
+    <a href="/home"><img src="/images/back.png"/></a>
     <h1> All Tables </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
 </div>
-<a href="/tables/new">Add new Table</a>
 
 <table>
     <tr>
-        <th>Name</th>
+        <th>Table Name</th>
         <th>Number of Seats</th>
     </tr>
     #foreach ($table in $tables)
@@ -21,4 +22,6 @@
 
 </table>
 
-
+<section class="main_buttons">
+    <a href="/tables/new" class="button">Add new Table</a>
+</section>

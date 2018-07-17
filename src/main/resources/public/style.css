@@ -11,7 +11,7 @@ h1 {
     font-size: 3em;
     display: block;
     color: white;
-    padding: 40px 0px;
+    padding: 30px 0px;
 }
 
 body {
@@ -22,10 +22,6 @@ body {
 
 p {
 
-}
-
-.header {
-    background: url(images/header_bg.png) no-repeat center center;
 }
 
 .container {
@@ -52,9 +48,9 @@ form {
 
 table {
     text-align: center;
-    background-color: white;
     border-collapse: collapse;
-    margin: 10px auto;
+    margin: 30px auto;
+    font-size: 13px;
 }
 
 td, th {
@@ -64,6 +60,10 @@ td, th {
 
 tr:nth-child(even){
     background-color: #E3E3E3;
+}
+
+tr:nth-child(odd){
+    background-color: white;
 }
 
 th {
@@ -113,11 +113,14 @@ table input[type="submit"].delete:hover  {
     cursor: pointer;
 }
 
-
-
 /* HOME */
 
-.home a, .main_buttons a {
+.main_buttons {
+    width: fit-content;
+    margin: 10px auto;
+}
+
+.home a, .main_buttons a, .main_buttons input[type="submit"], .content input[type="submit"] {
 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -125,24 +128,54 @@ table input[type="submit"].delete:hover  {
 	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	display: block;
 	margin: 20px auto;
-	max-width: 260px;
+	max-width: 320px;
 	text-decoration: none;
 	border-radius: 4px;
 	padding: 20px 30px;
 	font-size: 30px;
 	text-align: center;
+	background-color: Transparent;
 }
 
-.home a.button, .main_buttons a.button{
+.main_buttons a {
+    display: inline-block;
+}
+
+.home a.button, .main_buttons a.button, .main_buttons input[type="submit"], .content input[type="submit"]{
 	color: rgba(30, 22, 54, 0.6);
 	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
 }
 
-.home a.button:hover, .main_buttons a.button:hover {
+.home a.button:hover, .main_buttons a.button:hover, .main_buttons input[type="submit"]:hover, .content input[type="submit"]:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }
 
+/* NAV / HEADER */
+
+.header {
+    background: url(images/header_bg.png) no-repeat center center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
+.header a img {
+    width: 80px;
+    height: 80px;
+    margin-top: 45px;
+}
+
+.header a img:hover {
+    top: 3px;
+    position: relative;
+}
+
+.header a p {
+    margin-top: 5px;
+    margin-left: 20px;
+    color: white;
+}
 
 /* INPUT FIELDS */
 
@@ -152,8 +185,6 @@ table input[type="submit"].delete:hover  {
     outline: 1px dashed #f9e2af;
     outline-offset: -15px;
     color: white;
-    font-family: 'Cormorant Upright', serif;
-    font-style: italic;
 }
 
 .opening_hours h2 {
@@ -183,15 +214,23 @@ table input[type="submit"].delete:hover  {
     max-width: 100%;
 }
 
-.input-wrap{
-
+.content {
+    font-family: 'Cormorant Upright', serif;
+    font-style: italic;
+    margin: 10px auto;
+    width: fit-content;
 }
 
-.input-wrap input,  {
+.content input[type="text"], .content input[type="number"]  {
     border: 1px solid #ddd;
     background-color: #efefef;
     padding: 10px 20px;
-    width: 100%;
+    width: -webkit-fill-available;
+}
+
+.justify_text {
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 /* TABLEVIEW */
