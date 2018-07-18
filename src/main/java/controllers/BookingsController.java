@@ -227,7 +227,7 @@ public class BookingsController {
             // returns number of pages needed to display ALL customers, 10 customers/page
             int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
             HashMap<String, Object> model = new HashMap<>();
-            List<Booking> bookings = DBBookings.unPaidBookings();
+            List<Booking> bookings = DBBookings.filterBookingsUnpaid(currentPage, pagesNeeded);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
