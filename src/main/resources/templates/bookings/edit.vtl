@@ -3,75 +3,95 @@
     <h1> Edit Booking </h1>
     <a href="/home"><img src="/images/home.png" alt="home"/></a>
 </div>
-<form action="/bookings/$booking.getId()" method="post">
+<div class="form">
+    <div class="opening_hours">
+        <h2>Opening Hours</h2>
+        <div class="day">
+            <h3>Monday-Friday</h3>
+        </div>
+        <ul>
+            <li>11:00-16:00 (Breakfast)</li>
+            <li>11:00-22:00 (Lunch/Dinner)</li>
+        </ul>
+        <div class="day">
+            <h3>Saturday-Sunday</h3>
+        </div>
+        <ul>
+            <li>11:00-16:00 (Breakfast)</li>
+            <li>11:00-22:00 (Lunch/Dinner)</li>
+        </ul>
+    </div>
+    <div class="form_fields">
+        <form action="/bookings/$booking.getId()" method="post">
 
-    <input class="input" type="number" name="id" required="true" value="$booking.getCustomer().getId()" style="visibility: hidden;"/>
-    <br/>
-    <label for="customer">Name:</label>
-    <input class="input" type="text" name="customer" required="true" value="$booking.getCustomer().getName()" id="customer" disabled/>
+            <input class="input" type="number" name="id" required="true" value="$booking.getCustomer().getId()" style="visibility: hidden;"/>
+            <br/>
+            <label for="customer">Name:</label>
+            <input class="input" type="text" name="customer" required="true" value="$booking.getCustomer().getName()" id="customer" disabled/>
 
-    <label for="table">Table:</label>
-    <select id="table" type="text" name="table">
-        #foreach($table in $tables)
-        <option value="$table.getId()">$table.getName()</option>
-        #end
-    </select>
+            <label for="table">Table:</label>
+            <select id="table" type="text" name="table">
+                #foreach($table in $tables)
+                <option value="$table.getId()">$table.getName() ($table.getNumberOfSeats() seats)</option>
+                #end
+            </select>
 
-    <label for="guests">Guests:</label>
-    <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" value="$booking.getNumberOfGuests()" id="guests">
+            <label for="guests">Guests:</label>
+            <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" value="$booking.getNumberOfGuests()" id="guests">
 
-    <label for="start">Date: </label>
-    <input type="date" id="start" name="date"
-           value="$date"
-           min="$date" max="2018-12-31" />
 
-    <select id="startTime" type="text" name="startTime">
-        <option value="1100" #if ($startFormat == 1100) selected #end>11:00</option>
-        <option value="1130" #if ($startFormat == 1130) selected #end>11:30</option>
-        <option value="1200" #if ($startFormat == 1200) selected #end>12:00</option>
-        <option value="1230" #if ($startFormat == 1230) selected #end>12:30</option>
-        <option value="1300" #if ($startFormat == 1300) selected #end>13:00</option>
-        <option value="1330" #if ($startFormat == 1330) selected #end>13:30</option>
-        <option value="1400" #if ($startFormat == 1400) selected #end>14:00</option>
-        <option value="1430" #if ($startFormat == 1430) selected #end>14:30</option>
-        <option value="1500" #if ($startFormat == 1500) selected #end>15:00</option>
-        <option value="1530" #if ($startFormat == 1530) selected #end>15:30</option>
-        <option value="1600" #if ($startFormat == 1600) selected #end>16:00</option>
-        <option value="1630" #if ($startFormat == 1630) selected #end>16:30</option>
-        <option value="1700" #if ($startFormat == 1700) selected #end>17:00</option>
-        <option value="1730" #if ($startFormat == 1730) selected #end>17:30</option>
-        <option value="1800" #if ($startFormat == 1800) selected #end>18:00</option>
-        <option value="1830" #if ($startFormat == 1830) selected #end>18:30</option>
-        <option value="1900" #if ($startFormat == 1900) selected #end>19:00</option>
-        <option value="1930" #if ($startFormat == 1930) selected #end>19:30</option>
-        <option value="2000" #if ($startFormat == 2000) selected #end>20:00</option>
-    </select>
+            <label for="start">Date: </label>
+            <input type="date" id="start" name="date"
+                  value="$date"
+                  min="$date" max="2018-12-31" />
 
-    <select id="endTime" type="text" name="endTime">
-        <option value="1300" #if ($endFormat == 1300) selected #end>13:00</option>
-        <option value="1330" #if ($endFormat == 1330) selected #end>13:30</option>
-        <option value="1400" #if ($endFormat == 1400) selected #end>14:00</option>
-        <option value="1430" #if ($endFormat == 1430) selected #end>14:30</option>
-        <option value="1500" #if ($endFormat == 1500) selected #end>15:00</option>
-        <option value="1530" #if ($endFormat == 1530) selected #end>15:30</option>
-        <option value="1600" #if ($endFormat == 1600) selected #end>16:00</option>
-        <option value="1630" #if ($endFormat == 1630) selected #end>16:30</option>
-        <option value="1700" #if ($endFormat == 1700) selected #end>17:00</option>
-        <option value="1730" #if ($endFormat == 1730) selected #end>17:30</option>
-        <option value="1800" #if ($endFormat == 1800) selected #end>18:00</option>
-        <option value="1830" #if ($endFormat == 1830) selected #end>18:30</option>
-        <option value="1900" #if ($endFormat == 1900) selected #end>19:00</option>
-        <option value="1930" #if ($endFormat == 1930) selected #end>19:30</option>
-        <option value="2000" #if ($endFormat == 2000) selected #end>20:00</option>
-        <option value="2030" #if ($endFormat == 2030) selected #end>20:30</option>
-        <option value="2100" #if ($endFormat == 2100) selected #end>21:00</option>
-        <option value="2130" #if ($endFormat == 2130) selected #end>21:30</option>
-        <option value="2200" #if ($endFormat == 2200) selected #end>22:00</option>
-    </select>
 
-    <input type="submit" value="Save" class="button">
+            <select id="startTime" type="text" name="startTime">
+                <option value="1100" #if ($startFormat == 1100) selected #end>11:00</option>
+                <option value="1130" #if ($startFormat == 1130) selected #end>11:30</option>
+                <option value="1200" #if ($startFormat == 1200) selected #end>12:00</option>
+                <option value="1230" #if ($startFormat == 1230) selected #end>12:30</option>
+                <option value="1300" #if ($startFormat == 1300) selected #end>13:00</option>
+                <option value="1330" #if ($startFormat == 1330) selected #end>13:30</option>
+                <option value="1400" #if ($startFormat == 1400) selected #end>14:00</option>
+                <option value="1430" #if ($startFormat == 1430) selected #end>14:30</option>
+                <option value="1500" #if ($startFormat == 1500) selected #end>15:00</option>
+                <option value="1530" #if ($startFormat == 1530) selected #end>15:30</option>
+                <option value="1600" #if ($startFormat == 1600) selected #end>16:00</option>
+                <option value="1630" #if ($startFormat == 1630) selected #end>16:30</option>
+                <option value="1700" #if ($startFormat == 1700) selected #end>17:00</option>
+                <option value="1730" #if ($startFormat == 1730) selected #end>17:30</option>
+                <option value="1800" #if ($startFormat == 1800) selected #end>18:00</option>
+                <option value="1830" #if ($startFormat == 1830) selected #end>18:30</option>
+                <option value="1900" #if ($startFormat == 1900) selected #end>19:00</option>
+                <option value="1930" #if ($startFormat == 1930) selected #end>19:30</option>
+                <option value="2000" #if ($startFormat == 2000) selected #end>20:00</option>
+            </select>
 
-</form>
+            <select id="endTime" type="text" name="endTime">
+                <option value="1300" #if ($endFormat == 1300) selected #end>13:00</option>
+                <option value="1330" #if ($endFormat == 1330) selected #end>13:30</option>
+                <option value="1400" #if ($endFormat == 1400) selected #end>14:00</option>
+                <option value="1430" #if ($endFormat == 1430) selected #end>14:30</option>
+                <option value="1500" #if ($endFormat == 1500) selected #end>15:00</option>
+                <option value="1530" #if ($endFormat == 1530) selected #end>15:30</option>
+                <option value="1600" #if ($endFormat == 1600) selected #end>16:00</option>
+                <option value="1630" #if ($endFormat == 1630) selected #end>16:30</option>
+                <option value="1700" #if ($endFormat == 1700) selected #end>17:00</option>
+                <option value="1730" #if ($endFormat == 1730) selected #end>17:30</option>
+                <option value="1800" #if ($endFormat == 1800) selected #end>18:00</option>
+                <option value="1830" #if ($endFormat == 1830) selected #end>18:30</option>
+                <option value="1900" #if ($endFormat == 1900) selected #end>19:00</option>
+                <option value="1930" #if ($endFormat == 1930) selected #end>19:30</option>
+                <option value="2000" #if ($endFormat == 2000) selected #end>20:00</option>
+                <option value="2030" #if ($endFormat == 2030) selected #end>20:30</option>
+                <option value="2100" #if ($endFormat == 2100) selected #end>21:00</option>
+                <option value="2130" #if ($endFormat == 2130) selected #end>21:30</option>
+                <option value="2200" #if ($endFormat == 2200) selected #end>22:00</option>
+            </select>
 
-<a href="/bookings" class="button">Cancel</a>
+            <input type="submit" value="Save" class="button">
 
+        </form>
+    </div>
+</div>
