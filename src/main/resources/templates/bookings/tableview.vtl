@@ -1,14 +1,13 @@
 <div class="header">
     <a href="/bookings?page=1"><img src="/images/back.png"/></a>
-    <h1> Bookings </h1>
+    <h1> Bookings for </h1>
     <a href="/home"><img src="/images/home.png"/></a>
 </div>
 <section class="tableview">
 
     <table>
-        <th>
-            #foreach( $timeSlot in $timeSlots )
-
+        <th></th>
+        #foreach( $timeSlot in $timeSlots )
         <th>$timeSlot</th>
         #end
         #foreach( $table in $tables )
@@ -16,7 +15,7 @@
             <td>$table.getName()</td>
 
             #foreach($timeSlot in $timeSlots)
-            <td
+            <td height="45"
                     #foreach($booking in $bookings)
                     #set($bookingSlots = $booking.bookingSlots())
                     #set($start = $booking.bookingSlots()[0])
@@ -33,8 +32,7 @@
                                     <p>$start - $end</p>
                                 </div>
                             </div>
-                        </div>
-                                #end
+
                             #end
                         #end
                     #end
@@ -45,4 +43,3 @@
 
     </table>
 </section>
-

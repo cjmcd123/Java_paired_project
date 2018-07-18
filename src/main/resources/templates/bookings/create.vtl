@@ -33,7 +33,7 @@
             <label for="table">Table:</label>
             <select id="table" type="text" name="table">
                 #foreach($table in $tables)
-                <option value="$table.getId()">$table.getName()</option>
+                <option value="$table.getId()">$table.getName() ($table.getNumberOfSeats() seats)</option>
                 #end
             </select>
 

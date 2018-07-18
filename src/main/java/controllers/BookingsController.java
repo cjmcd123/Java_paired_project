@@ -200,6 +200,7 @@ public class BookingsController {
             int pagesNeeded = (int)Math.ceil(allBookings.size()/10.0);
             HashMap<String, Object> model = new HashMap<>();
             List<Booking> bookings = DBBookings.unPaidBookings();
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");

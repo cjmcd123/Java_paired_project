@@ -5,11 +5,9 @@ import db.DBCustomer;
 import db.DBHelper;
 import models.Booking;
 import models.Customer;
-import models.RestaurantTable;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
-import java.awt.print.Book;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -95,8 +93,8 @@ public class CustomersController {
             Customer customer = new Customer(name);
             DBHelper.saveOrUpdate(customer);
             int id = customer.getId();
-            String url = "/bookings/new/" + id;
-            res.redirect(url);
+//            String url = "/bookings/new/" + id;
+            res.redirect("/customers?page=1");
             return null;
         }, velocityTemplateEngine);
 
@@ -105,7 +103,7 @@ public class CustomersController {
             Customer customer = DBHelper.find(Customer.class, id);
             customer.setName(req.queryParams("name"));
             DBHelper.saveOrUpdate(customer);
-            res.redirect("/customers");
+            res.redirect("/customers?page=1");
             return null;
         }, velocityTemplateEngine);
 
@@ -114,10 +112,9 @@ public class CustomersController {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(Customer.class, id);
             DBHelper.delete(customer);
-            res.redirect("/customers");
+            res.redirect("/customers?page=1");
             return null;
         }, velocityTemplateEngine);
-
 
     }
 }
