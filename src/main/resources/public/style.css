@@ -54,6 +54,10 @@ td, th {
     padding: 8px;
 }
 
+tr {
+    min-height: 40px;
+}
+
 tr:nth-child(even){
     background-color: #E3E3E3;
 }
@@ -107,8 +111,8 @@ table a.edit:hover  {
     background-color: #DB7C26;
 }
 
-table input[type="submit"].delete:hover  {
-    background-color: #DB222A !important;
+table input[type="submit"]:hover  {
+    background-color: #db222a;
     cursor: pointer;
 }
 

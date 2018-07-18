@@ -3,48 +3,44 @@
         <h1> Add New Booking </h1>
     <a href="/home"><img src="/images/home.png"/></a>
 </div>
-<section class="content">
-<div class="row">
-    <form action="/bookings/new/$customer.getId()" method="post">
-        <div class="col-lg-4 col-md-6">
-            <div class="opening_hours">
-                <h2>Opening Hours</h2>
-                <div class="day">
-                    Monday-Friday
-                </div>
-                <ul>
-                    <li>11:00-16:00 (Breakfast)</li>
-                    <li>11:00-22:00 (Lunch/Dinner)</li>
-                </ul>
-                <div class="day">
-                    Saturday-Sunday
-                </div>
-                <ul>
-                    <li>11:00-16:00 (Breakfast)</li>
-                    <li>11:00-22:00 (Lunch/Dinner)</li>
-                </ul>
+<section class="form">
+        <div class="opening_hours">
+            <h2>Opening Hours</h2>
+            <div class="day">
+                <h3>Monday-Friday</h3>
             </div>
+            <ul>
+                <li>11:00-16:00 (Breakfast)</li>
+                <li>11:00-22:00 (Lunch/Dinner)</li>
+            </ul>
+            <div class="day">
+                <h3>Saturday-Sunday</h3>
+            </div>
+            <ul>
+                <li>11:00-16:00 (Breakfast)</li>
+                <li>11:00-22:00 (Lunch/Dinner)</li>
+            </ul>
         </div>
-        <div class="col-lg-6 col-md-12 input-wrap">
+        <div class="form_fields">
+            <form action="/bookings/new/$customer.getId()" method="post">
             <label for="customer">Name:</label>
-            <input class="input" type="text" name="customerName" required="true" value="$customer.getName()" id="customer" disabled/>
-        </div>
+                <input class="input" type="text" name="customerName" required="true" value="$customer.getName()" id="customer" disabled/>
 
-        <div class="col-lg-6 col-md-12 input-wrap">
-            <label for="table">Table:</label>
-            <select id="table" type="text" name="table">
-                #foreach($table in $tables)
-                <option value="$table.getId()">$table.getName()</option>
-                #end
-            </select>
+                <label for="table">Table:</label>
+                <select id="table" type="text" name="table">
+                    #foreach($table in $tables)
+                    <option value="$table.getId()">$table.getName() ($table.getNumberOfSeats() seats)</option>
+                    #end
+                </select>
 
-            <label for="numberOfGuests">Number Of Guests:</label>
-            <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" placeholder="number of guests" onfocus="this.placeholder = ''" id="numberOfGuests">
+                <label for="numberOfGuests">Number Of Guests:</label>
+                <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" placeholder="number of guests" onfocus="this.placeholder = ''" id="numberOfGuests">
 
-            <label for="start">Date: </label>
-            <input type="date" id="start" name="date"
-                   value="$date"
-                   min="$date" max="2018-12-31" />
+                <label for="start">Date: </label>
+                <input type="date" id="start" name="date"
+                       value="$date"
+                       min="$date" max="2018-12-31" />
+
 
 
             <label for="startTime">Start Time:</label>
@@ -92,9 +88,7 @@
                 <option value="2130">21:30</option>
                 <option value="2200">22:00</option>
             </select>
-        </div>
 
             <input type="submit" value="Save Booking" class="button" alt="Save Booking"/>
     </form>
-</div>
 </section>
