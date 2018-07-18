@@ -74,17 +74,18 @@
 
         </table>
     </div>
+
     <section class="content">
-        <form action="/bookings/dateView" method="get">
+        <form action="/bookings/view" method="get">
             <label for="start">Search by Date: </label>
-            <input type="hidden" name="page" value="1"/>
             <input type="date" id="start" name="dateSearch"
                    value=$date
-                   min="2018-07-19" max="2018-12-31" />
+                   min="$date" max="2018-12-31" />
             <input type="submit" value="Filter" class="button">
         </form>
         <section class="main_buttons">
             <a href="/bookings/payView?page=1" class="button">Unpaid Bookings</a>
+
         </section>
     </section>
 </article>
