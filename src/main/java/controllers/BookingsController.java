@@ -11,12 +11,14 @@ import models.RestaurantTable;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.List;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -244,11 +246,76 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+
+        get("/bookings/dateView", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            HashMap<String, Object> model = new HashMap<>();
+            Date dateSearch = null;
+            try {
+                dateSearch = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("dateSearch"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<Booking> allBookingsForDate = DBBookings.bookingsForGivenDate(dateSearch);
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookingsForDate.size()/10.0);
+            List<Booking> bookingsPerPageForDate = DBBookings.filterBookingsDate(currentPage, pagesNeeded, dateSearch);
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat dateVeiwFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            String dateView = dateVeiwFormat.format(dateSearch);
+
+            model.put("date", dateString); // today's date
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
+            model.put("template", "templates/bookings/indexDateView.vtl");
+            model.put("bookings", bookingsPerPageForDate);
+            model.put("page", currentPage);
+            model.put("dateView", dateView);
+            model.put("pagesNeeded", pagesNeeded);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+
         post("/bookings/:id/pay", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(Booking.class,id);
-            double amount = Double.parseDouble(req.queryParams("sum"));
-            DBBookings.pay(amount, booking);
+            Customer customer = booking.getCustomer();
+            double amount = 0;
+            List<MenuItem> menuItems = DBHelper.getAll(MenuItem.class);
+            HashMap<Object, Integer> consumption = new HashMap<Object, Integer>();
+            for(MenuItem menuItem : menuItems) {
+                double price = menuItem.getPrice();
+                int menuItem_id = menuItem.getId();
+                String menuItem_idString = String.valueOf(menuItem_id);
+                int quantity = Integer.parseInt(req.queryParams(menuItem_idString));
+                double total = price * quantity;
+                amount += total;
+                if (quantity > 0){
+                    consumption.put(menuItem, quantity);
+                }
+            }
+            DecimalFormat df2 = new DecimalFormat(".##");
+            HashMap<String, Object> model = new HashMap<>();
+            model.put("template", "templates/bookings/displayBill.vtl");
+            model.put("customer", customer);
+            model.put("booking", booking);
+            model.put("consumption", consumption);
+            model.put("total", amount);
+            model.put("df2", df2);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+        post("/bookings/:id/bill", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            Booking booking = DBHelper.find(Booking.class, id);
+            double total = Double.parseDouble(req.queryParams("total"));
+            DBBookings.pay(total, booking);
             res.redirect("/bookings?page=1");
             return null;
         }, velocityTemplateEngine);

@@ -93,8 +93,8 @@ public class CustomersController {
             Customer customer = new Customer(name);
             DBHelper.saveOrUpdate(customer);
             int id = customer.getId();
-//            String url = "/bookings/new/" + id;
-            res.redirect("/customers?page=1");
+            String url = "/bookings/new/" + id;
+            res.redirect(url);
             return null;
         }, velocityTemplateEngine);
 
