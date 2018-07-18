@@ -85,6 +85,10 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Customer> customers = DBCustomer.orderByName();
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/create.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
@@ -95,6 +99,10 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/createSeats.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
@@ -105,6 +113,10 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/createDouble.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
@@ -115,6 +127,10 @@ public class BookingsController {
             HashMap<String, Object> model = new HashMap<>();
             List<Customer> customers = DBHelper.getAll(Customer.class);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/createTime.vtl");
             model.put("customers", customers);
             model.put("tables", tables);
@@ -126,6 +142,10 @@ public class BookingsController {
             Customer customer = DBHelper.find(Customer.class, customerId);
             HashMap<String, Object> model = new HashMap<>();
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/newSeats.vtl");
             model.put("customer", customer);
             model.put("tables", tables);
@@ -137,6 +157,10 @@ public class BookingsController {
             Customer customer = DBHelper.find(Customer.class, customerId);
             HashMap<String, Object> model = new HashMap<>();
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/newDouble.vtl");
             model.put("customer", customer);
             model.put("tables", tables);
@@ -159,6 +183,10 @@ public class BookingsController {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(Customer.class, id);
             List<RestaurantTable> tables = DBHelper.getAll(RestaurantTable.class);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            model.put("date", dateString);
             model.put("template", "templates/bookings/new.vtl");
             model.put("customer", customer);
             model.put("tables", tables);
