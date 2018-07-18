@@ -5,6 +5,9 @@
 </div>
 <section class="tableview">
 
+    #foreach($booking in $bookings)
+    #set($time = $timeFormat.format($booking.getStartTime()))
+    #end
     <table>
         <th></th>
         #foreach( $timeSlot in $timeSlots )
@@ -35,7 +38,6 @@
 
                             #end
                         #end
-                    #end
             </td>
             #end
         </tr>
