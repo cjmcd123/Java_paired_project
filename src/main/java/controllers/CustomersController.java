@@ -114,7 +114,7 @@ public class CustomersController {
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(Customer.class, id);
             DBHelper.delete(customer);
-            res.redirect("/customers");
+            res.redirect("/customers?page=1");
             return null;
         }, velocityTemplateEngine);
 
