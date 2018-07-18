@@ -3,7 +3,8 @@
         <h1> Add New Booking </h1>
     <a href="/home"><img src="/images/home.png"/></a>
 </div>
-<section class="form">
+<section class="content">
+    <div class="row">
     <div class="opening_hours">
         <h2>Opening Hours</h2>
         <div class="day">
@@ -21,7 +22,9 @@
             <li>11:00-22:00 (Lunch/Dinner)</li>
         </ul>
     </div>
+    </div>
     <div class="form_fields">
+        <div class="col-lg-6 col-md-12 input-wrap">
         <form action="/bookings" method="post">
             <label for="customer">Name:</label>
             <select id="customer" type="text" name="customer">
