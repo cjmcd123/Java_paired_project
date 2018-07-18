@@ -1,5 +1,5 @@
 #if ($booking.getTotalCost() > 0)
-    <style>
+<style>
         input[value="Pay Bill"] {
             visibility: hidden;
         }
@@ -27,14 +27,14 @@
                     <th>Price</th>
                 </tr>
                 #foreach($menuItem in $allMenuItem)
-                    <tr>
-                        <td>$menuItem.getCategory()</td>
-                        <td class="left">$menuItem.getName()</td>
-                        <td>
-                            <input class="input" type="number" min="0" name="quantity" required="true" value="0"/>
-                        </td>
-                        <td>$menuItem.getPrice()</td>
-                    </tr>
+                <tr>
+                    <td>$menuItem.getCategory()</td>
+                    <td class="left">$menuItem.getName()</td>
+                    <td>
+                        <input class="input" type="number" min="0" name="quantity" required="true" value="0"/>
+                    </td>
+                    <td>$menuItem.getPrice()</td>
+                </tr>
                 #end
                 #set($sum = $sum + $menuItem.getPrice())
             </table>

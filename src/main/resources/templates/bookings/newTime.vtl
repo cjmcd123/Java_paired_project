@@ -3,28 +3,28 @@
     <h1> Add New Booking </h1>
     <a href="/home"><img src="/images/home.png"/></a>
 </div>
-<div class="row">
-    <form action="/bookings/new/$customer.getId()" method="post">
-        <div class="col-lg-4 col-md-6">
-            <div class="opening_hours">
-                <h2>Opening Hours</h2>
-                <div class="day">
-                    Monday-Friday
-                </div>
-                <ul>
-                    <li>11:00-16:00 (Breakfast)</li>
-                    <li>11:00-22:00 (Lunch/Dinner)</li>
-                </ul>
-                <div class="day">
-                    Saturday-Sunday
-                </div>
-                <ul>
-                    <li>11:00-16:00 (Breakfast)</li>
-                    <li>11:00-22:00 (Lunch/Dinner)</li>
-                </ul>
-            </div>
-            <h3>Please choose an end time after the start time.</h3>
+<section class="content error">
+    <h3>Please choose an end time after the start time.</h3>
+</section>
+<section class="form">
+    <div class="opening_hours">
+        <h2>Opening Hours</h2>
+        <div class="day">
+            <h3>Monday-Friday</h3>
         </div>
+        <ul>
+            <li>11:00-16:00 (Breakfast)</li>
+            <li>11:00-22:00 (Lunch/Dinner)</li>
+        </ul>
+        <div class="day">
+            <h3>Saturday-Sunday</h3>
+        </div>
+        <ul>
+            <li>11:00-16:00 (Breakfast)</li>
+            <li>11:00-22:00 (Lunch/Dinner)</li>
+        </ul>
+    </div>
+    <div class="form_fields">
         <div class="col-lg-6 col-md-12 input-wrap">
             <label for="customer">Name:</label>
             <input class="input" type="text" name="customerName" required="true" value="$customer.getName()" id="customer" disabled/>
@@ -102,9 +102,9 @@
 
         <input type="submit" value="save" class="button"/>
 
-    </form>
-</div>
-
+        </form>
+    </div>
+</section>
 
 
 

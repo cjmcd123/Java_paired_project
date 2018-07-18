@@ -20,25 +20,25 @@
             #if($page < 2)
             <a style="visibility:hidden"/> |< First Page </a>
             #else
-            <a href="/bookings?page=1"/> |< First Page </a>
+            <a href="/bookings/dateView?dateSearch=$date&page=1"/> |< First Page </a>
             #end
         </div>
         <div>
             #if($page > 1)
             #set($previousPage = $page - 1)
-            <a href="/bookings?page=$previousPage"/> $previousPage </a>
+            <a href="/bookings/dateView?dateSearch=$dateView&page=$previousPage"/> $previousPage </a>
             #end
-            <a href="/bookings?page=$page" style="font-size: 30px"/> $page </a>
+            <a href="/bookings/dateView?dateSearch=$dateView&page=$page" style="font-size: 30px"/> $page </a>
             #if($page < $pagesNeeded)
             #set($nextPage = $page + 1)
-            <a href="/bookings?page=$nextPage"/> $nextPage </a>
+            <a href="/bookings/dateView?dateSearch=$dateView&page=$nextPage"/> $nextPage </a>
             #end
         </div>
         <div>
             #if($page < $pagesNeeded)
-            <a href="/bookings?page=$pagesNeeded"/> Last Page >| </a>
+            <a href="/bookings/dateView?dateSearch=$dateView&page=$pagesNeeded"/> Last Page >| </a>
             #else
-            <a href="/bookings?page=$pagesNeeded" style="visibility:hidden"/> Last Page >| </a>
+            <a href="/bookings/dateView?dateSearch=$dateView&page=$pagesNeeded" style="visibility:hidden"/> Last Page >| </a>
             #end
         </div>
     </section>
@@ -75,12 +75,11 @@
         </table>
     </div>
     <section class="content">
-        <form action="/bookings/dateView" method="get">
+        <form action="/bookings/dateView?page=1" method="get">
             <label for="start">Search by Date: </label>
-            <input type="hidden" name="page" value="1"/>
             <input type="date" id="start" name="dateSearch"
                    value=$date
-                   min="2018-07-19" max="2018-12-31" />
+                   min="$date" max="2018-12-31" />
             <input type="submit" value="Filter" class="button">
         </form>
         <section class="main_buttons">

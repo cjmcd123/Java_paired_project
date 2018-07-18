@@ -25,6 +25,8 @@ public class Seeds {
         RestaurantTable restaurantTable8 = new RestaurantTable("Table 8", 4);
         RestaurantTable restaurantTable9 = new RestaurantTable("Table 9", 2);
         RestaurantTable restaurantTable10 = new RestaurantTable("Table 10", 10);
+        RestaurantTable restaurantTable11 = new RestaurantTable("Table 11", 4);
+        RestaurantTable restaurantTable12 = new RestaurantTable("Table 12", 4);
         DBHelper.saveOrUpdate(restaurantTable1);
         DBHelper.saveOrUpdate(restaurantTable2);
         DBHelper.saveOrUpdate(restaurantTable3);
@@ -35,6 +37,8 @@ public class Seeds {
         DBHelper.saveOrUpdate(restaurantTable8);
         DBHelper.saveOrUpdate(restaurantTable9);
         DBHelper.saveOrUpdate(restaurantTable10);
+        DBHelper.saveOrUpdate(restaurantTable11);
+        DBHelper.saveOrUpdate(restaurantTable12);
 
 
         ArrayList<MenuItem> meal1 = new ArrayList<>();
@@ -174,7 +178,9 @@ public class Seeds {
         Date startTime2 = new SimpleDateFormat("HHmm").parse("1230");
         Date endTime2 = new SimpleDateFormat("HHmm").parse("1530");
         Date startTime3 = new SimpleDateFormat("HHmm").parse("1600");
-        Date endTime3 = new SimpleDateFormat("HHmm").parse("1830");
+        Date endTime3 = new SimpleDateFormat("HHmm").parse("1800");
+        Date startTime4 = new SimpleDateFormat("HHmm").parse("1800");
+        Date endTime4 = new SimpleDateFormat("HHmm").parse("1930");
 
 //        Booking 1
         Booking booking1 = new Booking(customer1, restaurantTable1, date1, 2, startTime1, endTime1);
@@ -291,24 +297,36 @@ public class Seeds {
         DBMenuItem.addMenuItemToBooking(menuItem5, booking14);
 
 //        Booking 15
-        Booking booking15 = new Booking(customer14, restaurantTable7, date3, 6, startTime2, endTime2);
+        Booking booking15 = new Booking(customer14, restaurantTable7, date3, 6, startTime1, endTime1);
 //        booking15.setTotalCost(178.00);
         DBMenuItem.addMenuItemToBooking(menuItem1, booking15);
         DBMenuItem.addMenuItemToBooking(menuItem4, booking15);
         DBMenuItem.addMenuItemToBooking(menuItem5, booking15);
 
 //        Booking 16
-        Booking booking16 = new Booking(customer15, restaurantTable7, date3, 5, startTime2, endTime3);
+        Booking booking16 = new Booking(customer15, restaurantTable7, date3, 5, startTime2, endTime2);
 //        booking16.setTotalCost(201.00);
         DBMenuItem.addMenuItemToBooking(menuItem1, booking16);
         DBMenuItem.addMenuItemToBooking(menuItem4, booking16);
         DBMenuItem.addMenuItemToBooking(menuItem5, booking16);
 
 //        Booking 17
-        Booking booking17 = new Booking(customer6, restaurantTable10, date3, 10, startTime2, endTime3);
+        Booking booking17 = new Booking(customer6, restaurantTable10, date3, 10, startTime3, endTime3);
         DBMenuItem.addMenuItemToBooking(menuItem1, booking17);
         DBMenuItem.addMenuItemToBooking(menuItem4, booking17);
         DBMenuItem.addMenuItemToBooking(menuItem5, booking17);
+
+//        Booking 18
+        Booking booking18 = new Booking(customer29, restaurantTable9, date3, 10, startTime2, endTime2);
+
+//        Booking 19
+        Booking booking19 = new Booking(customer17, restaurantTable8, date3, 4, startTime1, endTime1);
+
+//        Booking 20
+        Booking booking20 = new Booking(customer13, restaurantTable7, date3, 2, startTime3, endTime3);
+
+//        Booking 21
+        Booking booking21 = new Booking(customer10, restaurantTable10, date3, 2, startTime4, endTime4);
 
 
 
@@ -330,6 +348,10 @@ public class Seeds {
         DBHelper.saveOrUpdate(booking15);
         DBHelper.saveOrUpdate(booking16);
         DBHelper.saveOrUpdate(booking17);
+        DBHelper.saveOrUpdate(booking18);
+        DBHelper.saveOrUpdate(booking19);
+        DBHelper.saveOrUpdate(booking20);
+        DBHelper.saveOrUpdate(booking21);
 
     }
 }

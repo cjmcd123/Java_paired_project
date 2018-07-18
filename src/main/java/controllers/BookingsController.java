@@ -216,6 +216,42 @@ public class BookingsController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, velocityTemplateEngine);
 
+
+        get("/bookings/dateView", (req, res) -> {
+            int currentPage = Integer.parseInt(req.queryParams("page"));
+            HashMap<String, Object> model = new HashMap<>();
+            Date dateSearch = null;
+            try {
+                dateSearch = new SimpleDateFormat("yyyy-MM-dd").parse(req.queryParams("dateSearch"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            List<Booking> allBookingsForDate = DBBookings.bookingsForGivenDate(dateSearch);
+            // returns number of pages needed to display ALL customers, 10 customers/page
+            int pagesNeeded = (int)Math.ceil(allBookingsForDate.size()/10.0);
+            List<Booking> bookingsPerPageForDate = DBBookings.filterBookingsDate(currentPage, pagesNeeded, dateSearch);
+
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat dateVeiwFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            String dateString = dtf.format(now);
+            String dateView = dateVeiwFormat.format(dateSearch);
+
+            model.put("date", dateString); // today's date
+            model.put("dateFormat", dateFormat);
+            model.put("timeFormat", timeFormat);
+            model.put("template", "templates/bookings/indexDateView.vtl");
+            model.put("bookings", bookingsPerPageForDate);
+            model.put("page", currentPage);
+            model.put("dateView", dateView);
+            model.put("pagesNeeded", pagesNeeded);
+            return new ModelAndView(model, "templates/layout.vtl");
+        }, velocityTemplateEngine);
+
+
         post("/bookings/:id/pay", (req, res) -> {
             int id = Integer.parseInt(req.params(":id"));
             Booking booking = DBHelper.find(Booking.class,id);
