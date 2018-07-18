@@ -14,16 +14,16 @@ public class MenuItem {
     private int id;
     private String name;
     private double price;
-    private String description;
+    private String category;
     private List<Booking> bookings;
 
     public MenuItem() {
     }
 
-    public MenuItem(String name, double price, String description) {
+    public MenuItem(String name, double price, String category) {
         this.name = name;
         this.price = price;
-        this.description = description;
+        this.category = category;
         this.bookings = new ArrayList<Booking>();
     }
 
@@ -56,13 +56,13 @@ public class MenuItem {
         this.price = price;
     }
 
-    @Column(name="description")
-    public String getDescription() {
-        return description;
+    @Column(name="category")
+    public String getCategory() {
+        return category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)

@@ -18,17 +18,32 @@
             #set($sum = 0)
             $booking.getCustomer().getName()'s booking for $booking.getNumberOfGuests() people:
         </h2>
-        <p>
-            #foreach($item in $meal)
-        <p>$item.getName() $item.getPrice()</p>
-        #set($sum = $sum + $item.getPrice())
-        #end
-        </p>
-
-        <p>
-            Total: $df2.format($sum)
-            <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
-        </p>
+        <div class="receipt">
+            <table>
+                <tr>
+                    <th></th>
+                    <th class="left">Name</th>
+                    <th>Qty.</th>
+                    <th>Price</th>
+                    <th>Sum</th>
+                </tr>
+                #foreach($menuItem in $allMenuItem)
+                    <tr>
+                        <td>$menuItem.getCategory()</td>
+                        <td class="left">$menuItem.getName()</td>
+                        <td>
+                            <input class="input" type="number" name="quantity" required="true" value="0"/>
+                        </td>
+                        <td>$menuItem.getPrice()</td>
+                        <td>$menuItem.getPrice()</td>
+                    </tr>
+                #end
+                #set($sum = $sum + $menuItem.getPrice())
+            </table>
+            <p>
+                Total: $df2.format($sum)
+                <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
+            </p>
         <input type="submit" value="Pay Bill" class="button">
     </form>
 
