@@ -1,0 +1,20 @@
+<div class="header">
+    <a href="/tables"><img src="/images/back.png"/></a>
+    <h1> Edit Table </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
+</div>
+<section class="content">
+    <form action="/tables/$table.getId()" method="post">
+
+        <label for="name">Table Name:</label>
+        <input class="input" type="text" name="name" required="true" value="$table.getName()" id="name">
+
+        <label for="seats">Number Of Seats:</label>
+        <input class="input" type="number" min="1" max="10" name="seats" required="true" value="$table.getNumberOfSeats()" id="seats">
+
+        <input type="submit" value="Save" class="button">
+
+    </form>
+
+    <a href="/tables" class="button">Cancel</a>
+</section>

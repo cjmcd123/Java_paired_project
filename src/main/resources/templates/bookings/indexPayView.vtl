@@ -1,0 +1,81 @@
+<div class="header">
+    <a href="/home"><img src="/images/back.png" alt="back"/></a>
+        <h1> All Unpaid Bookings </h1>
+    <a href="/home"><img src="/images/home.png" alt="home"/></a>
+</div>
+
+<article class="container">
+    <section class="pagination">
+        <div>
+            #if($page < 2)
+            <a style="visibility:hidden"/> |< First Page </a>
+            #else
+            <a href="/bookings/payView?page=1"/> |< First Page </a>
+            #end
+        </div>
+        <div>
+            #if($page > 1)
+            #set($previousPage = $page - 1)
+            <a href="/bookings/payView?page=$previousPage"/> $previousPage </a>
+            #end
+            <a href="/bookings/payView?page=$page" style="font-size: 30px"/> $page </a>
+            #if($page < $pagesNeeded)
+            #set($nextPage = $page + 1)
+            <a href="/bookings/payView?page=$nextPage"/> $nextPage </a>
+            #end
+        </div>
+        <div>
+            #if($page < $pagesNeeded)
+            <a href="/bookings/payView?page=$pagesNeeded"/> Last Page >| </a>
+            #else
+            <a href="/bookings/payView?page=$pagesNeeded" style="visibility:hidden"/> Last Page >| </a>
+            #end
+        </div>
+    </section>
+
+    <div class="table_container">
+    <table>
+        <tr>
+            <th class="left">Name</th>
+            <th>Table</th>
+            <th>Guests</th>
+            <th>Date</th>
+            <th>Start</th>
+            <th>Finish</th>
+            <th>Total</th>
+            <th colspan="3">Bookings</th>
+        </tr>
+        #foreach ($booking in $bookings)
+        <tr>
+            <td class="left">$booking.getCustomer().getName()</td>
+            <td>$booking.getRestaurantTable().getName()</td>
+            <td>$booking.getNumberOfGuests()</td>
+            <td>$dateFormat.format($booking.getDate())</td>
+            <td>$timeFormat.format($booking.getStartTime())</td>
+            <td>$timeFormat.format($booking.getEndTime())</td>
+            <td>$booking.getTotalCost()</td>
+            <td><a href="/bookings/$booking.getId()" class="view">View</a></td>
+            <td><a href="/bookings/$booking.getId()/edit" class="edit">Edit</a></td>
+            <td><form action = "/bookings/$booking.getId()/delete" method = "post">
+                <input type="submit" value="Delete" class="button delete">
+            </form></td>
+        </tr>
+        #end
+
+    </table>
+    </div>
+
+<section class="content">
+    <form action="/bookings/view" method="get">
+        <label for="start">Search by Date: </label>
+        <input type="date" id="start" name="date"
+               value="$date"
+               min="2018-01-01" max="2018-12-31" />
+        <input type="submit" value="Filter" class="button">
+    </form>
+    <section class="main_buttons">
+        <a href="/bookings" class="button">Add new Customer</a>
+
+    </section>
+</article>
+

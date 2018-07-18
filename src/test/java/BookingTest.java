@@ -6,7 +6,9 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,12 +20,12 @@ public class BookingTest {
 
     @Before
     public void setUp() throws ParseException {
-        customer = new Customer("Bob", 1000.00);
+        customer = new Customer("Bob");
         restaurantTable = new RestaurantTable("Table1", 4);
         Date date = new SimpleDateFormat( "yyyyMMddhhmm" ).parse( "201811202000" );
-//        Date time = new SimpleDateFormat("hhmm").parse("2000");
-//        date.setTime(time);
-        booking = new Booking(customer, restaurantTable, date, 3);
+        Date startTime = new SimpleDateFormat("hhmm").parse("2000");
+        Date endTime = new SimpleDateFormat("hhmm").parse("2130");
+        booking = new Booking(customer, restaurantTable, date, 3, startTime, endTime);
     }
 
     @Test
@@ -33,7 +35,7 @@ public class BookingTest {
 
     @Test
     public void setCustomer(){
-        Customer customer1 = new Customer("Jen", 1000.00);
+        Customer customer1 = new Customer("Jen");
         booking.setCustomer(customer1);
         assertEquals(customer1, booking.getCustomer());
     }
@@ -107,6 +109,16 @@ public class BookingTest {
         Date date1 = new SimpleDateFormat("ddMMyyyy").parse("20102018");
         String  date = new SimpleDateFormat("ddMMyy").format(date1);
         assertEquals("201018", date);
+    }
+
+    @Test
+    public void bookingSlotTest() throws Exception {
+        List<String> slots = new ArrayList<>();
+        slots.add("20:00");
+        slots.add("20:30");
+        slots.add("21:00");
+        slots.add("21:30");
+        assertEquals(slots, booking.bookingSlots());
     }
 
 

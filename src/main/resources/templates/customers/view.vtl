@@ -1,0 +1,47 @@
+<div class="header">
+    <a href="/customers?page=1"><img src="/images/back.png"/></a>
+    <h1> Customer </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
+</div>
+
+<article class="container">
+    <div class="table_container">
+        #if($bookings.size() > 0)
+        <h2>Customer name:  $customer.getName()</h2>
+        <table>
+            <tr>
+                <th class="left">Name</th>
+                <th>Table</th>
+                <th>Guests</th>
+                <th>Date</th>
+                <th>Start</th>
+                <th>Finish</th>
+                <th>Total</th>
+            </tr>
+            #foreach ($booking in $bookings)
+            <tr>
+                <td class="left">$booking.getCustomer().getName()</td>
+                <td>$booking.getRestaurantTable().getName()</td>
+                <td>$booking.getNumberOfGuests()</td>
+                <td>$dateFormat.format($booking.getDate())</td>
+                <td>$timeFormat.format($booking.getStartTime())</td>
+                <td>$timeFormat.format($booking.getEndTime())</td>
+                <td>$booking.getTotalCost()</td>
+                <td><a href="/bookings/$booking.getId()">View</a></td>
+                <td><a href="/bookings/$booking.getId()/edit">Edit</a></td>
+                <td><form action = "/bookings/$booking.getId()/delete" method = "post">
+                    <input type="submit" value="Delete" class="button">
+                </form></td>
+            </tr>
+            #end
+        </table>
+        #else
+        <section class="content">
+            <h2>$customer.getName() has no bookings yet!</h2>
+            <section class="main_buttons">
+                <a href="/bookings/new/$customer.getId()" class="button">Add New Booking</a>
+            </section>
+        </section>
+        #end
+    </div>
+</article>

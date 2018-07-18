@@ -1,7 +1,8 @@
 package models;
 
+
 import db.DBBookings;
-import db.DBHelper;
+import db.DBCustomer;
 
 import javax.persistence.*;
 import javax.persistence.Table;
@@ -14,16 +15,16 @@ public class Customer {
 
     private int id;
     private String name;
-    private double money;
     private List<Booking> bookings;
+    private int bookingCount;
 
     public Customer() {
     }
 
-    public Customer(String name, double money) {
+    public Customer(String name) {
         this.name = name;
-        this.money = money;
         this.bookings = new ArrayList<Booking>();
+        this.bookingCount = 0;
     }
 
     @Id
@@ -46,16 +47,7 @@ public class Customer {
         this.name = name;
     }
 
-    @Column(name="money")
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer", fetch = FetchType.EAGER)
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -64,13 +56,30 @@ public class Customer {
         this.bookings = bookings;
     }
 
+    @Column(name = "bookingCount")
+    public int getBookingCount() {
+        return bookingCount;
+    }
+
+    public void setBookingCount(int bookingCount) {
+        this.bookingCount = bookingCount;
+    }
+
     @Transient // getNumberOfBookings will not appear as getter for Hibernate
     public int getNumberOfBookings(){
         return bookings.size();
     }
 
-    public int totalSpent(){
-        int total = 0;
+    public double totalSpent(){
+        double total = 0;
+        for (Booking booking : bookings){
+            total += booking.getTotalCost();
+        }
+        return total;
+    }
+
+    public double totalSpentArray(List<Booking> bookings){
+        double total = 0;
         for (Booking booking : bookings){
             total += booking.getTotalCost();
         }
@@ -79,5 +88,15 @@ public class Customer {
 
     public void addBooking(Booking booking) {
         this.bookings.add(booking);
+    }
+
+    public double totalSpentDB(){
+        double total = DBCustomer.totalPaid(this);
+        return total;
+    }
+
+    public int bookingCountDB(){
+        int count = DBBookings.customerBookings(this).size();
+        return count;
     }
 }

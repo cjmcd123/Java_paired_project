@@ -1,0 +1,51 @@
+#if ($booking.getTotalCost() > 0)
+    <style>
+        input[value="Pay Bill"] {
+            visibility: hidden;
+        }
+    </style>
+#end
+
+<div class="header">
+    <a href="/bookings?page=1"><img src="/images/back.png"/></a>
+    <h1> Booking Details </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
+</div>
+<section class="content receipt">
+
+    <form action="/bookings/$booking.getId()/pay" method="post">
+        <h2>
+            #set($sum = 0)
+            $booking.getCustomer().getName()'s booking for $booking.getNumberOfGuests() people:
+        </h2>
+        <div class="receipt">
+            <table>
+                <tr>
+                    <th></th>
+                    <th class="left">Name</th>
+                    <th>Qty.</th>
+                    <th>Price</th>
+                </tr>
+                <form action="/bookings/$booking.getId()/pay" method="post">
+                #foreach($menuItem in $allMenuItem)
+                    <tr>
+                        <td>$menuItem.getCategory()</td>
+                        <td class="left">$menuItem.getName()</td>
+                        <td>
+                            <input class="input" type="number" min="0" name="$menuItem.getId()" required="true" value="0"/>
+                        </td>
+                        <td>$menuItem.getPrice()</td>
+                    </tr>
+                #end
+                </form>
+                #set($sum = $sum + $menuItem.getPrice())
+            </table>
+            <p>
+                <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
+            </p>
+            <input type="submit" value="Calculate Total" class="button">
+        </div>
+    </form>
+
+</section>
+

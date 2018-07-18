@@ -1,0 +1,111 @@
+<div class="header">
+    <a href="/bookings?page=1"><img src="/images/back.png"/></a>
+    <h1> Add New Booking </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
+</div>
+<section class="content error">
+    <h3>Please choose an end time after the start time.</h3>
+</section>
+<section class="form">
+    <div class="opening_hours">
+        <h2>Opening Hours</h2>
+        <div class="day">
+            <h3>Monday-Friday</h3>
+        </div>
+        <ul>
+            <li>11:00-16:00 (Breakfast)</li>
+            <li>11:00-22:00 (Lunch/Dinner)</li>
+        </ul>
+        <div class="day">
+            <h3>Saturday-Sunday</h3>
+        </div>
+        <ul>
+            <li>11:00-16:00 (Breakfast)</li>
+            <li>11:00-22:00 (Lunch/Dinner)</li>
+        </ul>
+    </div>
+    <div class="form_fields">
+        <div class="col-lg-6 col-md-12 input-wrap">
+            <label for="customer">Name:</label>
+            <input class="input" type="text" name="customerName" required="true" value="$customer.getName()" id="customer" disabled/>
+        </div>
+
+        <div class="col-lg-6 col-md-12 input-wrap">
+            <label for="table">Table:</label>
+            <select id="table" type="text" name="table">
+                #foreach($table in $tables)
+                <option value="$table.getId()">$table.getName() ($table.getNumberOfSeats() seats)</option>
+                #end
+            </select>
+        </div>
+
+        <div class="col-lg-6 col-md-12 input-wrap">
+            <label for="numberOfGuests">Guests:</label>
+            <input class="input" type="number" min="1" max="10" name="numberOfGuests" required="true" placeholder="number of guests" onfocus="this.placeholder = ''" id="numberOfGuests">
+        </div>
+
+        <div class="col-lg-6 col-md-12 input-wrap">
+            <label for="start">Date: </label>
+            <input type="date" id="start" name="date"
+                   value="$date"
+                   min="$date" max="2018-12-31" />
+        </div>
+
+        <div class="col-lg-6 col-md-12 input-wrap">
+            <select id="startTime" type="text" name="startTime">
+                <option value="1100">11:00</option>
+                <option value="1130">11:30</option>
+                <option value="1200">12:00</option>
+                <option value="1230">12:30</option>
+                <option value="1300">13:00</option>
+                <option value="1330">13:30</option>
+                <option value="1400">14:00</option>
+                <option value="1430">14:30</option>
+                <option value="1500">15:00</option>
+                <option value="1530">15:30</option>
+                <option value="1600">16:00</option>
+                <option value="1630">16:30</option>
+                <option value="1700">17:00</option>
+                <option value="1730">17:30</option>
+                <option value="1800">18:00</option>
+                <option value="1830">18:30</option>
+                <option value="1900">19:00</option>
+                <option value="1930">19:30</option>
+                <option value="2000">20:00</option>
+            </select>
+        </div>
+
+
+        <div class="col-lg-6 col-md-12 input-wrap">
+            <select id="endTime" type="text" name="endTime">
+                <option value="1300">13:00</option>
+                <option value="1330">13:30</option>
+                <option value="1400">14:00</option>
+                <option value="1430">14:30</option>
+                <option value="1500">15:00</option>
+                <option value="1530">15:30</option>
+                <option value="1600">16:00</option>
+                <option value="1630">16:30</option>
+                <option value="1700">17:00</option>
+                <option value="1730">17:30</option>
+                <option value="1800">18:00</option>
+                <option value="1830">18:30</option>
+                <option value="1900">19:00</option>
+                <option value="1930">19:30</option>
+                <option value="2000">20:00</option>
+                <option value="2030">20:30</option>
+                <option value="2100">21:00</option>
+                <option value="2130">21:30</option>
+                <option value="2200">22:00</option>
+            </select>
+        </div>
+
+        <input type="submit" value="save" class="button"/>
+
+        </form>
+    </div>
+</section>
+
+
+
+

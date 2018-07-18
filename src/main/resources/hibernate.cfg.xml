@@ -18,5 +18,6 @@
         <mapping class="models.Booking"/>
         <mapping class="models.Customer"/>
         <mapping class="models.RestaurantTable"/>
+        <mapping class="models.MenuItem"/>
     </session-factory>
 </hibernate-configuration>

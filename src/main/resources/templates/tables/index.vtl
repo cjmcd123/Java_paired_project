@@ -1,1 +1,27 @@
-<h1> ALL TABLES </h1>
+<div class="header">
+    <a href="/home"><img src="/images/back.png"/></a>
+    <h1> All Tables </h1>
+    <a href="/home"><img src="/images/home.png"/></a>
+</div>
+
+<table>
+    <tr>
+        <th>Table Name</th>
+        <th>Number of Seats</th>
+    </tr>
+    #foreach ($table in $tables)
+    <tr>
+        <td>$table.getName()</td>
+        <td>$table.getNumberOfSeats()</td>
+        <td><a href="tables/$table.getId()/edit" class="edit">Edit</a></td>
+        <td><form action = "/tables/$table.getId()/delete" method = "post">
+            <input type="submit" value="Delete" class="button delete">
+        </form></td>
+    </tr>
+    #end
+
+</table>
+
+<section class="main_buttons">
+    <a href="/tables/new" class="button">Add new Table</a>
+</section>

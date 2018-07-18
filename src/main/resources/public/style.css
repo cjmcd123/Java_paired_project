@@ -1,0 +1,356 @@
+html {
+    background: url(images/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    display: block;
+    color: white;
+    padding: 30px 0px;
+}
+
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.container {
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    background: url(images/white_bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 40px auto;
+    min-height: 500px;
+    padding-bottom: 40px;
+}
+
+a {
+    text-decoration: none;
+}
+
+form {
+    display: block;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    margin: 30px auto;
+    font-size: 13px;
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr {
+    min-height: 40px;
+}
+
+tr:nth-child(even){
+    background-color: #E3E3E3;
+}
+
+tr:nth-child(odd){
+    background-color: white;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgba(30, 22, 54, 0.6);
+    color: white;
+}
+
+table .left {
+    text-align: left;
+}
+
+table .large {
+    min-width: 230px;
+}
+
+table_container {
+    margin: 10px auto;
+}
+
+/* TABLE BUTTONS & LINKS */
+
+table a, table input[type="submit"] {
+    color: black;
+    padding: 4px;
+    margin: 0px;
+    border: 1px solid rgba(30, 22, 54, 0.6);
+    border-radius: 0px;
+    background-color: white;
+    font-size: 13px;
+    box-shadow: none;
+}
+
+table a:hover, table input[type="submit"]:hover {
+    color: white;
+}
+
+table a.view:hover  {
+    background-color: #47A025;
+}
+
+table a.edit:hover  {
+    background-color: #DB7C26;
+}
+
+table input[type="submit"]:hover  {
+    background-color: #db222a;
+    cursor: pointer;
+}
+
+/* HOME */
+
+.main_buttons {
+    width: fit-content;
+    margin: 10px auto;
+}
+
+/* comment this out and add display:block to .home a if wanted home buttons displayed underneath each other  */
+/* .home {
+    display: flex;
+    flex-wrap: wrap;
+} */
+/* */
+
+.home a {
+    width: 200px;
+}
+
+.home a, .main_buttons a, input[type="submit"], input[type="submit"] {
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	/* justify-content: space-around; */
+	display: block;
+	margin: 20px auto;
+	max-width: 320px;
+	text-decoration: none;
+	border-radius: 4px;
+	padding: 20px 30px;
+	font-size: 30px;
+	text-align: center;
+	background-color: Transparent;
+}
+
+.main_buttons a {
+    display: inline-block;
+}
+
+.home a.button, .main_buttons a.button, input[type="submit"], input[type="submit"]{
+	color: rgba(30, 22, 54, 0.6);
+	box-shadow: rgba(30, 22, 54, 0.4) 0 0px 0px 2px inset;
+}
+
+.home a.button:hover, .main_buttons a.button:hover, input[type="submit"]:hover, input[type="submit"]:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+
+/* NAV / HEADER */
+
+.header {
+    background: url(images/header_bg.png) no-repeat center center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+}
+
+.header a img {
+    width: 80px;
+    height: 80px;
+    margin-top: 45px;
+}
+
+.header a img:hover {
+    top: 3px;
+    position: relative;
+}
+
+.header a p {
+    margin-top: 5px;
+    margin-left: 20px;
+    color: white;
+}
+
+/* ERROR */
+
+.error h3 {
+    color: #F42C04;
+    text-align: center;
+}
+
+/* RECEIPT TABLE */
+
+.receipt {
+
+    padding: 10px;}
+
+.receipt table {
+    border-collapse: collapse;
+    text-align: right;
+    font-size: 16px;
+    background:rgba(255,255,255, 0.5);
+}
+
+.receipt table th,
+.receipt tr:nth-child(even),
+.receipt tr:nth-child(odd)  {
+    background-color: Transparent;
+    color: black;
+    border: none;
+}
+
+.receipt td {
+    border: none;
+    border-bottom: 1px dotted black !important;
+    padding: 8px 14px;
+}
+
+
+/* INPUT FIELDS */
+
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-family: 'Cormorant Upright', serif;
+    font-style: italic;
+}
+
+.opening_hours {
+    background: #232323;
+    padding: 2rem;
+    outline: 1px dashed #f9e2af;
+    outline-offset: -15px;
+    color: white;
+    line-height: 1.6;
+}
+
+.form_fields {
+    min-width: 300px;
+}
+
+.opening_hours h2 {
+    color: #ffbc00;
+    font-size: 36px;
+}
+
+.opening_hours h3 {
+    color: #bdecb6;
+    font-size: 24px;
+}
+
+label {
+    display: block;
+}
+
+.content {
+    font-family: 'Cormorant Upright', serif;
+    font-style: italic;
+    margin: 10px auto;
+    width: fit-content;
+}
+
+.content input[type="text"], .content input[type="number"],
+.form_fields input[type="text"], .form_fields input[type="number"],
+select, input[type="date"] {
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 10px 20px;
+    width: -webkit-fill-available;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.justify_text {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* TABLEVIEW */
+
+.tableview table {
+    border-collapse: collapse;
+}
+
+.tableview th {
+    font-size: 10px;
+    padding: 5px;
+}
+
+.tableview td {
+    padding: 0px;
+}
+
+.booked {
+    background-color: #EEFC57;
+}
+
+/*  PAGINATION  */
+
+.table_container {
+    min-height: 440px;
+}
+
+.pagination {
+    padding: 20px 0px;
+    align-items: baseline;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.pagination a {
+    color: black;
+}
+
+.pagination > div {
+    margin: 0px 20px;
+}
+
+/* hover display text box for daily view */
+
+div.appear {
+    width: 200px;
+    height: 100px;
+    border: #000 2px solid;
+    background:#F8F8F8;
+    position: fixed;
+    top: 15px;
+    left: 25px;
+    display:none;
+    padding-bottom: 20px;
+    z-index: 1000000;
+}
+div.hover  {
+    cursor:pointer;
+    width: 5px;
+}
+div.hover:hover div.appear {
+    display:block;
+}
