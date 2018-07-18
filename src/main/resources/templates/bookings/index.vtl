@@ -64,8 +64,8 @@
                 <td>$timeFormat.format($booking.getStartTime())</td>
                 <td>$timeFormat.format($booking.getEndTime())</td>
                 <td>$booking.getTotalCost()</td>
-                <td><a href="bookings/$booking.getId()" class="view">View</a></td>
-                <td><a href="bookings/$booking.getId()/edit" class="edit">Edit</a></td>
+                <td><a href="/bookings/$booking.getId()" class="view">View</a></td>
+                <td><a href="/bookings/$booking.getId()/edit" class="edit">Edit</a></td>
                 <td><form action = "/bookings/$booking.getId()/delete" method = "post">
                     <input type="submit" value="Delete" class="button delete">
                 </form></td>
@@ -77,6 +77,7 @@
 
     <section class="content">
         <form action="/bookings/view" method="get">
+            <input type="hidden" name="page" value="1"/>
             <label for="start">Search by Date: </label>
             <input type="date" id="start" name="dateSearch"
                    value=$date
@@ -84,6 +85,7 @@
             <input type="submit" value="Filter" class="button">
         </form>
         <section class="main_buttons">
+
             <a href="/bookings/payView?page=1" class="button">Unpaid Bookings</a>
 
         </section>

@@ -13,10 +13,9 @@
 </div>
 <section class="content receipt">
 
-    <form action="/bookings/$booking.getId()/pay" method="post">
+    <form action="/bookings/$booking.getId()/bill" method="post">
         <h2>
-            #set($sum = 0)
-            $booking.getCustomer().getName()'s booking for $booking.getNumberOfGuests() people:
+            $booking.getCustomer().getName()'s bill:
         </h2>
         <div class="receipt">
             <table>
@@ -26,24 +25,22 @@
                     <th>Qty.</th>
                     <th>Price</th>
                 </tr>
-                #foreach($menuItem in $allMenuItem)
+                #foreach( $key in $consumption.keySet() )
                 <tr>
-                    <td>$menuItem.getCategory()</td>
-                    <td class="left">$menuItem.getName()</td>
-                    <td>
-                        <input class="input" type="number" min="0" name="quantity" required="true" value="0"/>
-                    </td>
-                    <td>$menuItem.getPrice()</td>
+                    <td></td>
+                    <td class="left">$key.getName()</td>
+                    <td>$consumption.get($key)</td>
+                    <td>$key.getPrice()</td>
                 </tr>
                 #end
-                #set($sum = $sum + $menuItem.getPrice())
             </table>
             <p>
-                <input type="number" name="sum" required="true" value="$df2.format($sum)" id="sum" style="visibility:hidden">
+                <input type="number" name="total" required="true" value="$df2.format($total)" id="sum" style="visibility:hidden">
+                Total: £ $df2.format($total)
             </p>
-            <input type="submit" value="Calculate Total" class="button">
+
+            <input type="submit" value="Pay Bill" class="button">
         </div>
     </form>
-
 </section>
 
