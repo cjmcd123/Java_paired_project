@@ -64,17 +64,18 @@
 
     </table>
     </div>
-    <section class="content">
-        <form action="/bookings/view" method="get">
-            <label for="start">Search by Date: </label>
-            <input type="date" id="start" name="date"
-                   value="$date"
-                   min="$date" max="2018-12-31" />
-            <input type="submit" value="Filter" class="button">
-        </form>
-        <section class="main_buttons">
-            <a href="/bookings" class="button">Add new Customer</a>
-        </section>
+
+<section class="content">
+    <form action="/bookings/view" method="get">
+        <label for="start">Search by Date: </label>
+        <input type="date" id="start" name="date"
+               value="$date"
+               min="2018-01-01" max="2018-12-31" />
+        <input type="submit" value="Filter" class="button">
+    </form>
+    <section class="main_buttons">
+        <a href="/bookings" class="button">Add new Customer</a>
+
     </section>
 </article>
 

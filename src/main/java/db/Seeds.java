@@ -255,66 +255,38 @@ public class Seeds {
 //        Booking 10
         Booking booking10 = new Booking(customer9, restaurantTable5, date1, 2, startTime1, endTime1);
 //        booking10.setTotalCost(100.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking10);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking10);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking10);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking10);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking10);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking10);
 
 //        Booking 11
         Booking booking11 = new Booking(customer10, restaurantTable3, date3, 4, startTime1, endTime1);
 //        booking11.setTotalCost(111.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking11);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking11);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking11);
+
 
 //        Booking 12
         Booking booking12 = new Booking(customer11, restaurantTable4, date3, 1, startTime3, endTime3);
 //        booking12.setTotalCost(25.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking12);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking12);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking12);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking12);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking12);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking12);
+
 
 //        Booking 13
         Booking booking13 = new Booking(customer12, restaurantTable5, date3, 2, startTime2, startTime3);
 //        booking13.setTotalCost(24.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking13);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking13);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking13);
 
 //        Booking 14
         Booking booking14 = new Booking(customer13, restaurantTable6, date3, 6, startTime1, endTime1);
 //        booking14.setTotalCost(265.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking14);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking14);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking14);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking14);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking14);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking14);
+
 
 //        Booking 15
         Booking booking15 = new Booking(customer14, restaurantTable7, date3, 6, startTime1, endTime1);
 //        booking15.setTotalCost(178.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking15);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking15);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking15);
+
 
 //        Booking 16
         Booking booking16 = new Booking(customer15, restaurantTable7, date3, 5, startTime2, endTime2);
 //        booking16.setTotalCost(201.00);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking16);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking16);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking16);
+
 
 //        Booking 17
-        Booking booking17 = new Booking(customer6, restaurantTable10, date3, 10, startTime3, endTime3);
-        DBMenuItem.addMenuItemToBooking(menuItem1, booking17);
-        DBMenuItem.addMenuItemToBooking(menuItem4, booking17);
-        DBMenuItem.addMenuItemToBooking(menuItem5, booking17);
+        Booking booking17 = new Booking(customer6, restaurantTable10, date3, 10, startTime2, endTime3);
 
 //        Booking 18
         Booking booking18 = new Booking(customer29, restaurantTable9, date3, 10, startTime2, endTime2);
